@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -80,7 +80,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -89,6 +95,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -104,12 +111,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-exploracion.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Exploración y Preparación de datos</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-exploracion.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Exploración y Preparación de datos</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -119,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Mini-COES Huelgas</a> 
@@ -147,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -162,6 +169,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#nivel-de-cualificación" id="toc-nivel-de-cualificación" class="nav-link" data-scroll-target="#nivel-de-cualificación"><span class="header-section-number">1.1.4</span> Nivel de cualificación</a></li>
   <li><a href="#supervisión" id="toc-supervisión" class="nav-link" data-scroll-target="#supervisión"><span class="header-section-number">1.1.5</span> Supervisión</a></li>
   <li><a href="#class" id="toc-class" class="nav-link" data-scroll-target="#class"><span class="header-section-number">1.1.6</span> Class</a></li>
+  <li><a href="#alluvial" id="toc-alluvial" class="nav-link" data-scroll-target="#alluvial"><span class="header-section-number">1.1.7</span> Alluvial</a></li>
+  </ul></li>
+  <li><a href="#brechas-salariales" id="toc-brechas-salariales" class="nav-link" data-scroll-target="#brechas-salariales"><span class="header-section-number">2</span> Brechas salariales</a>
+  <ul class="collapse">
+  <li><a href="#regresiones" id="toc-regresiones" class="nav-link" data-scroll-target="#regresiones"><span class="header-section-number">2.1</span> Regresiones</a>
+  <ul class="collapse">
+  <li><a href="#ola" id="toc-ola" class="nav-link" data-scroll-target="#ola"><span class="header-section-number">2.1.1</span> Ola</a></li>
+  <li><a href="#ola-marcha" id="toc-ola-marcha" class="nav-link" data-scroll-target="#ola-marcha"><span class="header-section-number">2.1.2</span> ola + marcha</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -184,7 +200,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <div style="text-align: justify">
 
@@ -200,18 +218,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>         m03,ciuo88_m03,ciuo08_m03,                      <span class="co"># caract ocupacional</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>         m04,ciiu3_m04,ciiu4_m04,                        <span class="co"># caract ocupacional</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>         c12_04,                                         <span class="co"># membresia sindicato</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>         c08_03,                                         <span class="co"># freq participa huelgas</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">mov_valora=</span>c20,<span class="at">mov_valora_otro=</span>c20_otro,        <span class="co"># mov que mas valora</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>         c21_01,c21_02,c21_03,c21_04,c21_05,c21_06,      <span class="co"># caract mov valora</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>         c21_07,c21_08,c21_09,c21_10,c21_11,c22,c23,c24, <span class="co"># caract mov valora</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>         c13,c14_01,c14_02                               <span class="co"># interes politica</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>         )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>         c08_02,                                         <span class="co"># freq participa marchas</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">marcha=</span>c08_03,                                  <span class="co"># freq participa huelgas</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">mov_valora=</span>c20,<span class="at">mov_valora_otro=</span>c20_otro,        <span class="co"># mov que mas valora</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>         c21_01,c21_02,c21_03,c21_04,c21_05,c21_06,      <span class="co"># caract mov valora</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>         c21_07,c21_08,c21_09,c21_10,c21_11,c22,c23,c24, <span class="co"># caract mov valora</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>         c13,c14_01,c14_02,                              <span class="co"># interes politica</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">perc_gerente=</span>d03_01,                            <span class="co"># Salario percibido gerente</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">perc_obrero=</span>d03_02,                             <span class="co"># Salario percibido obrero</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">just_gerente=</span>d04_01,                            <span class="co"># Salario justo gerente</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">just_obrero=</span>d04_02                              <span class="co"># Salario justo obrero</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>         )<span class="sc">%&gt;%</span> </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  sjlabelled<span class="sc">::</span><span class="fu">set_na</span>(., <span class="at">na =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">999</span>, <span class="sc">-</span><span class="dv">888</span>, <span class="sc">-</span><span class="dv">777</span>, <span class="sc">-</span><span class="dv">666</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Se comienza con 18.035 observaciones.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 18035    45</code></pre>
+<pre><code>[1] 18035    50</code></pre>
 </div>
 </div>
 <section id="caracterización-empleo" class="level2" data-number="1.1">
@@ -223,6 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <caption>Frecuencias y porcentajes de Actividad principal, por ola</caption>
 <colgroup>
@@ -433,6 +458,7 @@ trabajo</td>
 </table>
 </div>
 </div>
+</div>
 <p>Se continua con una base de datos filtrada dejando solo a las personas ocupadas de acuerdo con las siguientes categorías de actividad principal:</p>
 <ul>
 <li>m02==1: Trabaja de manera remunerada con jornada completa</li>
@@ -442,7 +468,7 @@ trabajo</td>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 11078    46</code></pre>
+<pre><code>[1] 11078    51</code></pre>
 </div>
 </div>
 <p>Quedan 11078 observaciones.</p>
@@ -454,6 +480,7 @@ trabajo</td>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <caption>Frecuencias y porcentajes de la Relación de empleo, por ola</caption>
 <colgroup>
@@ -627,6 +654,7 @@ remunerado</td>
 </table>
 </div>
 </div>
+</div>
 </section>
 <section id="ocupación" class="level3" data-number="1.1.3">
 <h3 data-number="1.1.3" class="anchored" data-anchor-id="ocupación"><span class="header-section-number">1.1.3</span> Ocupación</h3>
@@ -641,6 +669,7 @@ remunerado</td>
 <p>Por lo tanto, se realiza una recodificación generando una nueva variable donde están todas las olas homolagadas a la CIUO08. Se presentan las frecuecnias y porcentajes con uno y dos dígitos.</p>
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <caption>Frecuencias y porcentajes de Ocupación con 1 dígito, por ola</caption>
 <colgroup>
@@ -840,7 +869,9 @@ remunerado</td>
 </tbody>
 </table>
 </div>
+</div>
 <div class="cell-output-display">
+<div>
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <caption>Frecuencias y porcentajes de Ocupación con 2 dígitos, por ola</caption>
 <colgroup>
@@ -1619,6 +1650,7 @@ remunerado</td>
 </table>
 </div>
 </div>
+</div>
 </section>
 <section id="nivel-de-cualificación" class="level3" data-number="1.1.4">
 <h3 data-number="1.1.4" class="anchored" data-anchor-id="nivel-de-cualificación"><span class="header-section-number">1.1.4</span> Nivel de cualificación</h3>
@@ -1630,6 +1662,7 @@ remunerado</td>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <caption>Frecuencias y porcentajes del Nivel de Cualificación, por ola</caption>
 <colgroup>
@@ -1680,15 +1713,15 @@ cualificación</td>
 <span style="color:#339933;">41.6&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">0&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">671</span><br>
-<span style="color:#339933;">35.9&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">670</span><br>
+<span style="color:#339933;">35.8&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">0&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">510</span><br>
 <span style="color:#339933;">36.7&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">0&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">1831</span><br>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">1830</span><br>
 <span style="color:#339933;">38&nbsp;%</span></td>
 </tr>
 <tr class="odd">
@@ -1714,7 +1747,7 @@ cualificación</td>
 <span style="color:#339933;">100&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">100&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1870</span><br>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1869</span><br>
 <span style="color:#339933;">100&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">100&nbsp;%</span></td>
@@ -1722,11 +1755,12 @@ cualificación</td>
 <span style="color:#339933;">100&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">100&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">4821</span><br>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">4820</span><br>
 <span style="color:#339933;">100&nbsp;%</span></td>
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 </div>
 </section>
@@ -1742,6 +1776,7 @@ cualificación</td>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <caption>Frecuencias y porcentajes de variable Supervisa, por ola</caption>
 <colgroup>
@@ -1823,6 +1858,7 @@ cualificación</td>
 </table>
 </div>
 </div>
+</div>
 </section>
 <section id="class" class="level3" data-number="1.1.6">
 <h3 data-number="1.1.6" class="anchored" data-anchor-id="class"><span class="header-section-number">1.1.6</span> Class</h3>
@@ -1838,6 +1874,7 @@ cualificación</td>
 </ol>
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <caption>Frecuencias y porcentajes de la Posición de clase, por ola</caption>
 <colgroup>
@@ -1921,15 +1958,15 @@ cualificación</td>
 <span style="color:#339933;">12.9&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">0&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">202</span><br>
-<span style="color:#339933;">10.6&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">201</span><br>
+<span style="color:#339933;">10.5&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">0&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">174</span><br>
 <span style="color:#339933;">12.5&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">0&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">581</span><br>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">580</span><br>
 <span style="color:#339933;">11.9&nbsp;%</span></td>
 </tr>
 <tr class="odd">
@@ -1982,7 +2019,7 @@ supervisors</td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">0&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">1141</span><br>
-<span style="color:#339933;">23.3&nbsp;%</span></td>
+<span style="color:#339933;">23.4&nbsp;%</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: left; padding: 0.2cm; border-bottom: double; font-weight: bolder; font-style: italic; vertical-align: middle;">Total</td>
@@ -1990,7 +2027,7 @@ supervisors</td>
 <span style="color:#339933;">100&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">100&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1911</span><br>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1910</span><br>
 <span style="color:#339933;">100&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">100&nbsp;%</span></td>
@@ -1998,11 +2035,12 @@ supervisors</td>
 <span style="color:#339933;">100&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">100&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">4887</span><br>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">4886</span><br>
 <span style="color:#339933;">100&nbsp;%</span></td>
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 </div>
 <p>Class 2:</p>
@@ -2012,6 +2050,7 @@ supervisors</td>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
+<div>
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <caption>Frecuencias y porcentajes de la Posición de clase 2, por ola</caption>
 <colgroup>
@@ -2095,15 +2134,15 @@ supervisors</td>
 <span style="color:#339933;">19.6&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">0&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">353</span><br>
-<span style="color:#339933;">18.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">352</span><br>
+<span style="color:#339933;">18.4&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">0&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">317</span><br>
 <span style="color:#339933;">22.8&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">0&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">981</span><br>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">980</span><br>
 <span style="color:#339933;">20.1&nbsp;%</span></td>
 </tr>
 <tr class="odd">
@@ -2129,7 +2168,7 @@ supervisors</td>
 <span style="color:#339933;">100&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">100&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1911</span><br>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1910</span><br>
 <span style="color:#339933;">100&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">100&nbsp;%</span></td>
@@ -2137,15 +2176,701 @@ supervisors</td>
 <span style="color:#339933;">100&nbsp;%</span></td>
 <td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">0</span><br>
 <span style="color:#339933;">100&nbsp;%</span></td>
-<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">4887</span><br>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">4886</span><br>
 <span style="color:#339933;">100&nbsp;%</span></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
+</div>
+</section>
+<section id="alluvial" class="level3" data-number="1.1.7">
+<h3 data-number="1.1.7" class="anchored" data-anchor-id="alluvial"><span class="header-section-number">1.1.7</span> Alluvial</h3>
+</section>
+</section>
+<section id="brechas-salariales" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Brechas salariales</h1>
+<p>Eliminamos los casos que responden ‘0’ en salario. {revisar si se deberían eliminar también los que responden 1}</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>perc_gerente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 Min.               1st Qu.                Median 
+                    0               5000000              10000000 
+                 Mean               3rd Qu.                  Max. 
+    10350018847013226              20000000 100000000000000000000 
+                 NA's 
+                  450 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(perc_gerente<span class="sc">&gt;</span><span class="dv">0</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(perc_obrero<span class="sc">&gt;</span><span class="dv">0</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(just_gerente<span class="sc">&gt;</span><span class="dv">0</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(just_obrero<span class="sc">&gt;</span><span class="dv">0</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>perc_gerente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 Min.               1st Qu.                Median 
+                    1               5000000              10000000 
+                 Mean               3rd Qu.                  Max. 
+    10541447081936748              20000000 100000000000000000000 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>brecha_perc <span class="ot">&lt;-</span> <span class="fu">log</span>(data<span class="sc">$</span>perc_gerente<span class="sc">/</span>data<span class="sc">$</span>perc_obrero)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>brecha_just <span class="ot">&lt;-</span> <span class="fu">log</span>(data<span class="sc">$</span>just_gerente<span class="sc">/</span>data<span class="sc">$</span>just_obrero)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>brecha_gerente <span class="ot">&lt;-</span> <span class="fu">log</span>(data<span class="sc">$</span>perc_gerente<span class="sc">/</span>data<span class="sc">$</span>just_gerente)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>brecha_obrero <span class="ot">&lt;-</span> <span class="fu">log</span>(data<span class="sc">$</span>perc_obrero<span class="sc">/</span>data<span class="sc">$</span>just_obrero)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>brecha_perc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ -8.503   2.708   3.442   3.480   4.200  33.622 </code></pre>
+</div>
+</div>
+<ul>
+<li>Brecha &gt; 0: El salario percibido gerente es mayor que el salario percibido obrero.</li>
+<li>Brecha = 0: El salario percibido gerente es igual al salario percibido obrero (equidad).</li>
+<li>Brecha &lt; 0: El salario percibido gerente es menor que el salario percibido obrero.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>brecha_just)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ -6.551   1.204   1.897   1.948   2.639  32.747 </code></pre>
+</div>
+</div>
+<ul>
+<li>Brecha &gt; 0: El salario de un gerente debería ser mayor que el salario obrero.</li>
+<li>Brecha = 0: El salario de un gerente debería ser igual al salario obrero (equidad).</li>
+<li>Brecha &lt; 0: El salario de un gerente debería ser menor que el salario obrero.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>brecha_gerente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+-15.4249   0.3365   0.6931   0.9236   1.3863  31.5430 </code></pre>
+</div>
+</div>
+<ul>
+<li>Brecha &gt; 0: El salario percibido de un gerente es mayor que el salario que debería tener (sobrepago).</li>
+<li>Brecha = 0: El salario percibido de un gerente es igual al salario que debería tener (equidad).</li>
+<li>Brecha &lt; 0: El salario percibido de un gerente es menor que el salario que debería tener (infra-pago).</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>brecha_obrero)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+-8.2396 -0.7340 -0.5447 -0.6086 -0.3711  4.7593 </code></pre>
+</div>
+</div>
+<ul>
+<li>Brecha &gt; 0: El salario percibido de un obrero es mayor que el salario que debería tener (sobrepago).</li>
+<li>Brecha = 0: El salario percibido de un obrero es igual al salario que debería tener (equidad).</li>
+<li>Brecha &lt; 0: El salario percibido de un obrero es menor que el salario que debería tener (infra-pago).</li>
+</ul>
+<section id="regresiones" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="regresiones"><span class="header-section-number">2.1</span> Regresiones</h2>
+<section id="ola" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="ola"><span class="header-section-number">2.1.1</span> Ola</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>ola <span class="ot">&lt;-</span> <span class="fu">factor</span>(data<span class="sc">$</span>ola)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(brecha_perc<span class="sc">~</span>ola, <span class="at">data=</span>data)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(brecha_just<span class="sc">~</span>ola, <span class="at">data=</span>data)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(brecha_gerente<span class="sc">~</span>ola, <span class="at">data=</span>data)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>reg4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(brecha_obrero<span class="sc">~</span>ola, <span class="at">data=</span>data)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">htmlreg</span>(<span class="fu">list</span>(reg1, reg2, reg3, reg4),</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">custom.model.names=</span><span class="fu">c</span>(<span class="st">"Brecha percibida"</span>, <span class="st">"Brecha justa"</span>, <span class="st">"Brecha gerente"</span>, <span class="st">"Brecha obrero"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Brecha percibida
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Brecha justa
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Brecha gerente
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Brecha obrero
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+(Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+3.91<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+2.34<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.94<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.64<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.01)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ola2
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.52<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.55<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.05<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ola3
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.57<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.45<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.07
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.05<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ola4
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.19<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.39<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.21<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ola5
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.67<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.52<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.10<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.05<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ola6
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.74<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.47<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.16<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.11<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+R<sup>2</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.04
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Adj. R<sup>2</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.04
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+10435
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+10435
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+10435
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+10435
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="5">
+<sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05
+</td>
+</tr>
+</tfoot>
+</table>
+</section>
+<section id="ola-marcha" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="ola-marcha"><span class="header-section-number">2.1.2</span> ola + marcha</h3>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(brecha_perc<span class="sc">~</span>ola<span class="sc">+</span>marcha, <span class="at">data=</span>data)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(brecha_just<span class="sc">~</span>ola<span class="sc">+</span>marcha, <span class="at">data=</span>data)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(brecha_gerente<span class="sc">~</span>ola<span class="sc">+</span>marcha, <span class="at">data=</span>data)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>reg4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(brecha_obrero<span class="sc">~</span>ola<span class="sc">+</span>marcha, <span class="at">data=</span>data)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">htmlreg</span>(<span class="fu">list</span>(reg1, reg2, reg3, reg4),</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">custom.model.names=</span><span class="fu">c</span>(<span class="st">"Brecha percibida"</span>, <span class="st">"Brecha justa"</span>, <span class="st">"Brecha gerente"</span>, <span class="st">"Brecha obrero"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Brecha percibida
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Brecha justa
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Brecha gerente
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Brecha obrero
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+(Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+3.79<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+2.33<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.86<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.60<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ola2
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.51<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.55<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.01
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.06<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ola3
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.56<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.45<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.06
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.05<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ola4
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.19<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.39<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.21<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ola6
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.72<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.47<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.14<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.11<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+marcha
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.10<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.00
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.06<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.03<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.01)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+R<sup>2</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.04
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Adj. R<sup>2</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.04
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8861
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8861
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8861
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+8861
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="5">
+<sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05
+</td>
+</tr>
+</tfoot>
+</table>
 
 
+</section>
 </section>
 </section>
 
@@ -2229,10 +2954,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -2242,8 +2984,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -2255,7 +3006,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -2299,6 +3173,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -2324,6 +3199,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -2385,7 +3286,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link">
+      <a href="./index.html" class="pagination-link" aria-label="Presentación">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Presentación</span>
       </a>          
   </div>
@@ -2393,6 +3294,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 
