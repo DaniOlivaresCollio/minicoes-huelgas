@@ -1,0 +1,23 @@
+project:
+  type: book
+
+book:
+  title: "Mini-COES Huelgas"
+  author: "Daniela Olivares Collío"
+  date: "12-09-2024"
+  chapters:
+    - index.qmd
+    - 01-exploracion.qmd
+    # - summary.qmd
+    # - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+
+

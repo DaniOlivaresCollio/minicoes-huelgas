@@ -1,0 +1,4 @@
+"0","# Filtrar para ocupados"
+"0","data <- filter(data, actividad %in% c(""Trabaja de manera remunerada con jornada completa"","
+"0","                                      ""Trabaja de manera remunerada a tiempo parcial"","
+"0","                                      ""Estudia y trabaja""))"
