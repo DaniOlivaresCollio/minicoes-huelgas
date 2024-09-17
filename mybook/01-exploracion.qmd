@@ -109,6 +109,9 @@ Se continua con una base de datos filtrada dejando solo a las personas ocupadas 
 - m02==2: Trabaja de manera remunerada a tiempo parcial
 - m03==3: Estudia y trabaja
 
+
+
+
 ```{r, echo=FALSE}
 # Filtrar para ocupados
 data <- filter(data, actividad %in% c("Trabaja de manera remunerada con jornada completa",

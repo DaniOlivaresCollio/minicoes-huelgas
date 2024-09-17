@@ -3,7 +3,7 @@
     "path": "C:/Users/danie/Documents/fondecyt/minicoes-huelgas/mybook/01-exploracion.qmd",
     "project_path": "mybook/01-exploracion.qmd",
     "type": "quarto_markdown",
-    "hash": "1635151546",
+    "hash": "1087394086",
     "contents": "",
     "dirty": false,
     "created": 1726145776441.0,
@@ -12,16 +12,16 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "338,16",
-        "scrollLine": "335",
+        "cursorPosition": "111,0",
+        "scrollLine": "103",
         "docOutlineVisible": "1"
     },
     "folds": "",
-    "lastKnownWriteTime": 1726148513,
+    "lastKnownWriteTime": 1726155560,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1726148513029,
+    "last_content_update": 1726155829695,
     "read_only": false,
     "read_only_alternatives": []
 }
