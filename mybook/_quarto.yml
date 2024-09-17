@@ -3,8 +3,8 @@ project:
 
 book:
   title: "Mini-COES Huelgas"
-  author: "Daniela Olivares Collío"
-  date: "12-09-2024"
+  author: "Daniela, Kevin, Pablo"
+  date: "09-17-2024"
   chapters:
     - index.qmd
     - 01-exploracion.qmd

@@ -3,7 +3,7 @@
     "path": "C:/Users/danie/Documents/fondecyt/minicoes-huelgas/mybook/_quarto.yml",
     "project_path": "mybook/_quarto.yml",
     "type": "yaml",
-    "hash": "1169045749",
+    "hash": "2060925020",
     "contents": "",
     "dirty": false,
     "created": 1726144966272.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "17,16",
+        "cursorPosition": "5,32",
         "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1726148321,
+    "lastKnownWriteTime": 1726589141,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1726148321863,
+    "last_content_update": 1726589141998,
     "read_only": false,
     "read_only_alternatives": []
 }

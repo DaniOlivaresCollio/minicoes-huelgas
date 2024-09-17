@@ -445,7 +445,7 @@ texreg::htmlreg(list(reg1, reg2, reg3, reg4),
                 custom.model.names=c("Brecha percibida", "Brecha justa", "Brecha gerente", "Brecha obrero"))
 ```
 
-### ola + marcha
+### Ola + marcha
 
 ```{r results='asis'}
 reg1 <- lm(brecha_perc~ola+marcha, data=data)

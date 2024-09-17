@@ -4,7 +4,7 @@
 
 ```{r cargar-paquetes-2,echo=FALSE,warning=FALSE,message=FALSE}
 rm(list=ls())
-
+options(scipen = 999)
 library(pacman)
 p_load(tidyverse,
        knitr,
@@ -34,7 +34,7 @@ p_load(tidyverse,
 ```
 
 ```{r datos-2,echo=FALSE}
-load("../input/data/ELSOC_Long.RData")
+load(here::here("input/data/ELSOC_Long.RData"))
 ```
 
 Primero, se realiza una revisión exploratoria de las variables de interés, considerando todas las olas de la base de datos, tanto para la muestra original como la de refresco, sin ponderar.
@@ -49,12 +49,18 @@ data <- elsoc_long_2016_2022 %>%
          m03,ciuo88_m03,ciuo08_m03,                      # caract ocupacional
          m04,ciiu3_m04,ciiu4_m04,                        # caract ocupacional
          c12_04,                                         # membresia sindicato
-         c08_03,                                         # freq participa huelgas
+         c08_02,                                         # freq participa marchas
+         marcha=c08_03,                                  # freq participa huelgas
          mov_valora=c20,mov_valora_otro=c20_otro,        # mov que mas valora
          c21_01,c21_02,c21_03,c21_04,c21_05,c21_06,      # caract mov valora
          c21_07,c21_08,c21_09,c21_10,c21_11,c22,c23,c24, # caract mov valora
-         c13,c14_01,c14_02                               # interes politica
-         )
+         c13,c14_01,c14_02,                              # interes politica
+         perc_gerente=d03_01,                            # Salario percibido gerente
+         perc_obrero=d03_02,                             # Salario percibido obrero
+         just_gerente=d04_01,                            # Salario justo gerente
+         just_obrero=d04_02                              # Salario justo obrero
+         )%>% 
+  sjlabelled::set_na(., na = c(-999, -888, -777, -666))
 ```
 
 Se comienza con 18.035 observaciones.
@@ -172,7 +178,7 @@ Por lo tanto, se realiza una recodificación generando una nueva variable donde 
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 # Carga bbdd con comparacion 88 y 08
-isco08_88 <- read_excel("../input/isco08-88.xls")
+isco08_88 <- read_excel(here::here("input/isco08-88.xls"))
 isco08_88 <- isco08_88 %>%
   rename(isco08=`ISCO 08 Code`,isco88=`ISCO-88 code`)
 
@@ -362,4 +368,93 @@ sjt.xtab(data$class_2, data$ola,
          show.summary = FALSE,
          title = "Frecuencias y porcentajes de la Posición de clase 2, por ola")
 ```
+
+### Alluvial
+
+
+# Brechas salariales
+
+Eliminamos los casos que responden '0' en salario.
+{revisar si se deberían eliminar también los que responden 1}
+
+```{r}
+summary(data$perc_gerente)
+data <- data %>% filter(perc_gerente>0)
+data <- data %>% filter(perc_obrero>0)
+data <- data %>% filter(just_gerente>0)
+data <- data %>% filter(just_obrero>0)
+summary(data$perc_gerente)
+```
+
+
+```{r}
+data$brecha_perc <- log(data$perc_gerente/data$perc_obrero)
+data$brecha_just <- log(data$just_gerente/data$just_obrero)
+data$brecha_gerente <- log(data$perc_gerente/data$just_gerente)
+data$brecha_obrero <- log(data$perc_obrero/data$just_obrero)
+```
+
+```{r}
+summary(data$brecha_perc)
+```
+
+* Brecha > 0: El salario percibido gerente es mayor que el salario percibido obrero.
+* Brecha = 0: El salario percibido gerente es igual al salario percibido obrero (equidad).
+* Brecha < 0: El salario percibido gerente es menor que el salario percibido obrero.
+
+```{r}
+summary(data$brecha_just)
+```
+
+* Brecha > 0: El salario de un gerente debería ser mayor que el salario obrero.
+* Brecha = 0: El salario de un gerente debería ser igual al salario obrero (equidad).
+* Brecha < 0: El salario de un gerente debería ser menor que el salario obrero.
+
+```{r}
+summary(data$brecha_gerente)
+```
+
+* Brecha > 0: El salario percibido de un gerente es mayor que el salario que debería tener (sobrepago).
+* Brecha = 0: El salario percibido de un gerente es igual al salario que debería tener (equidad).
+* Brecha < 0: El salario percibido de un gerente es menor que el salario que debería tener (infra-pago).
+
+```{r}
+summary(data$brecha_obrero)
+```
+
+* Brecha > 0: El salario percibido de un obrero es mayor que el salario que debería tener (sobrepago).
+* Brecha = 0: El salario percibido de un obrero es igual al salario que debería tener (equidad).
+* Brecha < 0: El salario percibido de un obrero es menor que el salario que debería tener (infra-pago).
+
+## Regresiones
+
+### Ola
+
+```{r}
+data$ola <- factor(data$ola)
+```
+
+
+```{r results='asis'}
+reg1 <- lm(brecha_perc~ola, data=data)
+reg2 <- lm(brecha_just~ola, data=data)
+reg3 <- lm(brecha_gerente~ola, data=data)
+reg4 <- lm(brecha_obrero~ola, data=data)
+
+texreg::htmlreg(list(reg1, reg2, reg3, reg4),
+                custom.model.names=c("Brecha percibida", "Brecha justa", "Brecha gerente", "Brecha obrero"))
+```
+
+### Ola + marcha
+
+```{r results='asis'}
+reg1 <- lm(brecha_perc~ola+marcha, data=data)
+reg2 <- lm(brecha_just~ola+marcha, data=data)
+reg3 <- lm(brecha_gerente~ola+marcha, data=data)
+reg4 <- lm(brecha_obrero~ola+marcha, data=data)
+
+texreg::htmlreg(list(reg1, reg2, reg3, reg4),
+                custom.model.names=c("Brecha percibida", "Brecha justa", "Brecha gerente", "Brecha obrero"))
+```
+
 
