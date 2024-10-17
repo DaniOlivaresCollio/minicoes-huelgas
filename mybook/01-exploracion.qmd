@@ -28,7 +28,9 @@ p_load(tidyverse,
        # devtools,
        readr, 
        ggplot2, 
-       labelled)
+       labelled,
+       shadowtext,
+       lme4)
 
 # devtools::install_github("DiogoFerrari/occupar",dependencies=F)
 ```
@@ -49,13 +51,14 @@ data <- elsoc_long_2016_2022 %>%
          ola_w04,ola_w05,ola_w06,                        # identificacion ola
          version,muestra,tipo_atricion,estrato,          # identificacion srvy
          segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
+         ponderador_long_total,
          sexo=m0_sexo,edad=m0_edad,educ=m01,             # caract sociodem
          m02,m06,m07,m08,m10,                            # caract sociodem
          m03,ciuo88_m03,ciuo08_m03,                      # caract ocupacional
          m04,ciiu3_m04,ciiu4_m04,                        # caract ocupacional
          c12_04,                                         # membresia sindicato
-         c08_02,                                         # freq participa marchas
-         marcha=c08_03,                                  # freq participa huelgas ## Kev debiése llamarse huelgas?
+         marcha=c08_02,                                  # freq participa marchas
+         huelga=c08_03,                                  # freq participa huelgas
          c20,c20_otro,                                   # mov que mas valora
          c21_01,c21_02,c21_03,c21_04,c21_05,c21_06,      # caract mov valora
          c21_07,c21_08,c21_09,c21_10,c21_11,c22,c23,c24, # caract mov valora
@@ -620,6 +623,50 @@ sjt.xtab(data$class_2, data$ola,
 
 ### Alluvial
 
+```{r}
+elsoc_diseno <- svydesign(ids = ~segmento_disenno, #muestreo por conglomerado a nivel de manzanas (segmento)
+                          strata = ~estrato_disenno, #muestreo estratificado a nivel ciudad (estato)
+                          weights = ~ponderador_long_total, #ponderador longitudinal
+                          nest = TRUE,
+                          data = data)
+
+#Paso 1
+datos.clase <- data.frame((svytable(~class + ola + idencuesta, elsoc_diseno, round = F))) %>% dplyr::filter(Freq>0)  %>% group_by(ola) %>% mutate(porcentaje=Freq/sum(Freq)) %>% na.omit()
+
+#Paso 2
+etiquetas.clase <- data.frame((svytable(~class + ola, elsoc_diseno, round = F))) %>% group_by(ola) %>% mutate(porcentaje=Freq/sum(Freq)) %>% na.omit() %>% 
+  mutate(idencuesta = 1)
+datos.clase$class <- factor(datos.clase$class, levels = rev(levels(datos.clase$class)))
+etiquetas.clase$class <- factor(etiquetas.clase$class, levels = rev(levels(etiquetas.clase$class)))
+```
+
+```{r alluvial}
+colors<- c("#f1eef6ff","#bdc9e1ff","#b3b3b3ff","#74a9cfff","#0570b0ff")
+alluvial_clase <- ggplot(datos.clase, aes(x = ola, fill = class, stratum = class,
+                             alluvium = idencuesta, y = porcentaje))+
+    ggalluvial::geom_flow(alpha = .66) + 
+    ggalluvial::geom_stratum(linetype = 0) +
+    scale_y_continuous(labels = scales::percent) + 
+    ylab(label = NULL) +
+    xlab(label = NULL) + 
+    theme(#legend.position = 'top',
+          legend.title = element_blank(),
+          plot.caption = element_text(hjust = 1)) +
+#    scale_fill_manual(values = colors) +
+    geom_shadowtext(data = etiquetas.clase, 
+              aes(label = ifelse(porcentaje > 0 , scales::percent(porcentaje, accuracy = .1),"")),
+              position = position_stack(vjust = .5),
+              show.legend = FALSE,
+              size = 4,
+              color = rep('white'),
+              bg.colour='grey30')+
+  scale_x_discrete(labels = c(2016, 2017, 2018, 2019, 2021, 2022))
+
+alluvial_clase
+
+ggsave(alluvial_clase, file="output/graphs/alluvial_clase.png", height = 8, width = 7)
+```
+
 
 # Brechas salariales
 
@@ -628,10 +675,10 @@ Eliminamos los casos que responden '0' en salario.
 
 ```{r}
 summary(data$perc_gerente)
-data <- data %>% filter(perc_gerente>0)
-data <- data %>% filter(perc_obrero>0)
-data <- data %>% filter(just_gerente>0)
-data <- data %>% filter(just_obrero>0)
+data <- data %>% filter(perc_gerente>999)
+data <- data %>% filter(perc_obrero>999)
+data <- data %>% filter(just_gerente>999)
+data <- data %>% filter(just_obrero>999)
 summary(data$perc_gerente)
 ```
 
@@ -677,33 +724,63 @@ summary(data$brecha_obrero)
 
 ## Regresiones
 
-### Ola
+### Brecha percibida
 
 ```{r}
 data$ola <- factor(data$ola)
+data$educacion <- car::recode(data$educ, "c(1,2,3)=1; c(4,5)=2; c(6,7,8,9,10)=3")
+
+data$educacion <- set_labels(data$educacion,
+            labels=c( "Educacion básica"=1,
+                      "Educación media"=2,
+                      "Educación superior"=3))
+data$educacion<-as_factor(data$educacion)
 ```
 
 
 ```{r results='asis'}
-reg1 <- lm(brecha_perc~ola, data=data)
-reg2 <- lm(brecha_just~ola, data=data)
-reg3 <- lm(brecha_gerente~ola, data=data)
-reg4 <- lm(brecha_obrero~ola, data=data)
+reg1 <- lmer(brecha_perc~ola+(1|idencuesta), data=data)
+reg2 <- lmer(brecha_perc~ola+marcha+(1|idencuesta), data=data)
+reg3 <- lmer(brecha_perc~ola+marcha+class+(1|idencuesta), data=data)
+reg4 <- lmer(brecha_perc~ola+marcha+class+sexo+edad+educacion+(1|idencuesta), data=data)
 
-texreg::htmlreg(list(reg1, reg2, reg3, reg4),
-                custom.model.names=c("Brecha percibida", "Brecha justa", "Brecha gerente", "Brecha obrero"))
+texreg::knitreg(list(reg1, reg2, reg3, reg4),
+                custom.model.names=rep(c("Brecha percibida"),4))
 ```
 
-### Ola + marcha
+### Brecha justa
 
 ```{r results='asis'}
-reg1 <- lm(brecha_perc~ola+marcha, data=data)
-reg2 <- lm(brecha_just~ola+marcha, data=data)
-reg3 <- lm(brecha_gerente~ola+marcha, data=data)
-reg4 <- lm(brecha_obrero~ola+marcha, data=data)
+reg1 <- lmer(brecha_just~ola+(1|idencuesta), data=data)
+reg2 <- lmer(brecha_just~ola+marcha+(1|idencuesta), data=data)
+reg3 <- lmer(brecha_just~ola+marcha+class+(1|idencuesta), data=data)
+reg4 <- lmer(brecha_just~ola+marcha+class+sexo+edad+educacion+(1|idencuesta), data=data)
 
-texreg::htmlreg(list(reg1, reg2, reg3, reg4),
-                custom.model.names=c("Brecha percibida", "Brecha justa", "Brecha gerente", "Brecha obrero"))
+texreg::knitreg(list(reg1, reg2, reg3, reg4),
+                custom.model.names=rep(c("Brecha justa"),4))
 ```
 
+### Brecha gerente
+
+```{r results='asis'}
+reg1 <- lmer(brecha_gerente~ola+(1|idencuesta), data=data)
+reg2 <- lmer(brecha_gerente~ola+marcha+(1|idencuesta), data=data)
+reg3 <- lmer(brecha_gerente~ola+marcha+class+(1|idencuesta), data=data)
+reg4 <- lmer(brecha_gerente~ola+marcha+class+sexo+edad+educacion+(1|idencuesta), data=data)
+
+texreg::knitreg(list(reg1, reg2, reg3, reg4),
+                custom.model.names=rep(c("Brecha gerente"),4))
+```
+
+### Brecha obrero
+
+```{r results='asis'}
+reg1 <- lmer(brecha_obrero~ola+(1|idencuesta), data=data)
+reg2 <- lmer(brecha_obrero~ola+marcha+(1|idencuesta), data=data)
+reg3 <- lmer(brecha_obrero~ola+marcha+class+(1|idencuesta), data=data)
+reg4 <- lmer(brecha_obrero~ola+marcha+class+sexo+edad+educacion+(1|idencuesta), data=data)
+
+texreg::knitreg(list(reg1, reg2, reg3, reg4),
+                custom.model.names=rep(c("Brecha obrero"),4))
+```
 
