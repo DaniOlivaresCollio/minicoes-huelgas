@@ -702,24 +702,20 @@ summary(data$brecha_obrero)
 
 ```{r}
 data$ola <- factor(data$ola)
-data$educacion <- car::recode(data$educ, "c(1,2,3)=1; c(4,5)=2; c(6,7,8,9,10)=3")
 
-data$educacion <- set_labels(data$educacion,
-            labels=c( "Educacion básica"=1,
-                      "Educación media"=2,
-                      "Educación superior"=3))
-data$educacion<-as_factor(data$educacion)
 ```
 
 
 ```{r results='asis'}
 reg1 <- lmer(brecha_perc~ola+(1|idencuesta), data=data)
 reg2 <- lmer(brecha_perc~ola+marcha+(1|idencuesta), data=data)
-reg3 <- lmer(brecha_perc~ola+marcha+class+(1|idencuesta), data=data)
-reg4 <- lmer(brecha_perc~ola+marcha+class+sexo+edad+educacion+(1|idencuesta), data=data)
+reg3 <- lmer(brecha_perc~ola+marcha+class2+(1|idencuesta), data=data)
+reg4 <- lmer(brecha_perc~ola+marcha+class2+sexo+edad+(1|idencuesta), data=data)
+reg5 <- lmer(brecha_perc~ola*class2+marcha+sexo+edad+(1|idencuesta), data=data)
+reg6 <- lmer(brecha_perc~ola*marcha+class2+sexo+edad+(1|idencuesta), data=data)
 
-texreg::knitreg(list(reg1, reg2, reg3, reg4),
-                custom.model.names=rep(c("Brecha percibida"),4))
+texreg::knitreg(list(reg1, reg2, reg3, reg4, reg5, reg6),
+                custom.model.names=rep(c("Brecha percibida"),6))
 ```
 
 ### Brecha justa
@@ -727,11 +723,13 @@ texreg::knitreg(list(reg1, reg2, reg3, reg4),
 ```{r results='asis'}
 reg1 <- lmer(brecha_just~ola+(1|idencuesta), data=data)
 reg2 <- lmer(brecha_just~ola+marcha+(1|idencuesta), data=data)
-reg3 <- lmer(brecha_just~ola+marcha+class+(1|idencuesta), data=data)
-reg4 <- lmer(brecha_just~ola+marcha+class+sexo+edad+educacion+(1|idencuesta), data=data)
+reg3 <- lmer(brecha_just~ola+marcha+class2+(1|idencuesta), data=data)
+reg4 <- lmer(brecha_just~ola+marcha+class2+sexo+edad+(1|idencuesta), data=data)
+reg5 <- lmer(brecha_just~ola*class2+marcha+sexo+edad+(1|idencuesta), data=data)
+reg6 <- lmer(brecha_just~ola*marcha+class2+sexo+edad+(1|idencuesta), data=data)
 
-texreg::knitreg(list(reg1, reg2, reg3, reg4),
-                custom.model.names=rep(c("Brecha justa"),4))
+texreg::knitreg(list(reg1, reg2, reg3, reg4, reg5, reg6),
+                custom.model.names=rep(c("Brecha justa"),6))
 ```
 
 ### Brecha gerente
@@ -739,11 +737,13 @@ texreg::knitreg(list(reg1, reg2, reg3, reg4),
 ```{r results='asis'}
 reg1 <- lmer(brecha_gerente~ola+(1|idencuesta), data=data)
 reg2 <- lmer(brecha_gerente~ola+marcha+(1|idencuesta), data=data)
-reg3 <- lmer(brecha_gerente~ola+marcha+class+(1|idencuesta), data=data)
-reg4 <- lmer(brecha_gerente~ola+marcha+class+sexo+edad+educacion+(1|idencuesta), data=data)
+reg3 <- lmer(brecha_gerente~ola+marcha+class2+(1|idencuesta), data=data)
+reg4 <- lmer(brecha_gerente~ola+marcha+class2+sexo+edad+(1|idencuesta), data=data)
+reg5 <- lmer(brecha_gerente~ola*class2+marcha+sexo+edad+(1|idencuesta), data=data)
+reg6 <- lmer(brecha_gerente~ola*marcha+class2+sexo+edad+(1|idencuesta), data=data)
 
-texreg::knitreg(list(reg1, reg2, reg3, reg4),
-                custom.model.names=rep(c("Brecha gerente"),4))
+texreg::knitreg(list(reg1, reg2, reg3, reg4, reg5, reg6),
+                custom.model.names=rep(c("Brecha gerente"),6))
 ```
 
 ### Brecha obrero
@@ -751,10 +751,12 @@ texreg::knitreg(list(reg1, reg2, reg3, reg4),
 ```{r results='asis'}
 reg1 <- lmer(brecha_obrero~ola+(1|idencuesta), data=data)
 reg2 <- lmer(brecha_obrero~ola+marcha+(1|idencuesta), data=data)
-reg3 <- lmer(brecha_obrero~ola+marcha+class+(1|idencuesta), data=data)
-reg4 <- lmer(brecha_obrero~ola+marcha+class+sexo+edad+educacion+(1|idencuesta), data=data)
+reg3 <- lmer(brecha_obrero~ola+marcha+class2+(1|idencuesta), data=data)
+reg4 <- lmer(brecha_obrero~ola+marcha+class2+sexo+edad+(1|idencuesta), data=data)
+reg5 <- lmer(brecha_obrero~ola*class2+marcha+sexo+edad+(1|idencuesta), data=data)
+reg6 <- lmer(brecha_obrero~ola*marcha+class2+sexo+edad+(1|idencuesta), data=data)
 
-texreg::knitreg(list(reg1, reg2, reg3, reg4),
-                custom.model.names=rep(c("Brecha obrero"),4))
+texreg::knitreg(list(reg1, reg2, reg3, reg4, reg5, reg6),
+                custom.model.names=rep(c("Brecha obrero"),6))
 ```
 
