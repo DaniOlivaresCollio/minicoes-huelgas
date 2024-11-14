@@ -123,34 +123,6 @@ sjt.xtab(data$actividad, data$ola,
          title = "Frecuencias y porcentajes de Actividad principal, por ola") 
 ```
 
-Se continua con una base de datos filtrada dejando solo a las personas ocupadas de acuerdo con las siguientes categorías de actividad principal:
-
-- `m02==1`: Trabaja de manera remunerada con jornada completa
-- `m02==2`: Trabaja de manera remunerada a tiempo parcial
-- `m03==3`: Estudia y trabaja
-
-Dejando afuera:
-
-- `m02==4`: Solo estudia
-- `m02==5`: Jubilado o pensionado     
-- `m02==6`: Desempleado, buscando trabajo
-- `m02==7`: Realiza tareas no remuneradas
-- `m02==8`: Esta enfermo o tiene una discapacidad
-- `m02==9`: No estudia, no trabaja y no busca trabajo
-
-```{r, echo=FALSE}
-# Filtrar para ocupados
-data <- filter(data, actividad %in% c("Trabaja de manera remunerada con jornada completa",
-                                      "Trabaja de manera remunerada a tiempo parcial",
-                                      "Estudia y trabaja"))
-```
-
-```{r,echo=FALSE}
-n <- nrow(data)
-```
-
-Quedan `r n` observaciones.
-
 
 ### Relación de empleo
 
@@ -475,13 +447,6 @@ data <- mutate(data,
                                 rama=="R"|rama=="S"|rama=="U"~"RSU",
                                 rama=="T"~"T"))
 
-# data$rama_2 <- factor(data$rama_2,
-#                       levels = c("Self-employed",
-#                                  "Expert managers",
-#                                  "Experts",
-#                                  "Supervisors",
-#                                  "Workers"))
-
 # Tabla de frecuencias y porcentajes
 sjt.xtab(data$rama_2,data$ola,
          show.col.prc=TRUE, 
@@ -489,7 +454,6 @@ sjt.xtab(data$rama_2,data$ola,
          show.summary=FALSE,
          title="Frecuencias y porcentajes de la Rama 2, por ola")
 ```
-
 
 
 ### Supervisión 
@@ -552,74 +516,84 @@ sjt.xtab(data$supervisa,data$ola,
 ```
 
 
-### Class
+### Class 1
 
-Se crea la variable posición de clase (class) con 7 categorías:
+Se crea la variable tipo factor posición de clase `class1` con 6 categorías:
 
-1. Self-employed
-2. Expert managers: expertos que supervisan
-3. Experts: expertos que no supervisan
-4. Skilled supervisors: skilled que supervisan
-5. Skilled workers: skilled que no supervisan
-6. Unskilled supervisors: unskilled que supervisan
-7. Workers: skilled que no supervisan
+1. Empleadores y autoempleados profesionales: pequeña burguesia
+2. Autoempleados superior incompleta o menos: informales
+3. Eexpert managers
+4. Experts
+5. Supervisors
+6. Workers
 
 ```{r,echo=FALSE}
 # Creación de variable posición de clase
 data <- mutate(data,
-               class=case_when(rel_empleo == "Trabaja solo, no tiene empleados" ~ "Self-employed",
-                               cualificacion == "Experts" & supervisa == 1 ~ "Expert managers",
-                               cualificacion == "Experts" & supervisa == 0 ~ "Experts",
-                               cualificacion == "Skilled" & supervisa == 1 ~ "Skilled supervisors",
-                               cualificacion == "Skilled" & supervisa == 0 ~ "Skilled workers",
-                               cualificacion == "Unskilled" & supervisa == 1 ~ "Unskilled supervisors",
-                               cualificacion == "Unskilled" & supervisa == 0 ~ "Workers"))
+               class1=case_when(rel_empleo=="Patrón/a o empleador/a"|rel_empleo=="Trabaja solo, no tiene empleados"&educ>=9~"Petit bourgeoisie",
+                               rel_empleo=="Trabaja solo, no tiene empleados"&educ<9~"Informal",
+                               cualificacion=="Experts"&supervisa==1~"Expert managers",
+                               cualificacion=="Experts"&supervisa==0~"Experts",
+                               cualificacion=="Skilled"|cualificacion=="Unskilled"&supervisa==1~"Supervisors",
+                               cualificacion=="Skilled"|cualificacion=="Unskilled"&supervisa==0~"Workers"))
 
-data$class <- factor(data$class,
-                     levels = c("Self-employed",
-                                "Expert managers",
-                                "Experts",
-                                "Skilled supervisors",
-                                "Skilled workers",
-                                "Unskilled supervisors",
-                                "Workers"))
+data$class1 <- factor(data$class1,
+                      levels = c("Petit bourgeoisie",
+                                 "Informal",
+                                 "Expert managers",
+                                 "Experts",
+                                 "Supervisors",
+                                 "Workers"))
 
-# Tabla de frecuencias y porcentajes 2 dígitos
-sjt.xtab(data$class, data$ola,
+# Tabla de frecuencias y porcentajes 
+sjt.xtab(data$class1, data$ola,
          show.col.prc = TRUE, 
-         var.labels = c("Posición de clase","Ola"),
+         var.labels = c("Posición de clase 1","Ola"),
          show.summary = FALSE,
-         title = "Frecuencias y porcentajes de la Posición de clase, por ola")
+         title = "Frecuencias y porcentajes de la Posición de clase 1, por ola")
 ```
 
-Class 2: 
 
-- Se unen *Skilled supervisors* y *Unskilled supervisors*
-- Se unen *Skilled workers* y *Workers*
+### Class 2
+
+Se crea la variable tipo factor posición de clase `class2` con 7 categorías:
+
+1. Empleadores y autoempleados profesionales: pequeña burguesia
+2. Autoempleados superior incompleta o menos: informales
+3. Eexpert managers
+4. Experts
+5. Supervisors
+6. Workers
+7. Desocupados/Retirados
 
 ```{r,echo=FALSE}
 # Creación de variable posición de clase
 data <- mutate(data,
-               class_2=case_when(class == "Self-employed" ~ "Self-employed",
-                                 class == "Expert managers" ~ "Expert managers",
-                                 class == "Experts" ~ "Experts",
-                                 class == "Skilled supervisors" | class == "Unskilled supervisors" ~ "Supervisors",
-                                 class == "Skilled workers" | class == "Workers" ~ "Workers"))
+               class2=case_when(rel_empleo=="Patrón/a o empleador/a"|rel_empleo=="Trabaja solo, no tiene empleados"&educ>=9~"Petit bourgeoisie",
+                                rel_empleo=="Trabaja solo, no tiene empleados"&educ<9~"Informal",
+                                cualificacion=="Experts"&supervisa==1~"Expert managers",
+                                cualificacion=="Experts"&supervisa==0~"Experts",
+                                cualificacion=="Skilled"|cualificacion=="Unskilled"&supervisa==1~"Supervisors",
+                                cualificacion=="Skilled"|cualificacion=="Unskilled"&supervisa==0~"Workers",
+                                actividad=="Jubilado o pensionado"|actividad=="Desempleado, buscando trabajo"~"Desocupados/Retirados"))
 
-data$class_2 <- factor(data$class_2,
-                       levels = c("Self-employed",
-                                  "Expert managers",
-                                  "Experts",
-                                  "Supervisors",
-                                  "Workers"))
+data$class2 <- factor(data$class2,
+                      levels = c("Petit bourgeoisie",
+                                 "Informal",
+                                 "Expert managers",
+                                 "Experts",
+                                 "Supervisors",
+                                 "Workers",
+                                 "Desocupados/Retirados"))
 
-# Tabla de frecuencias y porcentajes 2 dígitos
-sjt.xtab(data$class_2, data$ola,
+# Tabla de frecuencias y porcentajes 
+sjt.xtab(data$class2, data$ola,
          show.col.prc = TRUE, 
          var.labels = c("Posición de clase 2","Ola"),
          show.summary = FALSE,
          title = "Frecuencias y porcentajes de la Posición de clase 2, por ola")
 ```
+
 
 ### Alluvial
 
@@ -631,18 +605,18 @@ elsoc_diseno <- svydesign(ids = ~segmento_disenno, #muestreo por conglomerado a 
                           data = data)
 
 #Paso 1
-datos.clase <- data.frame((svytable(~class + ola + idencuesta, elsoc_diseno, round = F))) %>% dplyr::filter(Freq>0)  %>% group_by(ola) %>% mutate(porcentaje=Freq/sum(Freq)) %>% na.omit()
+datos.clase <- data.frame((svytable(~class1 + ola + idencuesta, elsoc_diseno, round = F))) %>% dplyr::filter(Freq>0)  %>% group_by(ola) %>% mutate(porcentaje=Freq/sum(Freq)) %>% na.omit()
 
 #Paso 2
-etiquetas.clase <- data.frame((svytable(~class + ola, elsoc_diseno, round = F))) %>% group_by(ola) %>% mutate(porcentaje=Freq/sum(Freq)) %>% na.omit() %>% 
+etiquetas.clase <- data.frame((svytable(~class1 + ola, elsoc_diseno, round = F))) %>% group_by(ola) %>% mutate(porcentaje=Freq/sum(Freq)) %>% na.omit() %>% 
   mutate(idencuesta = 1)
-datos.clase$class <- factor(datos.clase$class, levels = rev(levels(datos.clase$class)))
-etiquetas.clase$class <- factor(etiquetas.clase$class, levels = rev(levels(etiquetas.clase$class)))
+datos.clase$class1 <- factor(datos.clase$class1, levels = rev(levels(datos.clase$class1)))
+etiquetas.clase$class1 <- factor(etiquetas.clase$class1, levels = rev(levels(etiquetas.clase$class1)))
 ```
 
 ```{r alluvial}
 colors<- c("#f1eef6ff","#bdc9e1ff","#b3b3b3ff","#74a9cfff","#0570b0ff")
-alluvial_clase <- ggplot(datos.clase, aes(x = ola, fill = class, stratum = class,
+alluvial_clase <- ggplot(datos.clase, aes(x = ola, fill = class1, stratum = class1,
                              alluvium = idencuesta, y = porcentaje))+
     ggalluvial::geom_flow(alpha = .66) + 
     ggalluvial::geom_stratum(linetype = 0) +
