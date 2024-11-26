@@ -216,17 +216,29 @@ Workers               | 1920 | 10.03 |   15.33 |  72.03
 Desocupados/Retirados | 3503 | 18.29 |   27.97 | 100.00
 &lt;NA&gt;                  | 6625 | 34.60 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>class2 <span class="ot">&lt;-</span> <span class="fu">factor</span>(data<span class="sc">$</span>class2, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Expert managers"</span>, <span class="st">"Petit bourgeoisie"</span>, <span class="st">"Experts"</span>, <span class="st">"Supervisors"</span>, <span class="st">"Informal"</span>, <span class="st">"Workers"</span>, <span class="st">"Desocupados/Retirados"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>class2 <span class="ot">&lt;-</span> <span class="fu">factor</span>(data<span class="sc">$</span>class2, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Expert managers"</span>, <span class="st">"Petit bourgeoisie"</span>, <span class="st">"Experts"</span>, <span class="st">"Supervisors"</span>, <span class="st">"Informal"</span>, <span class="st">"Workers"</span>, <span class="st">"Desocupados/Retirados"</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Political position ____________________________</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>pos_id <span class="ot">&lt;-</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  car<span class="sc">::</span><span class="fu">recode</span>(</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    data<span class="sc">$</span>c15,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"c(11,12,-888,-999)='No se identifica';c(0,1,2,3,4)='Izquierda';</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">     c(5)='Centro';c(6,7,8,9,10)='Derecha'"</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">'Izquierda'</span>, <span class="st">'Centro'</span>, <span class="st">'Derecha'</span>, <span class="st">'No se identifica'</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(brecha_perc<span class="sc">~</span>ola<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>idencuesta), <span class="at">data=</span>data)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>reg2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(brecha_perc<span class="sc">~</span>ola<span class="sc">+</span>marcha<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>idencuesta), <span class="at">data=</span>data)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>reg3 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(brecha_perc<span class="sc">~</span>ola<span class="sc">+</span>marcha<span class="sc">+</span>class2<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>idencuesta), <span class="at">data=</span>data)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>reg4 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(brecha_perc<span class="sc">~</span>ola<span class="sc">+</span>marcha<span class="sc">+</span>class2<span class="sc">+</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>idencuesta), <span class="at">data=</span>data)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>reg5 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(brecha_perc<span class="sc">~</span>ola<span class="sc">*</span>class2<span class="sc">+</span>marcha<span class="sc">+</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>idencuesta), <span class="at">data=</span>data)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>reg6 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(brecha_perc<span class="sc">~</span>ola<span class="sc">*</span>marcha<span class="sc">+</span>class2<span class="sc">+</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>idencuesta), <span class="at">data=</span>data)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">knitreg</span>(<span class="fu">list</span>(reg1, reg2, reg3, reg4, reg5, reg6),</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">custom.model.names=</span><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Brecha percibida"</span>),<span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>reg5 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(brecha_perc<span class="sc">~</span>ola<span class="sc">+</span>marcha<span class="sc">+</span>class2<span class="sc">+</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>pos_id<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>idencuesta), <span class="at">data=</span>data)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>reg6 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(brecha_perc<span class="sc">~</span>ola<span class="sc">*</span>class2<span class="sc">+</span>marcha<span class="sc">+</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>pos_id<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>idencuesta), <span class="at">data=</span>data)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>reg7 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(brecha_perc<span class="sc">~</span>ola<span class="sc">*</span>marcha<span class="sc">+</span>class2<span class="sc">+</span>sexo<span class="sc">+</span>edad<span class="sc">+</span>pos_id<span class="sc">+</span>(<span class="dv">1</span><span class="sc">|</span>idencuesta), <span class="at">data=</span>data)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>texreg<span class="sc">::</span><span class="fu">knitreg</span>(<span class="fu">list</span>(reg1, reg2, reg3, reg4, reg5, reg6, reg7),</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">custom.model.names=</span><span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Brecha percibida"</span>),<span class="dv">7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -235,6 +247,9 @@ Statistical models
 <tr>
 <th style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Brecha percibida
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
 Brecha percibida
@@ -274,10 +289,13 @@ Brecha percibida
 4.25<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-4.16<sup>***</sup>
+4.34<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-4.23<sup>***</sup>
+4.24<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+4.34<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -292,6 +310,9 @@ Brecha percibida
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.07)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.10)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.10)
@@ -320,10 +341,13 @@ ola2
 -0.51<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.44<sup>*</sup>
+-0.50<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.55<sup>***</sup>
+-0.39<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.57<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -335,6 +359,9 @@ ola2
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.04)
@@ -366,15 +393,21 @@ ola3
 -0.55<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
+-0.55<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
 -0.59<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.48<sup>***</sup>
+-0.51<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.03)
@@ -412,10 +445,13 @@ ola4
 -0.21<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.04
+-0.20<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.17<sup>**</sup>
+-0.03
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.19<sup>**</sup>
 </td>
 </tr>
 <tr>
@@ -427,6 +463,9 @@ ola4
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.04)
@@ -458,10 +497,13 @@ ola5
 -0.66<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
+-0.65<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
 -0.32<sup>*</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.63<sup>***</sup>
+-0.64<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -473,6 +515,9 @@ ola5
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.04)
@@ -504,10 +549,13 @@ ola6
 -0.70<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
+-0.69<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
 -0.58<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.66<sup>***</sup>
+-0.67<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -519,6 +567,9 @@ ola6
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.04)
@@ -550,10 +601,13 @@ ola7
 -0.73<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.98<sup>**</sup>
+-0.73<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.71<sup>***</sup>
+-1.00<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.72<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -565,6 +619,9 @@ ola7
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.04)
@@ -596,10 +653,13 @@ marcha
 0.06<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.07<sup>***</sup>
+0.05<sup>**</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.08<sup>*</sup>
+0.05<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.06
 </td>
 </tr>
 <tr>
@@ -611,6 +671,9 @@ marcha
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.01)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.02)
@@ -642,7 +705,10 @@ class2Petit bourgeoisie
 -0.16<sup>*</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.00
+-0.16<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.00
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 -0.16<sup>*</sup>
@@ -657,6 +723,9 @@ class2Petit bourgeoisie
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.08)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.08)
@@ -688,10 +757,13 @@ class2Experts
 -0.07
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.02
+-0.10
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.07
+-0.06
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.10
 </td>
 </tr>
 <tr>
@@ -703,6 +775,9 @@ class2Experts
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.08)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.08)
@@ -734,7 +809,10 @@ class2Supervisors
 -0.29<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.15
+-0.29<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.16
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 -0.29<sup>***</sup>
@@ -749,6 +827,9 @@ class2Supervisors
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.06)
@@ -780,7 +861,10 @@ class2Informal
 -0.41<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.31<sup>*</sup>
+-0.41<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.33<sup>*</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 -0.41<sup>***</sup>
@@ -795,6 +879,9 @@ class2Informal
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.07)
@@ -826,7 +913,10 @@ class2Workers
 -0.39<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.31<sup>*</sup>
+-0.39<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.30<sup>*</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 -0.39<sup>***</sup>
@@ -841,6 +931,9 @@ class2Workers
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.07)
@@ -872,7 +965,10 @@ class2Desocupados/Retirados
 -0.37<sup>***</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.29<sup>*</sup>
+-0.37<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.25
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 -0.37<sup>***</sup>
@@ -890,6 +986,9 @@ class2Desocupados/Retirados
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.06)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.07)
@@ -923,6 +1022,9 @@ sexo
 <td style="padding-left: 5px;padding-right: 5px;">
 -0.10<sup>***</sup>
 </td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.10<sup>***</sup>
+</td>
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
@@ -936,6 +1038,9 @@ sexo
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.03)
@@ -969,6 +1074,9 @@ edad
 <td style="padding-left: 5px;padding-right: 5px;">
 0.00
 </td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.00
+</td>
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
@@ -991,6 +1099,165 @@ edad
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.00)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.00)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+pos_idCentro
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.10<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.09<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.10<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+pos_idDerecha
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.12<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.12<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.12<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+pos_idNo se identifica
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.12<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.13<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.12<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
 </td>
 </tr>
 <tr>
@@ -1010,13 +1277,19 @@ ola2:class2Petit bourgeoisie
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.10
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.15
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1056,13 +1329,19 @@ ola3:class2Petit bourgeoisie
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.01
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.05
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1102,13 +1381,19 @@ ola4:class2Petit bourgeoisie
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.16
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.17
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1148,13 +1433,19 @@ ola5:class2Petit bourgeoisie
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.46<sup>*</sup>
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.45<sup>*</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1194,6 +1485,9 @@ ola6:class2Petit bourgeoisie
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
 -0.29
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
@@ -1201,6 +1495,9 @@ ola6:class2Petit bourgeoisie
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1240,13 +1537,19 @@ ola7:class2Petit bourgeoisie
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.25
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.26
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1286,13 +1589,19 @@ ola2:class2Experts
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.08
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.12
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1332,13 +1641,19 @@ ola3:class2Experts
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.05
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.13
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1378,13 +1693,19 @@ ola4:class2Experts
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.30
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.23
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1424,13 +1745,19 @@ ola5:class2Experts
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.25
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.18
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1470,7 +1797,10 @@ ola6:class2Experts
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.16
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.08
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
@@ -1493,7 +1823,10 @@ ola6:class2Experts
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.25)
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.24)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
@@ -1516,13 +1849,19 @@ ola7:class2Experts
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.21
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.27
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1562,13 +1901,19 @@ ola2:class2Supervisors
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.13
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.16
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1608,13 +1953,19 @@ ola3:class2Supervisors
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.04
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.05
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1654,6 +2005,9 @@ ola4:class2Supervisors
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
 -0.20
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
@@ -1661,6 +2015,9 @@ ola4:class2Supervisors
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1700,13 +2057,19 @@ ola5:class2Supervisors
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.40<sup>*</sup>
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.39<sup>*</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1746,13 +2109,19 @@ ola6:class2Supervisors
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.19
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.16
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1792,13 +2161,19 @@ ola7:class2Supervisors
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.13
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.15
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1838,13 +2213,19 @@ ola2:class2Informal
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.14
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.15
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1884,13 +2265,19 @@ ola3:class2Informal
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.05
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.08
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1930,13 +2317,19 @@ ola4:class2Informal
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.21
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.19
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -1976,13 +2369,19 @@ ola5:class2Informal
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.30
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.28
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2022,13 +2421,19 @@ ola6:class2Informal
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.11
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.06
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2068,13 +2473,19 @@ ola7:class2Informal
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.26
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.32
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2114,13 +2525,19 @@ ola2:class2Workers
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.07
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.13
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2160,6 +2577,9 @@ ola3:class2Workers
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
 0.08
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
@@ -2167,6 +2587,9 @@ ola3:class2Workers
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2206,6 +2629,9 @@ ola4:class2Workers
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
 -0.09
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
@@ -2213,6 +2639,9 @@ ola4:class2Workers
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2252,6 +2681,9 @@ ola5:class2Workers
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
 -0.42<sup>*</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
@@ -2259,6 +2691,9 @@ ola5:class2Workers
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2298,6 +2733,9 @@ ola6:class2Workers
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
 -0.12
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
@@ -2321,7 +2759,10 @@ ola6:class2Workers
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.20)
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.19)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
@@ -2344,13 +2785,19 @@ ola7:class2Workers
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.57
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.60
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2390,13 +2837,19 @@ ola2:class2Desocupados/Retirados
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.02
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.07
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2436,13 +2889,19 @@ ola3:class2Desocupados/Retirados
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.03
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.01
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2482,13 +2941,19 @@ ola4:class2Desocupados/Retirados
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.17
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.22
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2528,13 +2993,19 @@ ola5:class2Desocupados/Retirados
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.32
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.35<sup>*</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2574,13 +3045,19 @@ ola6:class2Desocupados/Retirados
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.06
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.08
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2620,13 +3097,19 @@ ola7:class2Desocupados/Retirados
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.25
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.24
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2669,10 +3152,16 @@ ola2:marcha
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.04
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.06
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2715,10 +3204,16 @@ ola3:marcha
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.05
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.03
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2761,10 +3256,16 @@ ola4:marcha
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.02
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.01
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2807,10 +3308,16 @@ ola5:marcha
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.02
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.01
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2853,10 +3360,16 @@ ola6:marcha
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.03
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.02
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2899,10 +3412,16 @@ ola7:marcha
 &nbsp;
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.02
+&nbsp;
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.00
 </td>
 </tr>
 <tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+&nbsp;
+</td>
 <td style="padding-left: 5px;padding-right: 5px;">
 &nbsp;
 </td>
@@ -2942,10 +3461,13 @@ AIC
 40196.10
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-40325.51
+39570.02
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-40230.85
+39698.14
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+39604.96
 </td>
 </tr>
 <tr>
@@ -2965,10 +3487,13 @@ BIC
 40329.93
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-40727.00
+39725.89
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-40409.29
+40121.20
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+39805.36
 </td>
 </tr>
 <tr>
@@ -2988,10 +3513,13 @@ Log Likelihood
 -20080.05
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--20108.75
+-19764.01
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--20091.42
+-19792.07
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-19775.48
 </td>
 </tr>
 <tr>
@@ -3011,10 +3539,13 @@ Num. obs.
 12519
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-12519
+12359
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-12519
+12359
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+12359
 </td>
 </tr>
 <tr>
@@ -3034,10 +3565,13 @@ Num. groups: idencuesta
 3785
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-3785
+3774
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-3785
+3774
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+3774
 </td>
 </tr>
 <tr>
@@ -3049,6 +3583,9 @@ Var: idencuesta (Intercept)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.48
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.43
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.43
@@ -3080,16 +3617,19 @@ Var: Residual
 1.14
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-1.14
+1.13
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-1.14
+1.13
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1.13
 </td>
 </tr>
 </tbody>
 <tfoot>
 <tr>
-<td style="font-size: 0.8em;" colspan="7">
+<td style="font-size: 0.8em;" colspan="8">
 <sup>***</sup>p &lt; 0.001; <sup>**</sup>p &lt; 0.01; <sup>*</sup>p &lt; 0.05
 </td>
 </tr>

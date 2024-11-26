@@ -46,6 +46,17 @@ load(here::here("output/elsoc-minicoes.Rdata"))
 data$ola <- factor(data$ola)
 sjmisc::frq(data$class2)
 data$class2 <- factor(data$class2, levels = c("Expert managers", "Petit bourgeoisie", "Experts", "Supervisors", "Informal", "Workers", "Desocupados/Retirados"))
+
+# Political position ____________________________
+data$pos_id <-
+factor(
+  car::recode(
+    data$c15,
+    "c(11,12,-888,-999)='No se identifica';c(0,1,2,3,4)='Izquierda';
+     c(5)='Centro';c(6,7,8,9,10)='Derecha'"
+  ),
+  levels = c('Izquierda', 'Centro', 'Derecha', 'No se identifica')
+)
 ```
 
 
@@ -54,11 +65,12 @@ reg1 <- lmer(brecha_perc~ola+(1|idencuesta), data=data)
 reg2 <- lmer(brecha_perc~ola+marcha+(1|idencuesta), data=data)
 reg3 <- lmer(brecha_perc~ola+marcha+class2+(1|idencuesta), data=data)
 reg4 <- lmer(brecha_perc~ola+marcha+class2+sexo+edad+(1|idencuesta), data=data)
-reg5 <- lmer(brecha_perc~ola*class2+marcha+sexo+edad+(1|idencuesta), data=data)
-reg6 <- lmer(brecha_perc~ola*marcha+class2+sexo+edad+(1|idencuesta), data=data)
+reg5 <- lmer(brecha_perc~ola+marcha+class2+sexo+edad+pos_id+(1|idencuesta), data=data)
+reg6 <- lmer(brecha_perc~ola*class2+marcha+sexo+edad+pos_id+(1|idencuesta), data=data)
+reg7 <- lmer(brecha_perc~ola*marcha+class2+sexo+edad+pos_id+(1|idencuesta), data=data)
 
-texreg::knitreg(list(reg1, reg2, reg3, reg4, reg5, reg6),
-                custom.model.names=rep(c("Brecha percibida"),6))
+texreg::knitreg(list(reg1, reg2, reg3, reg4, reg5, reg6, reg7),
+                custom.model.names=rep(c("Brecha percibida"),7))
 ```
 
 ## Brecha justa
