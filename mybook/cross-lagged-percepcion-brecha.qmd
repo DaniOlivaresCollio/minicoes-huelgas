@@ -1,0 +1,592 @@
+---
+title: "cross-lagged"
+format: html
+editor: source
+---
+
+```{r cargar-paquetes-2,echo=FALSE,warning=FALSE,message=FALSE}
+rm(list=ls())
+options(scipen = 999)
+library(pacman)
+p_load(tidyverse,
+       knitr,
+       bookdown,
+       car,
+       sjmisc,
+       sjPlot,
+       sjlabelled,
+       psych,
+       kableExtra,
+       gridExtra,
+       lubridate,
+       viridis,
+       statar,
+       readxl,
+       tinytex,
+       ggrepel,
+       ggalluvial,
+       survey, 
+       httr,
+       # devtools,
+       readr, 
+       ggplot2, 
+       labelled,
+       shadowtext,
+       lme4,
+       lavaan,
+       data.table)
+
+# devtools::install_github("DiogoFerrari/occupar",dependencies=F)
+```
+
+Cargamos la base de datos ELSOC 2016-2022 en formato *long*.
+
+```{r datos-2,echo=FALSE}
+load(here::here("input/data/ELSOC_Long.RData"))
+setDT(elsoc_long_2016_2022)
+elsoc_long_2016_2022 <- elsoc_long_2016_2022[muestra==1,]
+elsoc_long_2016_2022 <- elsoc_long_2016_2022[tipo_atricion==1,]
+```
+
+## Recod NA's
+```{r}
+elsoc_long_2016_2022 <- elsoc_long_2016_2022[, lapply(.SD, function(x) replace(x,
+                                                 which(x %in% c(-666,-888,-999)), NA))]
+```
+
+## Estimar brechas salariales
+
+```{r}
+elsoc_long_2016_2022 <- elsoc_long_2016_2022 %>% filter(d03_01>999)
+elsoc_long_2016_2022 <- elsoc_long_2016_2022 %>% filter(d03_01<100000000000000000000)
+summary(elsoc_long_2016_2022$d03_01)
+elsoc_long_2016_2022 <- elsoc_long_2016_2022 %>% filter(d03_02>999)
+elsoc_long_2016_2022$brecha_perc <- log(elsoc_long_2016_2022$d03_01/elsoc_long_2016_2022$d03_02)
+elsoc_long_2016_2022 <- elsoc_long_2016_2022 %>% filter(brecha_perc>=0)
+summary(elsoc_long_2016_2022$d0brecha_perc3_02)
+```
+
+## Long to wide
+
+```{r}
+elsoc <- dcast(elsoc_long_2016_2022, idencuesta~ola,
+               value.var = c("brecha_perc", "c08_02", "m0_edad", "m0_sexo"))
+```
+
+## Select variables
+```{r}
+old <- c("idencuesta", paste0("brecha_perc_", 1:6), paste0("c08_02_", 1:6),
+         "m0_edad_1", "m0_sexo_1")
+new <- c("id", paste0("brecha_perc",1:6), paste0("marchar",1:6),"edad", "sexo")
+setnames(elsoc,old,new)
+elsoc <- elsoc[, ..new]
+```
+
+### cleaning workspace
+```{r}
+elsoc <- as.data.frame(elsoc)
+```
+
+# Descriptivos
+```{r}
+summarytools::descr(elsoc[-1], order = "p", stats="common",
+                    transpose = T, style = "rmarkdown", headings=FALSE)
+```
+
+# Componente between
+
+- Fluctuaciones entre individuos
+
+- **variables latentes** con las medidas repetidas en t como indicadores. Cargas factoriales fijadas en 1
+- **supuesto**: Los interceptos aleatorios tienen igual influencia en cada ocasión
+
+```{r}
+between <- '
+# crear los componentes between
+  RI_x =~ 1*marchar1 + 1*marchar2 + 1*marchar3 + 1*marchar4 + 1*marchar5 + 1*marchar6
+  RI_y =~ 1*brecha_perc1 + 1*brecha_perc2 + 1*brecha_perc3 + 1*brecha_perc4 + 1*brecha_perc5 + 1*brecha_perc6
+  '
+```
+
+# Componente within
+
+- Fluctuaciones intra-individuos
+- **Variables latentes** explicadas por sus respectivas medias observadas en cada ocasión. Cargas factoriales fijadas en 1
+
+```{r}
+within <- '
+# Crear los componentes within
+  cx1 =~ 1*marchar1
+  cx2 =~ 1*marchar2
+  cx3 =~ 1*marchar3
+  cx4 =~ 1*marchar4
+  cx5 =~ 1*marchar5
+  cx6 =~ 1*marchar6
+  cy1 =~ 1*brecha_perc1
+  cy2 =~ 1*brecha_perc2
+  cy3 =~ 1*brecha_perc3
+  cy4 =~ 1*brecha_perc4
+  cy5 =~ 1*brecha_perc5
+  cy6 =~ 1*brecha_perc6
+
+# Constreñir las varianzas del error de medicion a 0
+  marchar1 ~~ 0*marchar1
+  marchar2 ~~ 0*marchar2
+  marchar3 ~~ 0*marchar3
+  marchar4 ~~ 0*marchar4
+  marchar5 ~~ 0*marchar5
+  marchar6 ~~ 0*marchar6
+  brecha_perc1 ~~ 0*brecha_perc1
+  brecha_perc2 ~~ 0*brecha_perc2
+  brecha_perc3 ~~ 0*brecha_perc3
+  brecha_perc4 ~~ 0*brecha_perc4
+  brecha_perc5 ~~ 0*brecha_perc5
+  brecha_perc6 ~~ 0*brecha_perc6
+  '
+```
+
+# Efectos lagged
+
+- Regresiones entre componentes within
+- Efectos lagged autorregresivos y crosslagged
+
+```{r}
+efectos <- '
+# Estimar los efectos lagged
+  cx2 ~ cx1 + cy1
+  cx3 ~ cx2 + cy2
+  cx4 ~ cx3 + cy3
+  cx5 ~ cx4 + cy4
+  cx6 ~ cx5 + cy5
+  cy2 ~ cx1 + cy1
+  cy3 ~ cx2 + cy2
+  cy4 ~ cx3 + cy3
+  cy5 ~ cx4 + cy4
+  cy6 ~ cx5 + cy5
+  '
+```
+
+# Covarianzas
+
+- Covarianzas relevantes en los componentes between y within
+- Los componentes within están correlacionados en cada *t*, tanto en la primera ola (exógena) como sus residuos desde la ola 2.
+
+```{r}
+covarianzas <- '
+# Covarianza entre los componentes within t=1
+  cx1 ~~ cy1
+
+# Covarianzas entre los residuos componente within
+  cx2 ~~ cy2
+  cx3 ~~ cy3
+  cx4 ~~ cy4
+  cx5 ~~ cy5
+  cx6 ~~ cy6
+  
+# Covarianzas entre los residuos componentes between
+  cx1 ~~ cx1
+  cy1 ~~ cy1
+  cx2 ~~ cx2
+  cy2 ~~ cy2
+  cx3 ~~ cx3
+  cy3 ~~ cy3
+  cx4 ~~ cx4
+  cy4 ~~ cy4
+  cx5 ~~ cx5
+  cy5 ~~ cy5
+  cx6 ~~ cx6
+  cy6 ~~ cy6
+  
+# Varianza y covarianza entre RI
+  RI_x ~~ RI_x
+  RI_y ~~ RI_y
+  RI_x ~~ RI_y
+  
+# Correlacion entre los RI y componentes within t=1
+  RI_x ~~ 0*cx1
+  RI_x ~~ 0*cy1
+  RI_y ~~ 0*cx1
+  RI_y ~~ 0*cy1
+  '
+```
+
+# Estimación
+
+- Estimator = "MLR" es: estimación de maximum likelihood con errores estándar robustos (Huber-White) y estadísticos de prueba escalados (equivalentes a los estadísticos de prueba de Yuan-Betler) --> En el fondo replica lo que hace Mplus
+
+- Missing = "FIML" es: Si los datos son MCAR (missing completely at random) o MAR (missing at random), podemos estimar caso a caso usando **full information maximum likelihood** para lidiar con los casos perdidos
+
+```{r}
+fit_lavaan <- lavaan(c(between, within, efectos, covarianzas), data=elsoc,
+                      estimator = "MLR", missing = "FIML",
+                      meanstructure = TRUE, int.ov.free=TRUE) 
+```
+
+```{r}
+summary(fit_lavaan, fit.measures=TRUE, ci=TRUE, standardized=TRUE) 
+```
+
+# Modelos anidados
+
+La estimación usualmente sigue una estrategia de **modelos anidados** entre los cuales se compara su bondad de ajuste.
+
+Para testear las hipótesis en torno a la **direccionalidad** de las relaciones estimamos:
+
+  - **Modelo A**: solo paths autorregresivos
+  - **Modelo B**: paths autorregresivos + cross-lagged (forward)
+  - **Modelo C**: paths autorregresivos + cross-lagged (backward)
+  - **Modelo D**: bidireccional, paths autorregresivos + cross-lagged
+
+Para testear la **estabilidad** de los efectos entre los constructos en el tiempo, adicionalmente, comparamos dos versiones de cada uno de estos modelos: una versión estimada libremente (1) y una versión constriñendo en el tiempo (2).
+
+```{r}
+efectos2 <- '
+# Estimar los efectos lagged (constreñidos en el tiempo)
+  cx2 ~ a*cx1 + d*cy1
+  cx3 ~ a*cx2 + d*cy2
+  cx4 ~ a*cx3 + d*cy3
+  cx5 ~ a*cx4 + d*cy4
+  cx6 ~ a*cx5 + d*cy5
+  cy2 ~ a*cx1 + d*cy1
+  cy3 ~ a*cx2 + d*cy2
+  cy4 ~ a*cx3 + d*cy3
+  cy5 ~ a*cx4 + d*cy4
+  cy6 ~ a*cx5 + d*cy5
+  '
+```
+
+## Volviendo a modelo básico
+
+```{r}
+bwcomp <- '
+# crear los componentes between
+  RI_x =~ 1*marchar1 + 1*marchar2 + 1*marchar3 + 1*marchar4 + 1*marchar5 + 1*marchar6
+  RI_y =~ 1*brecha_perc1 + 1*brecha_perc2 + 1*brecha_perc3 + 1*brecha_perc4 + 1*brecha_perc5 + 1*brecha_perc6
+  
+# Crear los componentes within
+  cx1 =~ 1*marchar1
+  cx2 =~ 1*marchar2
+  cx3 =~ 1*marchar3
+  cx4 =~ 1*marchar4
+  cx5 =~ 1*marchar5
+  cx6 =~ 1*marchar6
+  cy1 =~ 1*brecha_perc1
+  cy2 =~ 1*brecha_perc2
+  cy3 =~ 1*brecha_perc3
+  cy4 =~ 1*brecha_perc4
+  cy5 =~ 1*brecha_perc5
+  cy6 =~ 1*brecha_perc6
+
+# Constreñir las varianzas del error de medicion a 0
+  marchar1 ~~ 0*marchar1
+  marchar2 ~~ 0*marchar2
+  marchar3 ~~ 0*marchar3
+  marchar4 ~~ 0*marchar4
+  marchar5 ~~ 0*marchar5
+  marchar6 ~~ 0*marchar6
+  brecha_perc1 ~~ 0*brecha_perc1
+  brecha_perc2 ~~ 0*brecha_perc2
+  brecha_perc3 ~~ 0*brecha_perc3
+  brecha_perc4 ~~ 0*brecha_perc4
+  brecha_perc5 ~~ 0*brecha_perc5
+  brecha_perc6 ~~ 0*brecha_perc6
+  '
+
+varcov <- '
+# Covarianza entre los componentes within t=1
+  cx1 ~~ cy1
+
+# Covarianzas entre los residuos componente within
+  cx2 ~~ cy2
+  cx3 ~~ cy3
+  cx4 ~~ cy4
+  cx5 ~~ cy5
+  cx6 ~~ cy6
+  
+# Covarianzas entre los residuos componentes between
+  cx1 ~~ cx1
+  cy1 ~~ cy1
+  cx2 ~~ cx2
+  cy2 ~~ cy2
+  cx3 ~~ cx3
+  cy3 ~~ cy3
+  cx4 ~~ cx4
+  cy4 ~~ cy4
+  cx5 ~~ cx5
+  cy5 ~~ cy5
+  cx6 ~~ cx6
+  cy6 ~~ cy6
+  
+# Varianza y covarianza entre RI
+  RI_x ~~ RI_x
+  RI_y ~~ RI_y
+  RI_x ~~ RI_y
+  
+# Correlacion entre los RI y componentes within t=1
+  RI_x ~~ 0*cx1
+  RI_x ~~ 0*cy1
+  RI_y ~~ 0*cx1
+  RI_y ~~ 0*cy1
+  '
+```
+
+## Modelo A (solo paths autorregresivos)
+
+```{r}
+a1 <- ' #Sin constreñir
+  cx2 ~ cx1
+  cx3 ~ cx2
+  cx4 ~ cx3
+  cx5 ~ cx4
+  cx6 ~ cx5
+  cy2 ~ cy1
+  cy3 ~ cy2
+  cy4 ~ cy3
+  cy5 ~ cy4
+  cy6 ~ cy5
+  '
+
+a2 <- ' #Constreñido
+  cx2 ~ a*cx1
+  cx3 ~ a*cx2
+  cx4 ~ a*cx3
+  cx5 ~ a*cx4
+  cx6 ~ a*cx5
+  cy2 ~ d*cy1
+  cy3 ~ d*cy2
+  cy4 ~ d*cy3
+  cy5 ~ d*cy4
+  cy6 ~ d*cy5
+  '
+```
+
+## Modelo B: unidireccional (forward)
+
+```{r}
+b1 <- ' #Sin constreñir
+  cx2 ~ cx1
+  cx3 ~ cx2
+  cx4 ~ cx3
+  cx5 ~ cx4
+  cx6 ~ cx5
+  cy2 ~ cx1 + cy1
+  cy3 ~ cx2 + cy2
+  cy4 ~ cx3 + cy3
+  cy5 ~ cx4 + cy4
+  cy6 ~ cx5 + cy5
+  '
+
+b2 <- ' #Constreñido
+  cx2 ~ a*cx1
+  cx3 ~ a*cx2
+  cx4 ~ a*cx3
+  cx5 ~ a*cx4
+  cx6 ~ a*cx5
+  cy2 ~ c*cx1 + d*cy1
+  cy3 ~ c*cx2 + d*cy2
+  cy4 ~ c*cx3 + d*cy3
+  cy5 ~ c*cx4 + d*cy4
+  cy6 ~ c*cx5 + d*cy5
+  '
+```
+
+## Modelo C: unidireccional (backward)
+
+```{r}
+c1 <- ' #Sin constreñir
+  cx2 ~ cx1 + cy1
+  cx3 ~ cx2 + cy2
+  cx4 ~ cx3 + cy3
+  cx5 ~ cx4 + cy4
+  cx6 ~ cx5 + cy5
+  cy2 ~ cy1
+  cy3 ~ cy2
+  cy4 ~ cy3
+  cy5 ~ cy4
+  cy6 ~ cy5
+  '
+
+c2 <- ' #Constreñido
+  cx2 ~ a*cx1 + b*cy1
+  cx3 ~ a*cx2 + b*cy2
+  cx4 ~ a*cx3 + b*cy3
+  cx5 ~ a*cx4 + b*cy4
+  cx6 ~ a*cx5 + b*cy5
+  cy2 ~ d*cy1
+  cy3 ~ d*cy2
+  cy4 ~ d*cy3
+  cy5 ~ d*cy4
+  cy6 ~ d*cy5
+  '
+```
+
+## Modelo D: bidireccional
+
+```{r}
+d1 <- ' #Sin constreñir
+  cx2 ~ cx1 + cy1
+  cx3 ~ cx2 + cy2
+  cx4 ~ cx3 + cy3
+  cx5 ~ cx4 + cy4
+  cx6 ~ cx5 + cy5
+  cy2 ~ cx1 + cy1
+  cy3 ~ cx2 + cy2
+  cy4 ~ cx3 + cy3
+  cy5 ~ cx4 + cy4
+  cy6 ~ cx5 + cy5
+  '
+
+d2 <- ' #Constreñido
+  cx2 ~ a*cx1 + b*cy1
+  cx3 ~ a*cx2 + b*cy2
+  cx4 ~ a*cx3 + b*cy3
+  cx5 ~ a*cx4 + b*cy4
+  cx6 ~ a*cx5 + b*cy5
+  cy2 ~ c*cx1 + d*cy1
+  cy3 ~ c*cx2 + d*cy2
+  cy4 ~ c*cx3 + d*cy3
+  cy5 ~ c*cx4 + d*cy4
+  cy6 ~ c*cx5 + d*cy5
+  '
+```
+
+## Estimación
+
+```{r}
+models <- c("a1", "a2", "b1", "b2", "c1", "c2", "d1", "d2")
+fit <- list()
+for (i in models){
+  fit[[i]] <- lavaan(model = c(bwcomp, get(i),varcov),
+                     data=elsoc,
+                     estimator="MLR",
+                     missing="FIML",
+                     meanstructure=TRUE,
+                     int.ov.free=TRUE)
+}
+```
+
+## Bondad de ajuste
+
+```{r}
+gofdt <- list()
+for (i in names(fit)){
+  x <- fitMeasures(fit[[i]])[c("chisq.scaled", "df.scaled",
+                               "pvalue.scaled", "cfi.scaled",
+                               "tli.scaled", "rmsea.scaled",
+                               "srmr_mplus", "aic",
+                               "bic", "bic2",
+                               "logl", "npar",
+                               "scaling.factor.h0")]
+  gofdt[[i]] <- setNames(as.numeric(x),
+                         c("X2", "df",
+                           "pvalue", "CFI",
+                           "TLI", "RMSEA",
+                           "SRMR", "AIC",
+                           "BIC", "aBIC",
+                           "LL", "par",
+                           "LLcorrectf"))
+}
+
+gofdt <- data.table(m=names(gofdt), dplyr::bind_rows(gofdt))
+```
+
+```{r}
+kableExtra::kable(gofdt, digits=2,
+                  format="html", table.attr="style='font-size: 25px;'")
+```
+
+
+### Create function
+```{r}
+gof.comp  = function(data,
+                     pairs,
+                     measures = c("CFI", "TLI", "RMSEA", "SRMR",
+                                  "AIC", "BIC", "aBIC", "par", "LL")) {
+  comp <- list()
+  for (i in 1:length(pairs)) {
+    gof <- data
+    nest <- pairs[[i]][1]
+    full <- pairs[[i]][2]
+    delta <- NULL
+    for (k in measures) {
+      delta[paste0(k, "_D")] <-
+        gof[m == nest, get(k)] - gof[m == full, get(k)]
+    }
+    par_LLcorf_nest <- gof[m == nest, par] * gof[m == nest, LLcorrectf]
+    par_LLcorf_full <- gof[m == full, par] * gof[m == full, LLcorrectf]
+    delta["CD"] <- (par_LLcorf_nest - par_LLcorf_full) / delta["par_D"]
+    delta["TRd"] <- (-2 * delta["LL_D"]) / delta["CD"]
+    delta["TRd_df"] <- gof[m == full, "par"] - gof[m == nest, "par"]
+    delta["TRd_pvalue"] <- pchisq(as.numeric(delta["TRd"]),
+                                  as.numeric(delta["TRd_df"]), lower.tail = F)
+    comp[[paste0(nest, " vs. ", full, sep = "")]] <- delta
+  }
+  comp <- data.table(comp = names(comp), dplyr::bind_rows(comp))
+  return(comp)
+}
+```
+
+
+```{r}
+comp1 <-
+  gof.comp(data = gofdt, pairs = list(c("a2", "a1"), c("b2", "b1"), c("c2", "c1"), c("d2", "d1")))
+```
+
+Para muestras mayores a 300 casos, se recomienda que:
+
+  - CFI < 0.02
+  - RMSEA < 0.03
+
+```{r}
+kableExtra::kable(comp1, digits=3,
+                  format="html", table.attr="style='font-size: 18px;'")
+```
+
+Interpretación: se cumplen criterios CFI y RMSEA, por lo que podemos quedarnos con los modelos constreñidos
+
+## Comparación de modelos para testear dirección de las relaciones
+
+```{r}
+comp2 <- gof.comp(data=gofdt,
+                  pairs = list(c("a2","b2"), c("a2", "c2"), c("a2", "d2"),
+                               c("b2","d2"), c("c2", "d2"))) 
+
+kableExtra::kable(comp2, digits=3,
+                  format="html", table.attr="style='font-size: 18px;'")
+```
+
+Nuevamente los valores dan cuenta de que no hay un empeoramiento al agregar parámetros, por lo que nos podemos quedar con el modelo más completo que es el d2
+
+# Interpretación
+
+```{r}
+parameterEstimates(fit[["d2"]])
+```
+
+```{r}
+param <- data.table(parameterEstimates(fit[["d2"]]))
+kableExtra::kable(param[op=="~~" & rhs %in% c("RI_x", "RI_y"), !"label"], digits = 3,
+                  format="html", table.attr = "style='font-size: 25px;'")
+```
+
+Ambos interceptos aleatorios tienen una varianza significativa. Esto implica que hay diferencias estables, entre individuos, respecto a sus puntajes esperados en percepción de brecha y asistencia a marchar. --> Si no fuera significativa no sería necesario estimar intercepto aleatorio, podría ser cross-lagged simple
+
+  - La covarianza entre los interceptos aleatorios es significativa (.057, SE=0.010), lo que sugiere que los individuos que tienen una alta participación en marchas también tienen una alta percepción de brecha salarial
+  
+```{r}
+kable(param[op=="~" & rhs %in% c("cx1", "cy1") & lhs %in% c("cx2", "cy2"), !"label"],
+      format="html", table.attr = "style='font-size: 25px;'")
+```
+
+Los coeficientes indican el grado en el cual una variable continua incrementándose, en términos de cambio individual, habiendo controlado por las características individuales estables. (muestra solo ola 1 y 2 porque es modelo restringido)
+
+Efectos autorregresivos:
+
+  - Tanto para marchar como para percepción de brecha salarial son significativos (marchar: b=0.148; SE=0.022; Brecha: b=0.065; SE=0.017).
+  En términos concretos: Una desviación de un punto sobre el nivel promedio de los individuos en participación en marchas persiste en la siguiente medición como una desviación positiva de 0.148 puntos respecto a su puntaje esperado.
+  En el caso de la percepción de brecha salarial, una desviación de un punto sobre el nivel promedio individual persiste durante la siguiente medición como una desviación positiva de 0.065 sobre el nivel promedio individual.
+  --> Esto da cuenta de la estabilidad de los constructos.
+  
+Efectos cross-lagged
+
+  - No se observa un efecto longitudinal intra-individuo de la percepción de brecha salarial sobre la participación en marchas (b = 0.01; SE= 0.02; p=0.62), ni de la participación en marchas sobre la percepción de brecha salarial (b = 0.006; SE=0.006; p=0.27)

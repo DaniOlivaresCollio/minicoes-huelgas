@@ -44,6 +44,8 @@ load(here::here("output/elsoc-minicoes.Rdata"))
 
 ```{r}
 data$ola <- factor(data$ola)
+sjmisc::frq(data$class2)
+data$class2 <- factor(data$class2, levels = c("Expert managers", "Petit bourgeoisie", "Experts", "Supervisors", "Informal", "Workers", "Desocupados/Retirados"))
 ```
 
 
