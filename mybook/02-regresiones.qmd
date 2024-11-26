@@ -1,0 +1,103 @@
+# Regresiones
+
+<div style="text-align: justify">
+
+```{r cargar-paquetes-2,echo=FALSE,warning=FALSE,message=FALSE}
+rm(list=ls())
+options(scipen = 999)
+
+library(pacman)
+p_load(tidyverse,
+       knitr,
+       bookdown,
+       car,
+       sjmisc,
+       sjPlot,
+       sjlabelled,
+       psych,
+       kableExtra,
+       gridExtra,
+       lubridate,
+       viridis,
+       statar,
+       readxl,
+       tinytex,
+       ggrepel,
+       ggalluvial,
+       survey, 
+       httr,
+       readr, 
+       ggplot2, 
+       labelled,
+       shadowtext,
+       lme4)
+```
+
+Cargamos la base de datos ELSOC 2016-2023 procesada en formato *long*.
+
+```{r datos-2,echo=FALSE}
+load(here::here("output/elsoc-minicoes.Rdata"))
+```
+
+
+## Brecha percibida
+
+```{r}
+data$ola <- factor(data$ola)
+```
+
+
+```{r results='asis'}
+reg1 <- lmer(brecha_perc~ola+(1|idencuesta), data=data)
+reg2 <- lmer(brecha_perc~ola+marcha+(1|idencuesta), data=data)
+reg3 <- lmer(brecha_perc~ola+marcha+class2+(1|idencuesta), data=data)
+reg4 <- lmer(brecha_perc~ola+marcha+class2+sexo+edad+(1|idencuesta), data=data)
+reg5 <- lmer(brecha_perc~ola*class2+marcha+sexo+edad+(1|idencuesta), data=data)
+reg6 <- lmer(brecha_perc~ola*marcha+class2+sexo+edad+(1|idencuesta), data=data)
+
+texreg::knitreg(list(reg1, reg2, reg3, reg4, reg5, reg6),
+                custom.model.names=rep(c("Brecha percibida"),6))
+```
+
+## Brecha justa
+
+```{r results='asis'}
+reg1 <- lmer(brecha_just~ola+(1|idencuesta), data=data)
+reg2 <- lmer(brecha_just~ola+marcha+(1|idencuesta), data=data)
+reg3 <- lmer(brecha_just~ola+marcha+class2+(1|idencuesta), data=data)
+reg4 <- lmer(brecha_just~ola+marcha+class2+sexo+edad+(1|idencuesta), data=data)
+reg5 <- lmer(brecha_just~ola*class2+marcha+sexo+edad+(1|idencuesta), data=data)
+reg6 <- lmer(brecha_just~ola*marcha+class2+sexo+edad+(1|idencuesta), data=data)
+
+texreg::knitreg(list(reg1, reg2, reg3, reg4, reg5, reg6),
+                custom.model.names=rep(c("Brecha justa"),6))
+```
+
+## Brecha gerente
+
+```{r results='asis'}
+reg1 <- lmer(brecha_gerente~ola+(1|idencuesta), data=data)
+reg2 <- lmer(brecha_gerente~ola+marcha+(1|idencuesta), data=data)
+reg3 <- lmer(brecha_gerente~ola+marcha+class2+(1|idencuesta), data=data)
+reg4 <- lmer(brecha_gerente~ola+marcha+class2+sexo+edad+(1|idencuesta), data=data)
+reg5 <- lmer(brecha_gerente~ola*class2+marcha+sexo+edad+(1|idencuesta), data=data)
+reg6 <- lmer(brecha_gerente~ola*marcha+class2+sexo+edad+(1|idencuesta), data=data)
+
+texreg::knitreg(list(reg1, reg2, reg3, reg4, reg5, reg6),
+                custom.model.names=rep(c("Brecha gerente"),6))
+```
+
+## Brecha obrero
+
+```{r results='asis'}
+reg1 <- lmer(brecha_obrero~ola+(1|idencuesta), data=data)
+reg2 <- lmer(brecha_obrero~ola+marcha+(1|idencuesta), data=data)
+reg3 <- lmer(brecha_obrero~ola+marcha+class2+(1|idencuesta), data=data)
+reg4 <- lmer(brecha_obrero~ola+marcha+class2+sexo+edad+(1|idencuesta), data=data)
+reg5 <- lmer(brecha_obrero~ola*class2+marcha+sexo+edad+(1|idencuesta), data=data)
+reg6 <- lmer(brecha_obrero~ola*marcha+class2+sexo+edad+(1|idencuesta), data=data)
+
+texreg::knitreg(list(reg1, reg2, reg3, reg4, reg5, reg6),
+                custom.model.names=rep(c("Brecha obrero"),6))
+```
+

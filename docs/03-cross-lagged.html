@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Mini-COES Huelgas - 3&nbsp; cross-lagged</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./02-regresiones.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-cross-lagged.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">cross-lagged</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Mini-COES Huelgas</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Presentación</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-exploracion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Exploración y Preparación de datos</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-regresiones.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Regresiones</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-cross-lagged.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">cross-lagged</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#recod-nas" id="toc-recod-nas" class="nav-link active" data-scroll-target="#recod-nas"><span class="header-section-number">3.1</span> Recod NA’s</a></li>
+  <li><a href="#estimar-brechas-salariales" id="toc-estimar-brechas-salariales" class="nav-link" data-scroll-target="#estimar-brechas-salariales"><span class="header-section-number">3.2</span> Estimar brechas salariales</a></li>
+  <li><a href="#long-to-wide" id="toc-long-to-wide" class="nav-link" data-scroll-target="#long-to-wide"><span class="header-section-number">3.3</span> Long to wide</a></li>
+  <li><a href="#select-variables" id="toc-select-variables" class="nav-link" data-scroll-target="#select-variables"><span class="header-section-number">3.4</span> Select variables</a>
+  <ul class="collapse">
+  <li><a href="#cleaning-workspace" id="toc-cleaning-workspace" class="nav-link" data-scroll-target="#cleaning-workspace"><span class="header-section-number">3.4.1</span> cleaning workspace</a></li>
+  </ul></li>
+  <li><a href="#descriptivos" id="toc-descriptivos" class="nav-link" data-scroll-target="#descriptivos"><span class="header-section-number">4</span> Descriptivos</a></li>
+  <li><a href="#componente-between" id="toc-componente-between" class="nav-link" data-scroll-target="#componente-between"><span class="header-section-number">5</span> Componente between</a></li>
+  <li><a href="#componente-within" id="toc-componente-within" class="nav-link" data-scroll-target="#componente-within"><span class="header-section-number">6</span> Componente within</a></li>
+  <li><a href="#efectos-lagged" id="toc-efectos-lagged" class="nav-link" data-scroll-target="#efectos-lagged"><span class="header-section-number">7</span> Efectos lagged</a></li>
+  <li><a href="#covarianzas" id="toc-covarianzas" class="nav-link" data-scroll-target="#covarianzas"><span class="header-section-number">8</span> Covarianzas</a></li>
+  <li><a href="#estimación" id="toc-estimación" class="nav-link" data-scroll-target="#estimación"><span class="header-section-number">9</span> Estimación</a></li>
+  <li><a href="#modelos-anidados" id="toc-modelos-anidados" class="nav-link" data-scroll-target="#modelos-anidados"><span class="header-section-number">10</span> Modelos anidados</a>
+  <ul class="collapse">
+  <li><a href="#volviendo-a-modelo-básico" id="toc-volviendo-a-modelo-básico" class="nav-link" data-scroll-target="#volviendo-a-modelo-básico"><span class="header-section-number">10.1</span> Volviendo a modelo básico</a></li>
+  <li><a href="#modelo-a-solo-paths-autorregresivos" id="toc-modelo-a-solo-paths-autorregresivos" class="nav-link" data-scroll-target="#modelo-a-solo-paths-autorregresivos"><span class="header-section-number">10.2</span> Modelo A (solo paths autorregresivos)</a></li>
+  <li><a href="#modelo-b-unidireccional-forward" id="toc-modelo-b-unidireccional-forward" class="nav-link" data-scroll-target="#modelo-b-unidireccional-forward"><span class="header-section-number">10.3</span> Modelo B: unidireccional (forward)</a></li>
+  <li><a href="#modelo-c-unidireccional-backward" id="toc-modelo-c-unidireccional-backward" class="nav-link" data-scroll-target="#modelo-c-unidireccional-backward"><span class="header-section-number">10.4</span> Modelo C: unidireccional (backward)</a></li>
+  <li><a href="#modelo-d-bidireccional" id="toc-modelo-d-bidireccional" class="nav-link" data-scroll-target="#modelo-d-bidireccional"><span class="header-section-number">10.5</span> Modelo D: bidireccional</a></li>
+  <li><a href="#estimación-1" id="toc-estimación-1" class="nav-link" data-scroll-target="#estimación-1"><span class="header-section-number">10.6</span> Estimación</a></li>
+  <li><a href="#bondad-de-ajuste" id="toc-bondad-de-ajuste" class="nav-link" data-scroll-target="#bondad-de-ajuste"><span class="header-section-number">10.7</span> Bondad de ajuste</a>
+  <ul class="collapse">
+  <li><a href="#create-function" id="toc-create-function" class="nav-link" data-scroll-target="#create-function"><span class="header-section-number">10.7.1</span> Create function</a></li>
+  </ul></li>
+  <li><a href="#comparación-de-modelos-para-testear-dirección-de-las-relaciones" id="toc-comparación-de-modelos-para-testear-dirección-de-las-relaciones" class="nav-link" data-scroll-target="#comparación-de-modelos-para-testear-dirección-de-las-relaciones"><span class="header-section-number">10.8</span> Comparación de modelos para testear dirección de las relaciones</a></li>
+  </ul></li>
+  <li><a href="#interpretación" id="toc-interpretación" class="nav-link" data-scroll-target="#interpretación"><span class="header-section-number">11</span> Interpretación</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">cross-lagged</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Cargamos la base de datos ELSOC 2016-2022 en formato <em>long</em>.</p>
+<section id="recod-nas" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="recod-nas"><span class="header-section-number">3.1</span> Recod NA’s</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>elsoc_long_2016_2022 <span class="ot">&lt;-</span> elsoc_long_2016_2022[, <span class="fu">lapply</span>(.SD, <span class="cf">function</span>(x) <span class="fu">replace</span>(x,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                                                 <span class="fu">which</span>(x <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">666</span>,<span class="sc">-</span><span class="dv">888</span>,<span class="sc">-</span><span class="dv">999</span>)), <span class="cn">NA</span>))]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="estimar-brechas-salariales" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="estimar-brechas-salariales"><span class="header-section-number">3.2</span> Estimar brechas salariales</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>elsoc_long_2016_2022 <span class="ot">&lt;-</span> elsoc_long_2016_2022 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(d03_01<span class="sc">&gt;</span><span class="dv">999</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>elsoc_long_2016_2022 <span class="ot">&lt;-</span> elsoc_long_2016_2022 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(d03_01<span class="sc">&lt;</span><span class="dv">100000000000000000000</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(elsoc_long_2016_2022<span class="sc">$</span>d03_01)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Min.              1st Qu.               Median 
+                5828              5000000             10000000 
+                Mean              3rd Qu.                 Max. 
+     882055854944404             20000000 10000000000000000000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>elsoc_long_2016_2022 <span class="ot">&lt;-</span> elsoc_long_2016_2022 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(d03_02<span class="sc">&gt;</span><span class="dv">999</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>elsoc_long_2016_2022<span class="sc">$</span>brecha_perc <span class="ot">&lt;-</span> <span class="fu">log</span>(elsoc_long_2016_2022<span class="sc">$</span>d03_01<span class="sc">/</span>elsoc_long_2016_2022<span class="sc">$</span>d03_02)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#elsoc_long_2016_2022 &lt;- elsoc_long_2016_2022 %&gt;% filter(brecha_perc&gt;=0)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(elsoc_long_2016_2022<span class="sc">$</span>d03_02)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 Min.               1st Qu.                Median 
+                 2500                270000                300000 
+                 Mean               3rd Qu.                  Max. 
+     8034064433543243                400000 100000000000000000000 </code></pre>
+</div>
+</div>
+</section>
+<section id="long-to-wide" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="long-to-wide"><span class="header-section-number">3.3</span> Long to wide</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>elsoc <span class="ot">&lt;-</span> <span class="fu">dcast</span>(elsoc_long_2016_2022, idencuesta<span class="sc">~</span>ola,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">value.var =</span> <span class="fu">c</span>(<span class="st">"brecha_perc"</span>, <span class="st">"c08_02"</span>, <span class="st">"m0_edad"</span>, <span class="st">"m0_sexo"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="select-variables" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="select-variables"><span class="header-section-number">3.4</span> Select variables</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>old <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"idencuesta"</span>, <span class="fu">paste0</span>(<span class="st">"brecha_perc_"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>), <span class="fu">paste0</span>(<span class="st">"c08_02_"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>),</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>         <span class="st">"m0_edad_1"</span>, <span class="st">"m0_sexo_1"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>new <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="fu">paste0</span>(<span class="st">"brecha_perc"</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>), <span class="fu">paste0</span>(<span class="st">"marchar"</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>),<span class="st">"edad"</span>, <span class="st">"sexo"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">setnames</span>(elsoc,old,new)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>elsoc <span class="ot">&lt;-</span> elsoc[, ..new]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="cleaning-workspace" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="cleaning-workspace"><span class="header-section-number">3.4.1</span> cleaning workspace</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>elsoc <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(elsoc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="descriptivos" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Descriptivos</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>summarytools<span class="sc">::</span><span class="fu">descr</span>(elsoc[<span class="sc">-</span><span class="dv">1</span>], <span class="at">order =</span> <span class="st">"p"</span>, <span class="at">stats=</span><span class="st">"common"</span>,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">transpose =</span> T, <span class="at">style =</span> <span class="st">"rmarkdown"</span>, <span class="at">headings=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+|           &amp;nbsp; |  Mean | Std.Dev |   Min | Median |   Max | N.Valid | Pct.Valid |
+|-----------------:|------:|--------:|------:|-------:|------:|--------:|----------:|
+| **brecha_perc1** |  3.90 |    1.63 | -5.52 |   3.76 | 31.32 | 2788.00 |     95.94 |
+| **brecha_perc2** |  3.38 |    1.26 | -1.20 |   3.33 |  9.90 | 2212.00 |     76.12 |
+| **brecha_perc3** |  3.29 |    1.13 | -1.16 |   3.28 |  7.94 | 2080.00 |     71.58 |
+| **brecha_perc4** |  3.67 |    1.16 | -2.01 |   3.62 |  8.22 | 2067.00 |     71.13 |
+| **brecha_perc5** |  3.22 |    1.15 | -1.61 |   3.22 |  7.60 | 1664.00 |     57.26 |
+| **brecha_perc6** |  3.16 |    1.06 |  0.18 |   3.13 |  7.31 | 1636.00 |     56.30 |
+|     **marchar1** |  1.32 |    0.79 |  1.00 |   1.00 |  5.00 | 2783.00 |     95.77 |
+|     **marchar2** |  1.23 |    0.66 |  1.00 |   1.00 |  5.00 | 2212.00 |     76.12 |
+|     **marchar3** |  1.19 |    0.60 |  1.00 |   1.00 |  5.00 | 2079.00 |     71.54 |
+|     **marchar4** |  1.51 |    1.00 |  1.00 |   1.00 |  5.00 | 2067.00 |     71.13 |
+|     **marchar5** |  1.20 |    0.64 |  1.00 |   1.00 |  5.00 | 1664.00 |     57.26 |
+|     **marchar6** |  1.20 |    0.64 |  1.00 |   1.00 |  5.00 | 1636.00 |     56.30 |
+|         **edad** | 45.79 |   15.17 | 18.00 |  46.00 | 88.00 | 2788.00 |     95.94 |
+|         **sexo** |  1.60 |    0.49 |  1.00 |   2.00 |  2.00 | 2788.00 |     95.94 |</code></pre>
+</div>
+</div>
+</section>
+<section id="componente-between" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Componente between</h1>
+<ul>
+<li><p>Fluctuaciones entre individuos</p></li>
+<li><p><strong>variables latentes</strong> con las medidas repetidas en t como indicadores. Cargas factoriales fijadas en 1</p></li>
+<li><p><strong>supuesto</strong>: Los interceptos aleatorios tienen igual influencia en cada ocasión</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>between <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="st"># crear los componentes between</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_x =~ 1*marchar1 + 1*marchar2 + 1*marchar3 + 1*marchar4 + 1*marchar5 + 1*marchar6</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_y =~ 1*brecha_perc1 + 1*brecha_perc2 + 1*brecha_perc3 + 1*brecha_perc4 + 1*brecha_perc5 + 1*brecha_perc6</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="st">  '</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="componente-within" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Componente within</h1>
+<ul>
+<li>Fluctuaciones intra-individuos</li>
+<li><strong>Variables latentes</strong> explicadas por sus respectivas medias observadas en cada ocasión. Cargas factoriales fijadas en 1</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>within <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="st"># Crear los componentes within</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="st">  cx1 =~ 1*marchar1</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="st">  cx2 =~ 1*marchar2</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="st">  cx3 =~ 1*marchar3</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="st">  cx4 =~ 1*marchar4</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="st">  cx5 =~ 1*marchar5</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="st">  cx6 =~ 1*marchar6</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="st">  cy1 =~ 1*brecha_perc1</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="st">  cy2 =~ 1*brecha_perc2</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="st">  cy3 =~ 1*brecha_perc3</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="st">  cy4 =~ 1*brecha_perc4</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="st">  cy5 =~ 1*brecha_perc5</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="st">  cy6 =~ 1*brecha_perc6</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="st"># Constreñir las varianzas del error de medicion a 0</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="st">  marchar1 ~~ 0*marchar1</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="st">  marchar2 ~~ 0*marchar2</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="st">  marchar3 ~~ 0*marchar3</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="st">  marchar4 ~~ 0*marchar4</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="st">  marchar5 ~~ 0*marchar5</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="st">  marchar6 ~~ 0*marchar6</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="st">  brecha_perc1 ~~ 0*brecha_perc1</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="st">  brecha_perc2 ~~ 0*brecha_perc2</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="st">  brecha_perc3 ~~ 0*brecha_perc3</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="st">  brecha_perc4 ~~ 0*brecha_perc4</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="st">  brecha_perc5 ~~ 0*brecha_perc5</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="st">  brecha_perc6 ~~ 0*brecha_perc6</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="st">  '</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="efectos-lagged" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Efectos lagged</h1>
+<ul>
+<li>Regresiones entre componentes within</li>
+<li>Efectos lagged autorregresivos y crosslagged</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>efectos <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="st"># Estimar los efectos lagged</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="st">  cx2 ~ cx1 + cy1</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="st">  cx3 ~ cx2 + cy2</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="st">  cx4 ~ cx3 + cy3</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="st">  cx5 ~ cx4 + cy4</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="st">  cx6 ~ cx5 + cy5</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="st">  cy2 ~ cx1 + cy1</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="st">  cy3 ~ cx2 + cy2</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="st">  cy4 ~ cx3 + cy3</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="st">  cy5 ~ cx4 + cy4</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="st">  cy6 ~ cx5 + cy5</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="st">  '</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="covarianzas" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Covarianzas</h1>
+<ul>
+<li>Covarianzas relevantes en los componentes between y within</li>
+<li>Los componentes within están correlacionados en cada <em>t</em>, tanto en la primera ola (exógena) como sus residuos desde la ola 2.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>covarianzas <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="st"># Covarianza entre los componentes within t=1</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="st">  cx1 ~~ cy1</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="st"># Covarianzas entre los residuos componente within</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="st">  cx2 ~~ cy2</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="st">  cx3 ~~ cy3</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="st">  cx4 ~~ cy4</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="st">  cx5 ~~ cy5</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="st">  cx6 ~~ cy6</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="st"># Covarianzas entre los residuos componentes between</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="st">  cx1 ~~ cx1</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="st">  cy1 ~~ cy1</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="st">  cx2 ~~ cx2</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="st">  cy2 ~~ cy2</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="st">  cx3 ~~ cx3</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="st">  cy3 ~~ cy3</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="st">  cx4 ~~ cx4</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="st">  cy4 ~~ cy4</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="st">  cx5 ~~ cx5</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="st">  cy5 ~~ cy5</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="st">  cx6 ~~ cx6</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="st">  cy6 ~~ cy6</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="st"># Varianza y covarianza entre RI</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_x ~~ RI_x</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_y ~~ RI_y</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_x ~~ RI_y</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a><span class="st"># Correlacion entre los RI y componentes within t=1</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_x ~~ 0*cx1</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_x ~~ 0*cy1</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_y ~~ 0*cx1</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_y ~~ 0*cy1</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a><span class="st">  '</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="estimación" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Estimación</h1>
+<ul>
+<li><p>Estimator = “MLR” es: estimación de maximum likelihood con errores estándar robustos (Huber-White) y estadísticos de prueba escalados (equivalentes a los estadísticos de prueba de Yuan-Betler) –&gt; En el fondo replica lo que hace Mplus</p></li>
+<li><p>Missing = “FIML” es: Si los datos son MCAR (missing completely at random) o MAR (missing at random), podemos estimar caso a caso usando <strong>full information maximum likelihood</strong> para lidiar con los casos perdidos</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fit_lavaan <span class="ot">&lt;-</span> <span class="fu">lavaan</span>(<span class="fu">c</span>(between, within, efectos, covarianzas), <span class="at">data=</span>elsoc,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">estimator =</span> <span class="st">"MLR"</span>, <span class="at">missing =</span> <span class="st">"FIML"</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">meanstructure =</span> <span class="cn">TRUE</span>, <span class="at">int.ov.free=</span><span class="cn">TRUE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_lavaan, <span class="at">fit.measures=</span><span class="cn">TRUE</span>, <span class="at">ci=</span><span class="cn">TRUE</span>, <span class="at">standardized=</span><span class="cn">TRUE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6-19 ended normally after 49 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        53
+
+  Number of observations                          2906
+  Number of missing patterns                        59
+
+Model Test User Model:
+                                              Standard      Scaled
+  Test Statistic                               245.650     160.066
+  Degrees of freedom                                37          37
+  P-value (Chi-square)                           0.000       0.000
+  Scaling correction factor                                  1.535
+    Yuan-Bentler correction (Mplus variant)                       
+
+Model Test Baseline Model:
+
+  Test statistic                              4197.728    2682.141
+  Degrees of freedom                                66          66
+  P-value                                        0.000       0.000
+  Scaling correction factor                                  1.565
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.950       0.953
+  Tucker-Lewis Index (TLI)                       0.910       0.916
+                                                                  
+  Robust Comparative Fit Index (CFI)                         0.953
+  Robust Tucker-Lewis Index (TLI)                            0.916
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -31984.193  -31984.193
+  Scaling correction factor                                  2.236
+      for the MLR correction                                      
+  Loglikelihood unrestricted model (H1)     -31861.369  -31861.369
+  Scaling correction factor                                  1.948
+      for the MLR correction                                      
+                                                                  
+  Akaike (AIC)                               64074.387   64074.387
+  Bayesian (BIC)                             64391.037   64391.037
+  Sample-size adjusted Bayesian (SABIC)      64222.637   64222.637
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.044       0.034
+  90 Percent confidence interval - lower         0.039       0.030
+  90 Percent confidence interval - upper         0.049       0.038
+  P-value H_0: RMSEA &lt;= 0.050                    0.968       1.000
+  P-value H_0: RMSEA &gt;= 0.080                    0.000       0.000
+                                                                  
+  Robust RMSEA                                               0.054
+  90 Percent confidence interval - lower                     0.045
+  90 Percent confidence interval - upper                     0.063
+  P-value H_0: Robust RMSEA &lt;= 0.050                         0.227
+  P-value H_0: Robust RMSEA &gt;= 0.080                         0.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.044       0.044
+
+Parameter Estimates:
+
+  Standard errors                             Sandwich
+  Information bread                           Observed
+  Observed information based on                Hessian
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
+  RI_x =~                                                               
+    marchar1          1.000                               1.000    1.000
+    marchar2          1.000                               1.000    1.000
+    marchar3          1.000                               1.000    1.000
+    marchar4          1.000                               1.000    1.000
+    marchar5          1.000                               1.000    1.000
+    marchar6          1.000                               1.000    1.000
+  RI_y =~                                                               
+    brecha_perc1      1.000                               1.000    1.000
+    brecha_perc2      1.000                               1.000    1.000
+    brecha_perc3      1.000                               1.000    1.000
+    brecha_perc4      1.000                               1.000    1.000
+    brecha_perc5      1.000                               1.000    1.000
+    brecha_perc6      1.000                               1.000    1.000
+  cx1 =~                                                                
+    marchar1          1.000                               1.000    1.000
+  cx2 =~                                                                
+    marchar2          1.000                               1.000    1.000
+  cx3 =~                                                                
+    marchar3          1.000                               1.000    1.000
+  cx4 =~                                                                
+    marchar4          1.000                               1.000    1.000
+  cx5 =~                                                                
+    marchar5          1.000                               1.000    1.000
+  cx6 =~                                                                
+    marchar6          1.000                               1.000    1.000
+  cy1 =~                                                                
+    brecha_perc1      1.000                               1.000    1.000
+  cy2 =~                                                                
+    brecha_perc2      1.000                               1.000    1.000
+  cy3 =~                                                                
+    brecha_perc3      1.000                               1.000    1.000
+  cy4 =~                                                                
+    brecha_perc4      1.000                               1.000    1.000
+  cy5 =~                                                                
+    brecha_perc5      1.000                               1.000    1.000
+  cy6 =~                                                                
+    brecha_perc6      1.000                               1.000    1.000
+   Std.lv  Std.all
+                  
+    0.377    0.488
+    0.377    0.576
+    0.377    0.619
+    0.377    0.399
+    0.377    0.573
+    0.377    0.588
+                  
+    0.634    0.389
+    0.634    0.504
+    0.634    0.566
+    0.634    0.538
+    0.634    0.561
+    0.634    0.592
+                  
+    0.676    0.873
+                  
+    0.535    0.817
+                  
+    0.479    0.786
+                  
+    0.867    0.917
+                  
+    0.540    0.820
+                  
+    0.518    0.809
+                  
+    1.502    0.921
+                  
+    1.089    0.864
+                  
+    0.924    0.824
+                  
+    0.993    0.843
+                  
+    0.937    0.828
+                  
+    0.864    0.806
+
+Regressions:
+                   Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
+  cx2 ~                                                                 
+    cx1               0.167    0.039    4.285    0.000    0.091    0.244
+    cy1               0.003    0.009    0.345    0.730   -0.015    0.021
+  cx3 ~                                                                 
+    cx2               0.153    0.051    3.001    0.003    0.053    0.252
+    cy2              -0.000    0.013   -0.033    0.974   -0.026    0.025
+  cx4 ~                                                                 
+    cx3               0.232    0.081    2.849    0.004    0.072    0.391
+    cy3               0.034    0.028    1.193    0.233   -0.022    0.089
+  cx5 ~                                                                 
+    cx4               0.160    0.033    4.820    0.000    0.095    0.225
+    cy4               0.018    0.017    1.057    0.291   -0.015    0.050
+  cx6 ~                                                                 
+    cx5               0.079    0.063    1.245    0.213   -0.045    0.203
+    cy5               0.004    0.019    0.203    0.839   -0.034    0.042
+  cy2 ~                                                                 
+    cx1               0.064    0.043    1.470    0.141   -0.021    0.149
+    cy1               0.025    0.022    1.106    0.269   -0.019    0.069
+  cy3 ~                                                                 
+    cx2              -0.018    0.050   -0.352    0.725   -0.116    0.080
+    cy2               0.090    0.028    3.189    0.001    0.035    0.145
+  cy4 ~                                                                 
+    cx3              -0.053    0.066   -0.813    0.416   -0.182    0.075
+    cy3               0.033    0.037    0.874    0.382   -0.040    0.105
+  cy5 ~                                                                 
+    cx4               0.017    0.033    0.509    0.611   -0.048    0.082
+    cy4               0.105    0.037    2.799    0.005    0.031    0.178
+  cy6 ~                                                                 
+    cx5               0.018    0.060    0.306    0.760   -0.100    0.137
+    cy5               0.140    0.038    3.687    0.000    0.066    0.215
+   Std.lv  Std.all
+                  
+    0.211    0.211
+    0.009    0.009
+                  
+    0.170    0.170
+   -0.001   -0.001
+                  
+    0.128    0.128
+    0.036    0.036
+                  
+    0.257    0.257
+    0.032    0.032
+                  
+    0.082    0.082
+    0.007    0.007
+                  
+    0.040    0.040
+    0.034    0.034
+                  
+   -0.010   -0.010
+    0.106    0.106
+                  
+   -0.026   -0.026
+    0.030    0.030
+                  
+    0.016    0.016
+    0.111    0.111
+                  
+    0.012    0.012
+    0.152    0.152
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
+  cx1 ~~                                                                
+    cy1               0.041    0.022    1.828    0.068   -0.003    0.085
+ .cx2 ~~                                                                
+   .cy2               0.004    0.016    0.255    0.799   -0.028    0.036
+ .cx3 ~~                                                                
+   .cy3              -0.029    0.013   -2.259    0.024   -0.055   -0.004
+ .cx4 ~~                                                                
+   .cy4               0.017    0.022    0.748    0.455   -0.027    0.061
+ .cx5 ~~                                                                
+   .cy5               0.002    0.014    0.113    0.910   -0.026    0.029
+ .cx6 ~~                                                                
+   .cy6               0.004    0.014    0.289    0.772   -0.023    0.031
+  RI_x ~~                                                               
+    RI_y              0.055    0.010    5.737    0.000    0.037    0.074
+    cx1               0.000                               0.000    0.000
+    cy1               0.000                               0.000    0.000
+  RI_y ~~                                                               
+    cx1               0.000                               0.000    0.000
+    cy1               0.000                               0.000    0.000
+   Std.lv  Std.all
+                  
+    0.040    0.040
+                  
+    0.007    0.007
+                  
+   -0.068   -0.068
+                  
+    0.020    0.020
+                  
+    0.003    0.003
+                  
+    0.009    0.009
+                  
+    0.232    0.232
+    0.000    0.000
+    0.000    0.000
+                  
+    0.000    0.000
+    0.000    0.000
+
+Intercepts:
+                   Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
+   .marchar1          1.321    0.015   88.947    0.000    1.292    1.350
+   .marchar2          1.220    0.013   91.449    0.000    1.194    1.246
+   .marchar3          1.190    0.013   94.135    0.000    1.166    1.215
+   .marchar4          1.507    0.021   70.706    0.000    1.465    1.549
+   .marchar5          1.185    0.014   84.469    0.000    1.158    1.213
+   .marchar6          1.193    0.015   79.439    0.000    1.164    1.223
+   .brecha_perc1      3.895    0.031  126.445    0.000    3.834    3.955
+   .brecha_perc2      3.361    0.026  127.788    0.000    3.310    3.413
+   .brecha_perc3      3.283    0.024  135.607    0.000    3.235    3.330
+   .brecha_perc4      3.667    0.025  144.971    0.000    3.617    3.716
+   .brecha_perc5      3.202    0.027  119.316    0.000    3.150    3.255
+   .brecha_perc6      3.153    0.025  124.504    0.000    3.104    3.203
+   Std.lv  Std.all
+    1.321    1.708
+    1.220    1.864
+    1.190    1.952
+    1.507    1.595
+    1.185    1.800
+    1.193    1.862
+    3.895    2.389
+    3.361    2.668
+    3.283    2.929
+    3.667    3.111
+    3.202    2.829
+    3.153    2.942
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|) ci.lower ci.upper
+   .marchar1          0.000                               0.000    0.000
+   .marchar2          0.000                               0.000    0.000
+   .marchar3          0.000                               0.000    0.000
+   .marchar4          0.000                               0.000    0.000
+   .marchar5          0.000                               0.000    0.000
+   .marchar6          0.000                               0.000    0.000
+   .brecha_perc1      0.000                               0.000    0.000
+   .brecha_perc2      0.000                               0.000    0.000
+   .brecha_perc3      0.000                               0.000    0.000
+   .brecha_perc4      0.000                               0.000    0.000
+   .brecha_perc5      0.000                               0.000    0.000
+   .brecha_perc6      0.000                               0.000    0.000
+    cx1               0.456    0.030   15.370    0.000    0.398    0.515
+    cy1               2.256    0.287    7.871    0.000    1.694    2.818
+   .cx2               0.273    0.022   12.432    0.000    0.230    0.316
+   .cy2               1.181    0.057   20.810    0.000    1.070    1.293
+   .cx3               0.223    0.022   10.201    0.000    0.180    0.266
+   .cy3               0.844    0.043   19.731    0.000    0.760    0.928
+   .cx4               0.738    0.038   19.265    0.000    0.663    0.813
+   .cy4               0.985    0.051   19.161    0.000    0.884    1.086
+   .cx5               0.272    0.025   10.719    0.000    0.222    0.321
+   .cy5               0.867    0.050   17.457    0.000    0.770    0.965
+   .cx6               0.267    0.028    9.649    0.000    0.213    0.321
+   .cy6               0.729    0.038   19.439    0.000    0.656    0.803
+    RI_x              0.142    0.017    8.483    0.000    0.109    0.175
+    RI_y              0.403    0.023   17.867    0.000    0.358    0.447
+   Std.lv  Std.all
+    0.000    0.000
+    0.000    0.000
+    0.000    0.000
+    0.000    0.000
+    0.000    0.000
+    0.000    0.000
+    0.000    0.000
+    0.000    0.000
+    0.000    0.000
+    0.000    0.000
+    0.000    0.000
+    0.000    0.000
+    1.000    1.000
+    1.000    1.000
+    0.955    0.955
+    0.997    0.997
+    0.971    0.971
+    0.989    0.989
+    0.983    0.983
+    0.998    0.998
+    0.933    0.933
+    0.987    0.987
+    0.993    0.993
+    0.977    0.977
+    1.000    1.000
+    1.000    1.000</code></pre>
+</div>
+</div>
+</section>
+<section id="modelos-anidados" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Modelos anidados</h1>
+<p>La estimación usualmente sigue una estrategia de <strong>modelos anidados</strong> entre los cuales se compara su bondad de ajuste.</p>
+<p>Para testear las hipótesis en torno a la <strong>direccionalidad</strong> de las relaciones estimamos:</p>
+<ul>
+<li><strong>Modelo A</strong>: solo paths autorregresivos</li>
+<li><strong>Modelo B</strong>: paths autorregresivos + cross-lagged (forward)</li>
+<li><strong>Modelo C</strong>: paths autorregresivos + cross-lagged (backward)</li>
+<li><strong>Modelo D</strong>: bidireccional, paths autorregresivos + cross-lagged</li>
+</ul>
+<p>Para testear la <strong>estabilidad</strong> de los efectos entre los constructos en el tiempo, adicionalmente, comparamos dos versiones de cada uno de estos modelos: una versión estimada libremente (1) y una versión constriñendo en el tiempo (2).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>efectos2 <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="st"># Estimar los efectos lagged (constreñidos en el tiempo)</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="st">  cx2 ~ a*cx1 + d*cy1</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="st">  cx3 ~ a*cx2 + d*cy2</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="st">  cx4 ~ a*cx3 + d*cy3</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="st">  cx5 ~ a*cx4 + d*cy4</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="st">  cx6 ~ a*cx5 + d*cy5</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="st">  cy2 ~ a*cx1 + d*cy1</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="st">  cy3 ~ a*cx2 + d*cy2</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="st">  cy4 ~ a*cx3 + d*cy3</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="st">  cy5 ~ a*cx4 + d*cy4</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="st">  cy6 ~ a*cx5 + d*cy5</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="st">  '</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="volviendo-a-modelo-básico" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="volviendo-a-modelo-básico"><span class="header-section-number">10.1</span> Volviendo a modelo básico</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>bwcomp <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="st"># crear los componentes between</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_x =~ 1*marchar1 + 1*marchar2 + 1*marchar3 + 1*marchar4 + 1*marchar5 + 1*marchar6</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_y =~ 1*brecha_perc1 + 1*brecha_perc2 + 1*brecha_perc3 + 1*brecha_perc4 + 1*brecha_perc5 + 1*brecha_perc6</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="st"># Crear los componentes within</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="st">  cx1 =~ 1*marchar1</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="st">  cx2 =~ 1*marchar2</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="st">  cx3 =~ 1*marchar3</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="st">  cx4 =~ 1*marchar4</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="st">  cx5 =~ 1*marchar5</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="st">  cx6 =~ 1*marchar6</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="st">  cy1 =~ 1*brecha_perc1</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="st">  cy2 =~ 1*brecha_perc2</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="st">  cy3 =~ 1*brecha_perc3</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="st">  cy4 =~ 1*brecha_perc4</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="st">  cy5 =~ 1*brecha_perc5</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="st">  cy6 =~ 1*brecha_perc6</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="st"># Constreñir las varianzas del error de medicion a 0</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="st">  marchar1 ~~ 0*marchar1</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="st">  marchar2 ~~ 0*marchar2</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="st">  marchar3 ~~ 0*marchar3</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="st">  marchar4 ~~ 0*marchar4</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="st">  marchar5 ~~ 0*marchar5</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="st">  marchar6 ~~ 0*marchar6</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="st">  brecha_perc1 ~~ 0*brecha_perc1</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="st">  brecha_perc2 ~~ 0*brecha_perc2</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="st">  brecha_perc3 ~~ 0*brecha_perc3</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="st">  brecha_perc4 ~~ 0*brecha_perc4</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="st">  brecha_perc5 ~~ 0*brecha_perc5</span></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a><span class="st">  brecha_perc6 ~~ 0*brecha_perc6</span></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="st">  '</span></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>varcov <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a><span class="st"># Covarianza entre los componentes within t=1</span></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a><span class="st">  cx1 ~~ cy1</span></span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a><span class="st"># Covarianzas entre los residuos componente within</span></span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a><span class="st">  cx2 ~~ cy2</span></span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a><span class="st">  cx3 ~~ cy3</span></span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a><span class="st">  cx4 ~~ cy4</span></span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a><span class="st">  cx5 ~~ cy5</span></span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a><span class="st">  cx6 ~~ cy6</span></span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a><span class="st"># Covarianzas entre los residuos componentes between</span></span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a><span class="st">  cx1 ~~ cx1</span></span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a><span class="st">  cy1 ~~ cy1</span></span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a><span class="st">  cx2 ~~ cx2</span></span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a><span class="st">  cy2 ~~ cy2</span></span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a><span class="st">  cx3 ~~ cx3</span></span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a><span class="st">  cy3 ~~ cy3</span></span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a><span class="st">  cx4 ~~ cx4</span></span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a><span class="st">  cy4 ~~ cy4</span></span>
+<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a><span class="st">  cx5 ~~ cx5</span></span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a><span class="st">  cy5 ~~ cy5</span></span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a><span class="st">  cx6 ~~ cx6</span></span>
+<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a><span class="st">  cy6 ~~ cy6</span></span>
+<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a><span class="st"># Varianza y covarianza entre RI</span></span>
+<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_x ~~ RI_x</span></span>
+<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_y ~~ RI_y</span></span>
+<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_x ~~ RI_y</span></span>
+<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a><span class="st"># Correlacion entre los RI y componentes within t=1</span></span>
+<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_x ~~ 0*cx1</span></span>
+<span id="cb19-67"><a href="#cb19-67" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_x ~~ 0*cy1</span></span>
+<span id="cb19-68"><a href="#cb19-68" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_y ~~ 0*cx1</span></span>
+<span id="cb19-69"><a href="#cb19-69" aria-hidden="true" tabindex="-1"></a><span class="st">  RI_y ~~ 0*cy1</span></span>
+<span id="cb19-70"><a href="#cb19-70" aria-hidden="true" tabindex="-1"></a><span class="st">  '</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="modelo-a-solo-paths-autorregresivos" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="modelo-a-solo-paths-autorregresivos"><span class="header-section-number">10.2</span> Modelo A (solo paths autorregresivos)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>a1 <span class="ot">&lt;-</span> <span class="st">' #Sin constreñir</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="st">  cx2 ~ cx1</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="st">  cx3 ~ cx2</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="st">  cx4 ~ cx3</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="st">  cx5 ~ cx4</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="st">  cx6 ~ cx5</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="st">  cy2 ~ cy1</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="st">  cy3 ~ cy2</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="st">  cy4 ~ cy3</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="st">  cy5 ~ cy4</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="st">  cy6 ~ cy5</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="st">  '</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>a2 <span class="ot">&lt;-</span> <span class="st">' #Constreñido</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="st">  cx2 ~ a*cx1</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="st">  cx3 ~ a*cx2</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="st">  cx4 ~ a*cx3</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="st">  cx5 ~ a*cx4</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="st">  cx6 ~ a*cx5</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="st">  cy2 ~ d*cy1</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="st">  cy3 ~ d*cy2</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="st">  cy4 ~ d*cy3</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="st">  cy5 ~ d*cy4</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="st">  cy6 ~ d*cy5</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="st">  '</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="modelo-b-unidireccional-forward" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="modelo-b-unidireccional-forward"><span class="header-section-number">10.3</span> Modelo B: unidireccional (forward)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> <span class="st">' #Sin constreñir</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="st">  cx2 ~ cx1</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="st">  cx3 ~ cx2</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="st">  cx4 ~ cx3</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="st">  cx5 ~ cx4</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="st">  cx6 ~ cx5</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="st">  cy2 ~ cx1 + cy1</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="st">  cy3 ~ cx2 + cy2</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="st">  cy4 ~ cx3 + cy3</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="st">  cy5 ~ cx4 + cy4</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="st">  cy6 ~ cx5 + cy5</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="st">  '</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>b2 <span class="ot">&lt;-</span> <span class="st">' #Constreñido</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="st">  cx2 ~ a*cx1</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="st">  cx3 ~ a*cx2</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="st">  cx4 ~ a*cx3</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="st">  cx5 ~ a*cx4</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="st">  cx6 ~ a*cx5</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="st">  cy2 ~ c*cx1 + d*cy1</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="st">  cy3 ~ c*cx2 + d*cy2</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="st">  cy4 ~ c*cx3 + d*cy3</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="st">  cy5 ~ c*cx4 + d*cy4</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="st">  cy6 ~ c*cx5 + d*cy5</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="st">  '</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="modelo-c-unidireccional-backward" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="modelo-c-unidireccional-backward"><span class="header-section-number">10.4</span> Modelo C: unidireccional (backward)</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>c1 <span class="ot">&lt;-</span> <span class="st">' #Sin constreñir</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="st">  cx2 ~ cx1 + cy1</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="st">  cx3 ~ cx2 + cy2</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="st">  cx4 ~ cx3 + cy3</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="st">  cx5 ~ cx4 + cy4</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="st">  cx6 ~ cx5 + cy5</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="st">  cy2 ~ cy1</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="st">  cy3 ~ cy2</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="st">  cy4 ~ cy3</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="st">  cy5 ~ cy4</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="st">  cy6 ~ cy5</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="st">  '</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>c2 <span class="ot">&lt;-</span> <span class="st">' #Constreñido</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="st">  cx2 ~ a*cx1 + b*cy1</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="st">  cx3 ~ a*cx2 + b*cy2</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="st">  cx4 ~ a*cx3 + b*cy3</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="st">  cx5 ~ a*cx4 + b*cy4</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="st">  cx6 ~ a*cx5 + b*cy5</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="st">  cy2 ~ d*cy1</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="st">  cy3 ~ d*cy2</span></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a><span class="st">  cy4 ~ d*cy3</span></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="st">  cy5 ~ d*cy4</span></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="st">  cy6 ~ d*cy5</span></span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a><span class="st">  '</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="modelo-d-bidireccional" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="modelo-d-bidireccional"><span class="header-section-number">10.5</span> Modelo D: bidireccional</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="st">' #Sin constreñir</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="st">  cx2 ~ cx1 + cy1</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="st">  cx3 ~ cx2 + cy2</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="st">  cx4 ~ cx3 + cy3</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="st">  cx5 ~ cx4 + cy4</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="st">  cx6 ~ cx5 + cy5</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="st">  cy2 ~ cx1 + cy1</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="st">  cy3 ~ cx2 + cy2</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="st">  cy4 ~ cx3 + cy3</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="st">  cy5 ~ cx4 + cy4</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="st">  cy6 ~ cx5 + cy5</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="st">  '</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="st">' #Constreñido</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="st">  cx2 ~ a*cx1 + b*cy1</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="st">  cx3 ~ a*cx2 + b*cy2</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a><span class="st">  cx4 ~ a*cx3 + b*cy3</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="st">  cx5 ~ a*cx4 + b*cy4</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="st">  cx6 ~ a*cx5 + b*cy5</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="st">  cy2 ~ c*cx1 + d*cy1</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="st">  cy3 ~ c*cx2 + d*cy2</span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="st">  cy4 ~ c*cx3 + d*cy3</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="st">  cy5 ~ c*cx4 + d*cy4</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="st">  cy6 ~ c*cx5 + d*cy5</span></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a><span class="st">  '</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="estimación-1" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="estimación-1"><span class="header-section-number">10.6</span> Estimación</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a1"</span>, <span class="st">"a2"</span>, <span class="st">"b1"</span>, <span class="st">"b2"</span>, <span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"d1"</span>, <span class="st">"d2"</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> models){</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  fit[[i]] <span class="ot">&lt;-</span> <span class="fu">lavaan</span>(<span class="at">model =</span> <span class="fu">c</span>(bwcomp, <span class="fu">get</span>(i),varcov),</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data=</span>elsoc,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">estimator=</span><span class="st">"MLR"</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">missing=</span><span class="st">"FIML"</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">meanstructure=</span><span class="cn">TRUE</span>,</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">int.ov.free=</span><span class="cn">TRUE</span>)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="bondad-de-ajuste" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="bondad-de-ajuste"><span class="header-section-number">10.7</span> Bondad de ajuste</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>gofdt <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">names</span>(fit)){</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">fitMeasures</span>(fit[[i]])[<span class="fu">c</span>(<span class="st">"chisq.scaled"</span>, <span class="st">"df.scaled"</span>,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"pvalue.scaled"</span>, <span class="st">"cfi.scaled"</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"tli.scaled"</span>, <span class="st">"rmsea.scaled"</span>,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"srmr_mplus"</span>, <span class="st">"aic"</span>,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"bic"</span>, <span class="st">"bic2"</span>,</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"logl"</span>, <span class="st">"npar"</span>,</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"scaling.factor.h0"</span>)]</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  gofdt[[i]] <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">as.numeric</span>(x),</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">c</span>(<span class="st">"X2"</span>, <span class="st">"df"</span>,</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"pvalue"</span>, <span class="st">"CFI"</span>,</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"TLI"</span>, <span class="st">"RMSEA"</span>,</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"SRMR"</span>, <span class="st">"AIC"</span>,</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"BIC"</span>, <span class="st">"aBIC"</span>,</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"LL"</span>, <span class="st">"par"</span>,</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"LLcorrectf"</span>))</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>gofdt <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">m=</span><span class="fu">names</span>(gofdt), dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(gofdt))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>kableExtra<span class="sc">::</span><span class="fu">kable</span>(gofdt, <span class="at">digits=</span><span class="dv">2</span>,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">format=</span><span class="st">"html"</span>, <span class="at">table.attr=</span><span class="st">"style='font-size: 25px;'"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">m</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">X2</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">df</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">pvalue</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">CFI</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">TLI</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">RMSEA</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SRMR</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">AIC</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">BIC</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">aBIC</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">LL</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">par</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">LLcorrectf</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">a1</td>
+<td style="text-align: right;">175.70</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.93</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">64061.25</td>
+<td style="text-align: right;">64318.16</td>
+<td style="text-align: right;">64181.53</td>
+<td style="text-align: right;">-31987.63</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">2.51</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">a2</td>
+<td style="text-align: right;">178.26</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">64068.61</td>
+<td style="text-align: right;">64277.72</td>
+<td style="text-align: right;">64166.51</td>
+<td style="text-align: right;">-31999.31</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">2.10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">b1</td>
+<td style="text-align: right;">167.81</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">64067.30</td>
+<td style="text-align: right;">64354.08</td>
+<td style="text-align: right;">64201.56</td>
+<td style="text-align: right;">-31985.65</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">2.36</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">b2</td>
+<td style="text-align: right;">177.05</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">64070.55</td>
+<td style="text-align: right;">64285.63</td>
+<td style="text-align: right;">64171.25</td>
+<td style="text-align: right;">-31999.27</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">1.90</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">c1</td>
+<td style="text-align: right;">168.40</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">64068.11</td>
+<td style="text-align: right;">64354.89</td>
+<td style="text-align: right;">64202.37</td>
+<td style="text-align: right;">-31986.06</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">2.36</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">c2</td>
+<td style="text-align: right;">176.40</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">64069.60</td>
+<td style="text-align: right;">64284.68</td>
+<td style="text-align: right;">64170.30</td>
+<td style="text-align: right;">-31998.80</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">1.90</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">d1</td>
+<td style="text-align: right;">160.07</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">64074.39</td>
+<td style="text-align: right;">64391.04</td>
+<td style="text-align: right;">64222.64</td>
+<td style="text-align: right;">-31984.19</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">2.24</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">d2</td>
+<td style="text-align: right;">175.12</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">64071.36</td>
+<td style="text-align: right;">64292.41</td>
+<td style="text-align: right;">64174.85</td>
+<td style="text-align: right;">-31998.68</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">1.74</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<section id="create-function" class="level3" data-number="10.7.1">
+<h3 data-number="10.7.1" class="anchored" data-anchor-id="create-function"><span class="header-section-number">10.7.1</span> Create function</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>gof.comp  <span class="ot">=</span> <span class="cf">function</span>(data,</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                     pairs,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">measures =</span> <span class="fu">c</span>(<span class="st">"CFI"</span>, <span class="st">"TLI"</span>, <span class="st">"RMSEA"</span>, <span class="st">"SRMR"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="st">"AIC"</span>, <span class="st">"BIC"</span>, <span class="st">"aBIC"</span>, <span class="st">"par"</span>, <span class="st">"LL"</span>)) {</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  comp <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(pairs)) {</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    gof <span class="ot">&lt;-</span> data</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    nest <span class="ot">&lt;-</span> pairs[[i]][<span class="dv">1</span>]</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    full <span class="ot">&lt;-</span> pairs[[i]][<span class="dv">2</span>]</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    delta <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (k <span class="cf">in</span> measures) {</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>      delta[<span class="fu">paste0</span>(k, <span class="st">"_D"</span>)] <span class="ot">&lt;-</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>        gof[m <span class="sc">==</span> nest, <span class="fu">get</span>(k)] <span class="sc">-</span> gof[m <span class="sc">==</span> full, <span class="fu">get</span>(k)]</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>    par_LLcorf_nest <span class="ot">&lt;-</span> gof[m <span class="sc">==</span> nest, par] <span class="sc">*</span> gof[m <span class="sc">==</span> nest, LLcorrectf]</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>    par_LLcorf_full <span class="ot">&lt;-</span> gof[m <span class="sc">==</span> full, par] <span class="sc">*</span> gof[m <span class="sc">==</span> full, LLcorrectf]</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    delta[<span class="st">"CD"</span>] <span class="ot">&lt;-</span> (par_LLcorf_nest <span class="sc">-</span> par_LLcorf_full) <span class="sc">/</span> delta[<span class="st">"par_D"</span>]</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    delta[<span class="st">"TRd"</span>] <span class="ot">&lt;-</span> (<span class="sc">-</span><span class="dv">2</span> <span class="sc">*</span> delta[<span class="st">"LL_D"</span>]) <span class="sc">/</span> delta[<span class="st">"CD"</span>]</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>    delta[<span class="st">"TRd_df"</span>] <span class="ot">&lt;-</span> gof[m <span class="sc">==</span> full, <span class="st">"par"</span>] <span class="sc">-</span> gof[m <span class="sc">==</span> nest, <span class="st">"par"</span>]</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>    delta[<span class="st">"TRd_pvalue"</span>] <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(<span class="fu">as.numeric</span>(delta[<span class="st">"TRd"</span>]),</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>                                  <span class="fu">as.numeric</span>(delta[<span class="st">"TRd_df"</span>]), <span class="at">lower.tail =</span> F)</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>    comp[[<span class="fu">paste0</span>(nest, <span class="st">" vs. "</span>, full, <span class="at">sep =</span> <span class="st">""</span>)]] <span class="ot">&lt;-</span> delta</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>  comp <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">comp =</span> <span class="fu">names</span>(comp), dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(comp))</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(comp)</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>comp1 <span class="ot">&lt;-</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gof.comp</span>(<span class="at">data =</span> gofdt, <span class="at">pairs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">"a2"</span>, <span class="st">"a1"</span>), <span class="fu">c</span>(<span class="st">"b2"</span>, <span class="st">"b1"</span>), <span class="fu">c</span>(<span class="st">"c2"</span>, <span class="st">"c1"</span>), <span class="fu">c</span>(<span class="st">"d2"</span>, <span class="st">"d1"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para muestras mayores a 300 casos, se recomienda que:</p>
+<ul>
+<li>CFI &lt; 0.02</li>
+<li>RMSEA &lt; 0.03</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>kableExtra<span class="sc">::</span><span class="fu">kable</span>(comp1, <span class="at">digits=</span><span class="dv">3</span>,</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">format=</span><span class="st">"html"</span>, <span class="at">table.attr=</span><span class="st">"style='font-size: 18px;'"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">comp</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">CFI_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">TLI_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">RMSEA_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SRMR_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">AIC_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">BIC_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">aBIC_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">par_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">LL_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">CD</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">TRd</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">TRd_df</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">TRd_pvalue</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">a2 vs. a1</td>
+<td style="text-align: right;">0.002</td>
+<td style="text-align: right;">0.013</td>
+<td style="text-align: right;">-0.003</td>
+<td style="text-align: right;">0.004</td>
+<td style="text-align: right;">7.358</td>
+<td style="text-align: right;">-40.438</td>
+<td style="text-align: right;">-15.019</td>
+<td style="text-align: right;">-8</td>
+<td style="text-align: right;">-11.679</td>
+<td style="text-align: right;">4.294</td>
+<td style="text-align: right;">5.440</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.710</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">b2 vs. b1</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">0.018</td>
+<td style="text-align: right;">-0.004</td>
+<td style="text-align: right;">0.004</td>
+<td style="text-align: right;">3.248</td>
+<td style="text-align: right;">-68.446</td>
+<td style="text-align: right;">-30.318</td>
+<td style="text-align: right;">-12</td>
+<td style="text-align: right;">-13.624</td>
+<td style="text-align: right;">3.725</td>
+<td style="text-align: right;">7.314</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0.836</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">c2 vs. c1</td>
+<td style="text-align: right;">0.002</td>
+<td style="text-align: right;">0.019</td>
+<td style="text-align: right;">-0.004</td>
+<td style="text-align: right;">0.004</td>
+<td style="text-align: right;">1.490</td>
+<td style="text-align: right;">-70.205</td>
+<td style="text-align: right;">-32.076</td>
+<td style="text-align: right;">-12</td>
+<td style="text-align: right;">-12.745</td>
+<td style="text-align: right;">3.728</td>
+<td style="text-align: right;">6.837</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0.868</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">d2 vs. d1</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.026</td>
+<td style="text-align: right;">-0.006</td>
+<td style="text-align: right;">0.004</td>
+<td style="text-align: right;">-3.031</td>
+<td style="text-align: right;">-98.623</td>
+<td style="text-align: right;">-47.785</td>
+<td style="text-align: right;">-16</td>
+<td style="text-align: right;">-14.485</td>
+<td style="text-align: right;">3.385</td>
+<td style="text-align: right;">8.558</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0.931</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>Interpretación: se cumplen criterios CFI y RMSEA, por lo que podemos quedarnos con los modelos constreñidos</p>
+</section>
+</section>
+<section id="comparación-de-modelos-para-testear-dirección-de-las-relaciones" class="level2" data-number="10.8">
+<h2 data-number="10.8" class="anchored" data-anchor-id="comparación-de-modelos-para-testear-dirección-de-las-relaciones"><span class="header-section-number">10.8</span> Comparación de modelos para testear dirección de las relaciones</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>comp2 <span class="ot">&lt;-</span> <span class="fu">gof.comp</span>(<span class="at">data=</span>gofdt,</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">pairs =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">"a2"</span>,<span class="st">"b2"</span>), <span class="fu">c</span>(<span class="st">"a2"</span>, <span class="st">"c2"</span>), <span class="fu">c</span>(<span class="st">"a2"</span>, <span class="st">"d2"</span>),</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">c</span>(<span class="st">"b2"</span>,<span class="st">"d2"</span>), <span class="fu">c</span>(<span class="st">"c2"</span>, <span class="st">"d2"</span>))) </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>kableExtra<span class="sc">::</span><span class="fu">kable</span>(comp2, <span class="at">digits=</span><span class="dv">3</span>,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">format=</span><span class="st">"html"</span>, <span class="at">table.attr=</span><span class="st">"style='font-size: 18px;'"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">comp</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">CFI_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">TLI_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">RMSEA_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SRMR_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">AIC_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">BIC_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">aBIC_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">par_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">LL_D</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">CD</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">TRd</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">TRd_df</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">TRd_pvalue</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">a2 vs. b2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-1.935</td>
+<td style="text-align: right;">-7.909</td>
+<td style="text-align: right;">-4.732</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">-0.033</td>
+<td style="text-align: right;">-5.021</td>
+<td style="text-align: right;">-0.013</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">a2 vs. c2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-0.988</td>
+<td style="text-align: right;">-6.963</td>
+<td style="text-align: right;">-3.785</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">-0.506</td>
+<td style="text-align: right;">-5.036</td>
+<td style="text-align: right;">-0.201</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">a2 vs. d2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.002</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-2.744</td>
+<td style="text-align: right;">-14.693</td>
+<td style="text-align: right;">-8.338</td>
+<td style="text-align: right;">-2</td>
+<td style="text-align: right;">-0.628</td>
+<td style="text-align: right;">-4.525</td>
+<td style="text-align: right;">-0.278</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">b2 vs. d2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-0.809</td>
+<td style="text-align: right;">-6.784</td>
+<td style="text-align: right;">-3.606</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">-0.595</td>
+<td style="text-align: right;">-4.030</td>
+<td style="text-align: right;">-0.296</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">c2 vs. d2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">-1.756</td>
+<td style="text-align: right;">-7.730</td>
+<td style="text-align: right;">-4.553</td>
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">-0.122</td>
+<td style="text-align: right;">-4.014</td>
+<td style="text-align: right;">-0.061</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>Nuevamente los valores dan cuenta de que no hay un empeoramiento al agregar parámetros, por lo que nos podemos quedar con el modelo más completo que es el d2</p>
+</section>
+</section>
+<section id="interpretación" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Interpretación</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parameterEstimates</span>(fit[[<span class="st">"d2"</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             lhs op          rhs label    est    se       z pvalue ci.lower
+1           RI_x =~     marchar1        1.000 0.000      NA     NA    1.000
+2           RI_x =~     marchar2        1.000 0.000      NA     NA    1.000
+3           RI_x =~     marchar3        1.000 0.000      NA     NA    1.000
+4           RI_x =~     marchar4        1.000 0.000      NA     NA    1.000
+5           RI_x =~     marchar5        1.000 0.000      NA     NA    1.000
+6           RI_x =~     marchar6        1.000 0.000      NA     NA    1.000
+7           RI_y =~ brecha_perc1        1.000 0.000      NA     NA    1.000
+8           RI_y =~ brecha_perc2        1.000 0.000      NA     NA    1.000
+9           RI_y =~ brecha_perc3        1.000 0.000      NA     NA    1.000
+10          RI_y =~ brecha_perc4        1.000 0.000      NA     NA    1.000
+11          RI_y =~ brecha_perc5        1.000 0.000      NA     NA    1.000
+12          RI_y =~ brecha_perc6        1.000 0.000      NA     NA    1.000
+13           cx1 =~     marchar1        1.000 0.000      NA     NA    1.000
+14           cx2 =~     marchar2        1.000 0.000      NA     NA    1.000
+15           cx3 =~     marchar3        1.000 0.000      NA     NA    1.000
+16           cx4 =~     marchar4        1.000 0.000      NA     NA    1.000
+17           cx5 =~     marchar5        1.000 0.000      NA     NA    1.000
+18           cx6 =~     marchar6        1.000 0.000      NA     NA    1.000
+19           cy1 =~ brecha_perc1        1.000 0.000      NA     NA    1.000
+20           cy2 =~ brecha_perc2        1.000 0.000      NA     NA    1.000
+21           cy3 =~ brecha_perc3        1.000 0.000      NA     NA    1.000
+22           cy4 =~ brecha_perc4        1.000 0.000      NA     NA    1.000
+23           cy5 =~ brecha_perc5        1.000 0.000      NA     NA    1.000
+24           cy6 =~ brecha_perc6        1.000 0.000      NA     NA    1.000
+25      marchar1 ~~     marchar1        0.000 0.000      NA     NA    0.000
+26      marchar2 ~~     marchar2        0.000 0.000      NA     NA    0.000
+27      marchar3 ~~     marchar3        0.000 0.000      NA     NA    0.000
+28      marchar4 ~~     marchar4        0.000 0.000      NA     NA    0.000
+29      marchar5 ~~     marchar5        0.000 0.000      NA     NA    0.000
+30      marchar6 ~~     marchar6        0.000 0.000      NA     NA    0.000
+31  brecha_perc1 ~~ brecha_perc1        0.000 0.000      NA     NA    0.000
+32  brecha_perc2 ~~ brecha_perc2        0.000 0.000      NA     NA    0.000
+33  brecha_perc3 ~~ brecha_perc3        0.000 0.000      NA     NA    0.000
+34  brecha_perc4 ~~ brecha_perc4        0.000 0.000      NA     NA    0.000
+35  brecha_perc5 ~~ brecha_perc5        0.000 0.000      NA     NA    0.000
+36  brecha_perc6 ~~ brecha_perc6        0.000 0.000      NA     NA    0.000
+37           cx2  ~          cx1     a  0.148 0.022   6.639  0.000    0.104
+38           cx2  ~          cy1     b  0.007 0.006   1.084  0.279   -0.005
+39           cx3  ~          cx2     a  0.148 0.022   6.639  0.000    0.104
+40           cx3  ~          cy2     b  0.007 0.006   1.084  0.279   -0.005
+41           cx4  ~          cx3     a  0.148 0.022   6.639  0.000    0.104
+42           cx4  ~          cy3     b  0.007 0.006   1.084  0.279   -0.005
+43           cx5  ~          cx4     a  0.148 0.022   6.639  0.000    0.104
+44           cx5  ~          cy4     b  0.007 0.006   1.084  0.279   -0.005
+45           cx6  ~          cx5     a  0.148 0.022   6.639  0.000    0.104
+46           cx6  ~          cy5     b  0.007 0.006   1.084  0.279   -0.005
+47           cy2  ~          cx1     c  0.010 0.021   0.487  0.626   -0.030
+48           cy2  ~          cy1     d  0.065 0.018   3.719  0.000    0.031
+49           cy3  ~          cx2     c  0.010 0.021   0.487  0.626   -0.030
+50           cy3  ~          cy2     d  0.065 0.018   3.719  0.000    0.031
+51           cy4  ~          cx3     c  0.010 0.021   0.487  0.626   -0.030
+52           cy4  ~          cy3     d  0.065 0.018   3.719  0.000    0.031
+53           cy5  ~          cx4     c  0.010 0.021   0.487  0.626   -0.030
+54           cy5  ~          cy4     d  0.065 0.018   3.719  0.000    0.031
+55           cy6  ~          cx5     c  0.010 0.021   0.487  0.626   -0.030
+56           cy6  ~          cy5     d  0.065 0.018   3.719  0.000    0.031
+57           cx1 ~~          cy1        0.040 0.022   1.848  0.065   -0.002
+58           cx2 ~~          cy2        0.005 0.016   0.305  0.760   -0.027
+59           cx3 ~~          cy3       -0.027 0.012  -2.246  0.025   -0.050
+60           cx4 ~~          cy4        0.011 0.021   0.511  0.610   -0.031
+61           cx5 ~~          cy5       -0.001 0.013  -0.048  0.962   -0.027
+62           cx6 ~~          cy6        0.003 0.012   0.267  0.790   -0.021
+63           cx1 ~~          cx1        0.450 0.029  15.726  0.000    0.394
+64           cy1 ~~          cy1        2.279 0.293   7.776  0.000    1.704
+65           cx2 ~~          cx2        0.270 0.022  12.519  0.000    0.228
+66           cy2 ~~          cy2        1.192 0.057  21.024  0.000    1.081
+67           cx3 ~~          cx3        0.220 0.021  10.451  0.000    0.178
+68           cy3 ~~          cy3        0.847 0.042  20.023  0.000    0.764
+69           cx4 ~~          cx4        0.733 0.038  19.197  0.000    0.658
+70           cy4 ~~          cy4        0.984 0.052  18.996  0.000    0.883
+71           cx5 ~~          cx5        0.276 0.025  11.222  0.000    0.228
+72           cy5 ~~          cy5        0.838 0.051  16.427  0.000    0.738
+73           cx6 ~~          cx6        0.273 0.027  10.284  0.000    0.221
+74           cy6 ~~          cy6        0.714 0.037  19.200  0.000    0.641
+75          RI_x ~~         RI_x        0.146 0.017   8.775  0.000    0.113
+76          RI_y ~~         RI_y        0.409 0.023  18.109  0.000    0.365
+77          RI_x ~~         RI_y        0.057 0.010   5.897  0.000    0.038
+78          RI_x ~~          cx1        0.000 0.000      NA     NA    0.000
+79          RI_x ~~          cy1        0.000 0.000      NA     NA    0.000
+80          RI_y ~~          cx1        0.000 0.000      NA     NA    0.000
+81          RI_y ~~          cy1        0.000 0.000      NA     NA    0.000
+82      marchar1 ~1                     1.321 0.015  88.963  0.000    1.292
+83      marchar2 ~1                     1.220 0.013  91.245  0.000    1.193
+84      marchar3 ~1                     1.190 0.013  93.691  0.000    1.165
+85      marchar4 ~1                     1.507 0.021  70.703  0.000    1.466
+86      marchar5 ~1                     1.186 0.015  81.297  0.000    1.157
+87      marchar6 ~1                     1.194 0.015  79.469  0.000    1.164
+88  brecha_perc1 ~1                     3.895 0.031 126.459  0.000    3.834
+89  brecha_perc2 ~1                     3.361 0.026 127.581  0.000    3.310
+90  brecha_perc3 ~1                     3.282 0.024 135.582  0.000    3.234
+91  brecha_perc4 ~1                     3.666 0.025 144.981  0.000    3.617
+92  brecha_perc5 ~1                     3.203 0.027 119.101  0.000    3.150
+93  brecha_perc6 ~1                     3.153 0.025 124.633  0.000    3.103
+94          RI_x ~1                     0.000 0.000      NA     NA    0.000
+95          RI_y ~1                     0.000 0.000      NA     NA    0.000
+96           cx1 ~1                     0.000 0.000      NA     NA    0.000
+97           cx2 ~1                     0.000 0.000      NA     NA    0.000
+98           cx3 ~1                     0.000 0.000      NA     NA    0.000
+99           cx4 ~1                     0.000 0.000      NA     NA    0.000
+100          cx5 ~1                     0.000 0.000      NA     NA    0.000
+101          cx6 ~1                     0.000 0.000      NA     NA    0.000
+102          cy1 ~1                     0.000 0.000      NA     NA    0.000
+103          cy2 ~1                     0.000 0.000      NA     NA    0.000
+104          cy3 ~1                     0.000 0.000      NA     NA    0.000
+105          cy4 ~1                     0.000 0.000      NA     NA    0.000
+106          cy5 ~1                     0.000 0.000      NA     NA    0.000
+107          cy6 ~1                     0.000 0.000      NA     NA    0.000
+    ci.upper
+1      1.000
+2      1.000
+3      1.000
+4      1.000
+5      1.000
+6      1.000
+7      1.000
+8      1.000
+9      1.000
+10     1.000
+11     1.000
+12     1.000
+13     1.000
+14     1.000
+15     1.000
+16     1.000
+17     1.000
+18     1.000
+19     1.000
+20     1.000
+21     1.000
+22     1.000
+23     1.000
+24     1.000
+25     0.000
+26     0.000
+27     0.000
+28     0.000
+29     0.000
+30     0.000
+31     0.000
+32     0.000
+33     0.000
+34     0.000
+35     0.000
+36     0.000
+37     0.192
+38     0.018
+39     0.192
+40     0.018
+41     0.192
+42     0.018
+43     0.192
+44     0.018
+45     0.192
+46     0.018
+47     0.050
+48     0.100
+49     0.050
+50     0.100
+51     0.050
+52     0.100
+53     0.050
+54     0.100
+55     0.050
+56     0.100
+57     0.083
+58     0.037
+59    -0.003
+60     0.053
+61     0.025
+62     0.028
+63     0.506
+64     2.853
+65     0.312
+66     1.303
+67     0.261
+68     0.930
+69     0.807
+70     1.086
+71     0.324
+72     0.938
+73     0.325
+74     0.787
+75     0.179
+76     0.454
+77     0.075
+78     0.000
+79     0.000
+80     0.000
+81     0.000
+82     1.350
+83     1.246
+84     1.215
+85     1.549
+86     1.214
+87     1.223
+88     3.955
+89     3.413
+90     3.329
+91     3.716
+92     3.256
+93     3.202
+94     0.000
+95     0.000
+96     0.000
+97     0.000
+98     0.000
+99     0.000
+100    0.000
+101    0.000
+102    0.000
+103    0.000
+104    0.000
+105    0.000
+106    0.000
+107    0.000</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>param <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="fu">parameterEstimates</span>(fit[[<span class="st">"d2"</span>]]))</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>kableExtra<span class="sc">::</span><span class="fu">kable</span>(param[op<span class="sc">==</span><span class="st">"~~"</span> <span class="sc">&amp;</span> rhs <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"RI_x"</span>, <span class="st">"RI_y"</span>), <span class="sc">!</span><span class="st">"label"</span>], <span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">format=</span><span class="st">"html"</span>, <span class="at">table.attr =</span> <span class="st">"style='font-size: 25px;'"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">lhs</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">op</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">rhs</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">est</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">z</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">pvalue</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">ci.lower</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">ci.upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">RI_x</td>
+<td style="text-align: left;">~~</td>
+<td style="text-align: left;">RI_x</td>
+<td style="text-align: right;">0.146</td>
+<td style="text-align: right;">0.017</td>
+<td style="text-align: right;">8.775</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.113</td>
+<td style="text-align: right;">0.179</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RI_y</td>
+<td style="text-align: left;">~~</td>
+<td style="text-align: left;">RI_y</td>
+<td style="text-align: right;">0.409</td>
+<td style="text-align: right;">0.023</td>
+<td style="text-align: right;">18.109</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.365</td>
+<td style="text-align: right;">0.454</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">RI_x</td>
+<td style="text-align: left;">~~</td>
+<td style="text-align: left;">RI_y</td>
+<td style="text-align: right;">0.057</td>
+<td style="text-align: right;">0.010</td>
+<td style="text-align: right;">5.897</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.038</td>
+<td style="text-align: right;">0.075</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>Ambos interceptos aleatorios tienen una varianza significativa. Esto implica que hay diferencias estables, entre individuos, respecto a sus puntajes esperados en percepción de brecha y asistencia a marchar. –&gt; Si no fuera significativa no sería necesario estimar intercepto aleatorio, podría ser cross-lagged simple</p>
+<ul>
+<li>La covarianza entre los interceptos aleatorios es significativa (.057, SE=0.010), lo que sugiere que los individuos que tienen una alta participación en marchas también tienen una alta percepción de brecha salarial</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(param[op<span class="sc">==</span><span class="st">"~"</span> <span class="sc">&amp;</span> rhs <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"cx1"</span>, <span class="st">"cy1"</span>) <span class="sc">&amp;</span> lhs <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"cx2"</span>, <span class="st">"cy2"</span>), <span class="sc">!</span><span class="st">"label"</span>],</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">format=</span><span class="st">"html"</span>, <span class="at">table.attr =</span> <span class="st">"style='font-size: 25px;'"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">lhs</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">op</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">rhs</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">est</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">z</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">pvalue</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">ci.lower</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">ci.upper</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">cx2</td>
+<td style="text-align: left;">~</td>
+<td style="text-align: left;">cx1</td>
+<td style="text-align: right;">0.1479609</td>
+<td style="text-align: right;">0.0222850</td>
+<td style="text-align: right;">6.6394783</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">0.1042830</td>
+<td style="text-align: right;">0.1916387</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cx2</td>
+<td style="text-align: left;">~</td>
+<td style="text-align: left;">cy1</td>
+<td style="text-align: right;">0.0065283</td>
+<td style="text-align: right;">0.0060246</td>
+<td style="text-align: right;">1.0835977</td>
+<td style="text-align: right;">0.2785432</td>
+<td style="text-align: right;">-0.0052798</td>
+<td style="text-align: right;">0.0183363</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cy2</td>
+<td style="text-align: left;">~</td>
+<td style="text-align: left;">cx1</td>
+<td style="text-align: right;">0.0100079</td>
+<td style="text-align: right;">0.0205432</td>
+<td style="text-align: right;">0.4871662</td>
+<td style="text-align: right;">0.6261406</td>
+<td style="text-align: right;">-0.0302559</td>
+<td style="text-align: right;">0.0502718</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cy2</td>
+<td style="text-align: left;">~</td>
+<td style="text-align: left;">cy1</td>
+<td style="text-align: right;">0.0654868</td>
+<td style="text-align: right;">0.0176085</td>
+<td style="text-align: right;">3.7190498</td>
+<td style="text-align: right;">0.0002000</td>
+<td style="text-align: right;">0.0309748</td>
+<td style="text-align: right;">0.0999988</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>Los coeficientes indican el grado en el cual una variable continua incrementándose, en términos de cambio individual, habiendo controlado por las características individuales estables. (muestra solo ola 1 y 2 porque es modelo restringido)</p>
+<p>Efectos autorregresivos:</p>
+<ul>
+<li>Tanto para marchar como para percepción de brecha salarial son significativos (marchar: b=0.148; SE=0.022; Brecha: b=0.065; SE=0.017). En términos concretos: Una desviación de un punto sobre el nivel promedio de los individuos en participación en marchas persiste en la siguiente medición como una desviación positiva de 0.148 puntos respecto a su puntaje esperado. En el caso de la percepción de brecha salarial, una desviación de un punto sobre el nivel promedio individual persiste durante la siguiente medición como una desviación positiva de 0.065 sobre el nivel promedio individual. –&gt; Esto da cuenta de la estabilidad de los constructos.</li>
+</ul>
+<p>Efectos cross-lagged</p>
+<ul>
+<li>No se observa un efecto longitudinal intra-individuo de la percepción de brecha salarial sobre la participación en marchas (b = 0.01; SE= 0.02; p=0.62), ni de la participación en marchas sobre la percepción de brecha salarial (b = 0.006; SE=0.006; p=0.27)</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./02-regresiones.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Regresiones</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

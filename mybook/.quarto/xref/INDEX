@@ -13,5 +13,11 @@
   },
   "01-exploracion.qmd": {
     "01-exploracion.html": "02d719da"
+  },
+  "02-regresiones.qmd": {
+    "02-regresiones.html": "04e8cd78"
+  },
+  "03-cross-lagged.qmd": {
+    "03-cross-lagged.html": "8fd7e101"
   }
 }
