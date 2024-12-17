@@ -726,11 +726,20 @@ Eliminamos los casos que responden '0' en salario.
 
 ```{r}
 summary(data$perc_gerente)
-data <- data %>% filter(perc_gerente>999)
-data <- data %>% filter(perc_obrero>999)
-data <- data %>% filter(just_gerente>999)
-data <- data %>% filter(just_obrero>999)
-summary(data$perc_gerente)
+data <- data %>% filter(perc_gerente>100000)
+data <- data %>% filter(perc_gerente<1200000000)
+hist(data$perc_gerente)
+summary(data$perc_obrero)
+data <- data %>% filter(perc_obrero>10000)
+data <- data %>% filter(perc_obrero<10000000)
+hist(data$perc_obrero)
+summary(data$just_gerente)
+data <- data %>% filter(just_gerente>100000)
+data <- data %>% filter(just_gerente<1200000000)
+hist(data$just_gerente)
+data <- data %>% filter(just_obrero>10000)
+data <- data %>% filter(just_obrero<10000000)
+hist(data$just_obrero)
 ```
 
 

@@ -7,7 +7,7 @@ rm(list=ls())
 options(scipen = 999)
 
 library(pacman)
-p_load(tidyverse,
+pacman::p_load(tidyverse,
        knitr,
        bookdown,
        car,
@@ -30,17 +30,32 @@ p_load(tidyverse,
        ggplot2, 
        labelled,
        shadowtext,
-       lme4)
+       lme4,
+       interactions)
 ```
 
 Cargamos la base de datos ELSOC 2016-2023 procesada en formato *long*.
 
 ```{r datos-2,echo=FALSE}
 load(here::here("output/elsoc-minicoes.Rdata"))
+
+data <- data %>% filter(muestra==1)
+
+# obtain the idencuesta for wave 7
+ids <- 
+  data %>% 
+  select(idencuesta,ola) %>% 
+  filter(ola==7) %>% 
+  sjmisc::frq(idencuesta,show.na = F) %>% as.data.frame()
+
+
+# filter data by the idencuesta of t7
+data <- 
+  data %>%
+  filter(idencuesta %in% ids$val)
+
 ```
 
-
-## Brecha percibida
 
 ```{r}
 data$ola <- factor(data$ola)
@@ -57,8 +72,22 @@ factor(
   ),
   levels = c('Izquierda', 'Centro', 'Derecha', 'No se identifica')
 )
+
+frq(data$class2)
+
+data <- data %>% 
+  dplyr::select(brecha_perc, brecha_just, brecha_obrero, brecha_gerente,
+                marcha, class2, sexo, edad, pos_id, idencuesta, ola, c13) %>% 
+  na.omit()
+
+frq(data$ola)
 ```
 
+## Brecha percibida
+
+* Brecha > 0: El salario percibido de un gerente es mayor que el salario percibido de un obrero.
+* Brecha = 0: El salario percibido de un gerente es igual al salario percibido de un obrero (equidad).
+* Brecha < 0: El salario percibido de un gerente es menor que el salario percibido de un obrero.
 
 ```{r results='asis'}
 reg1 <- lmer(brecha_perc~ola+(1|idencuesta), data=data)
@@ -73,45 +102,131 @@ texreg::knitreg(list(reg1, reg2, reg3, reg4, reg5, reg6, reg7),
                 custom.model.names=rep(c("Brecha percibida"),7))
 ```
 
+```{r}
+ggeffects::ggpredict(reg5, terms = c("ola")) %>%
+  ggplot(aes(x=x, y=predicted)) +
+  geom_bar(stat="identity", color="grey", fill="grey")+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
+  labs(title="Ola", x = "", y = "") +
+  theme_bw()
+```
+
+```{r, warning=FALSE}
+ggeffects::ggpredict(reg5, terms="marcha") %>%
+  ggplot(mapping=aes(x = x, y=predicted)) +
+  labs(title="Participación en manifestaciones", x = "", y = "")+
+  theme_bw() +
+  geom_smooth()+
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .2, fill = "black")
+```
+
+```{r}
+ggeffects::ggpredict(reg5, terms = c("class2")) %>%
+  ggplot(aes(x=x, y=predicted)) +
+  geom_bar(stat="identity", color="grey", fill="grey")+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
+  labs(title="Ola", x = "", y = "") +
+  theme_bw()
+```
+
+```{r}
+ggeffects::ggpredict(reg5, terms = c("sexo")) %>%
+  ggplot(aes(x=x, y=predicted)) +
+  geom_bar(stat="identity", color="grey", fill="grey")+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
+  labs(title="Ola", x = "", y = "") +
+  theme_bw()
+```
+
+```{r}
+ggeffects::ggpredict(reg5, terms = c("pos_id")) %>%
+  ggplot(aes(x=x, y=predicted)) +
+  geom_bar(stat="identity", color="grey", fill="grey")+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
+  labs(title="Ola", x = "", y = "") +
+  theme_bw()
+```
+
 ## Brecha justa
+
+* Brecha > 0: El salario de un gerente debería ser mayor que el salario obrero.
+* Brecha = 0: El salario de un gerente debería ser igual al salario obrero (equidad).
+* Brecha < 0: El salario de un gerente debería ser menor que el salario obrero.
 
 ```{r results='asis'}
 reg1 <- lmer(brecha_just~ola+(1|idencuesta), data=data)
 reg2 <- lmer(brecha_just~ola+marcha+(1|idencuesta), data=data)
 reg3 <- lmer(brecha_just~ola+marcha+class2+(1|idencuesta), data=data)
 reg4 <- lmer(brecha_just~ola+marcha+class2+sexo+edad+(1|idencuesta), data=data)
-reg5 <- lmer(brecha_just~ola*class2+marcha+sexo+edad+(1|idencuesta), data=data)
-reg6 <- lmer(brecha_just~ola*marcha+class2+sexo+edad+(1|idencuesta), data=data)
+reg5 <- lmer(brecha_just~ola+marcha+class2+sexo+edad+pos_id+(1|idencuesta), data=data)
+reg6 <- lmer(brecha_just~ola*class2+marcha+sexo+edad+pos_id+(1|idencuesta), data=data)
+reg7 <- lmer(brecha_just~ola*marcha+class2+sexo+edad+pos_id+(1|idencuesta), data=data)
 
-texreg::knitreg(list(reg1, reg2, reg3, reg4, reg5, reg6),
-                custom.model.names=rep(c("Brecha justa"),6))
+texreg::knitreg(list(reg1, reg2, reg3, reg4, reg5, reg6, reg7),
+                custom.model.names=rep(c("Brecha justa"),7))
+```
+
+```{r}
+ggeffects::ggpredict(reg5, terms = c("ola")) %>%
+  ggplot(aes(x=x, y=predicted)) +
+  geom_bar(stat="identity", color="grey", fill="grey")+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
+  labs(title="Ola", x = "", y = "") +
+  theme_bw()
 ```
 
 ## Brecha gerente
+
+* Brecha > 0: El salario percibido de un gerente es mayor que el salario que debería tener (sobrepago).
+* Brecha = 0: El salario percibido de un gerente es igual al salario que debería tener (equidad).
+* Brecha < 0: El salario percibido de un gerente es menor que el salario que debería tener (infra-pago).
 
 ```{r results='asis'}
 reg1 <- lmer(brecha_gerente~ola+(1|idencuesta), data=data)
 reg2 <- lmer(brecha_gerente~ola+marcha+(1|idencuesta), data=data)
 reg3 <- lmer(brecha_gerente~ola+marcha+class2+(1|idencuesta), data=data)
 reg4 <- lmer(brecha_gerente~ola+marcha+class2+sexo+edad+(1|idencuesta), data=data)
-reg5 <- lmer(brecha_gerente~ola*class2+marcha+sexo+edad+(1|idencuesta), data=data)
-reg6 <- lmer(brecha_gerente~ola*marcha+class2+sexo+edad+(1|idencuesta), data=data)
+reg5 <- lmer(brecha_gerente~ola+marcha+class2+sexo+edad+pos_id+(1|idencuesta), data=data)
+reg6 <- lmer(brecha_gerente~ola*class2+marcha+sexo+edad+pos_id+(1|idencuesta), data=data)
+reg7 <- lmer(brecha_gerente~ola*marcha+class2+sexo+edad+pos_id+(1|idencuesta), data=data)
 
-texreg::knitreg(list(reg1, reg2, reg3, reg4, reg5, reg6),
-                custom.model.names=rep(c("Brecha gerente"),6))
+texreg::knitreg(list(reg1, reg2, reg3, reg4, reg5, reg6, reg7),
+                custom.model.names=rep(c("Brecha gerente"),7))
+```
+
+```{r}
+ggeffects::ggpredict(reg5, terms = c("ola")) %>%
+  ggplot(aes(x=x, y=predicted)) +
+  geom_bar(stat="identity", color="grey", fill="grey")+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
+  labs(title="Ola", x = "", y = "") +
+  theme_bw()
 ```
 
 ## Brecha obrero
+
+* Brecha > 0: El salario percibido de un obrero es mayor que el salario que debería tener (sobrepago).
+* Brecha = 0: El salario percibido de un obrero es igual al salario que debería tener (equidad).
+* Brecha < 0: El salario percibido de un obrero es menor que el salario que debería tener (infra-pago).
 
 ```{r results='asis'}
 reg1 <- lmer(brecha_obrero~ola+(1|idencuesta), data=data)
 reg2 <- lmer(brecha_obrero~ola+marcha+(1|idencuesta), data=data)
 reg3 <- lmer(brecha_obrero~ola+marcha+class2+(1|idencuesta), data=data)
 reg4 <- lmer(brecha_obrero~ola+marcha+class2+sexo+edad+(1|idencuesta), data=data)
-reg5 <- lmer(brecha_obrero~ola*class2+marcha+sexo+edad+(1|idencuesta), data=data)
-reg6 <- lmer(brecha_obrero~ola*marcha+class2+sexo+edad+(1|idencuesta), data=data)
+reg5 <- lmer(brecha_obrero~ola+marcha+class2+sexo+edad+pos_id+(1|idencuesta), data=data)
+reg6 <- lmer(brecha_obrero~ola*class2+marcha+sexo+edad+pos_id+(1|idencuesta), data=data)
+reg7 <- lmer(brecha_obrero~ola*marcha+class2+sexo+edad+pos_id+(1|idencuesta), data=data)
 
-texreg::knitreg(list(reg1, reg2, reg3, reg4, reg5, reg6),
-                custom.model.names=rep(c("Brecha obrero"),6))
+texreg::knitreg(list(reg1, reg2, reg3, reg4, reg5, reg6, reg7),
+                custom.model.names=rep(c("Brecha obrero"),7))
 ```
 
+```{r}
+ggeffects::ggpredict(reg5, terms = c("ola")) %>%
+  ggplot(aes(x=x, y=predicted)) +
+  geom_bar(stat="identity", color="grey", fill="grey")+
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width=.1) +
+  labs(title="Ola", x = "", y = "") +
+  theme_bw()
+```
