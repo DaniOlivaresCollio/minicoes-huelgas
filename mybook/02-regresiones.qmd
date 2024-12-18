@@ -74,7 +74,38 @@ factor(
 )
 
 frq(data$class2)
+na <- data %>% filter(is.na(class2))
+frq(na$actividad)
 
+no_remunerados <- na %>% filter(actividad=="Realiza tareas no remuneradas")
+frq(no_remunerados$ola)
+
+jornada_completa <- na %>% filter(actividad=="Trabaja de manera remunerada con jornada completa")
+frq(jornada_completa$ola)
+frq(jornada_completa$rel_empleo)
+frq(jornada_completa$cualificacion)
+frq(jornada_completa$supervisa)
+frq(jornada_completa$rama_2)
+
+empresa_privada <- jornada_completa %>% filter(rel_empleo=="Empleado u obrero en empresa privada")
+frq(empresa_privada$supervisa)
+frq(empresa_privada$rama_2)
+
+
+tiempo_parcial <- na %>% filter(actividad=="Trabaja de manera remunerada a tiempo parcial")
+frq(tiempo_parcial$ola)
+frq(tiempo_parcial$rel_empleo)
+frq(tiempo_parcial$cualificacion)
+frq(tiempo_parcial$supervisa)
+frq(tiempo_parcial$rama_2)
+
+empresa_privada_parcial <- tiempo_parcial %>% filter(rel_empleo=="Empleado u obrero en empresa privada")
+frq(empresa_privada_parcial$supervisa)
+frq(empresa_privada_parcial$rama_2)
+```
+
+
+```{r}
 data <- data %>% 
   dplyr::select(brecha_perc, brecha_just, brecha_obrero, brecha_gerente,
                 marcha, class2, sexo, edad, pos_id, idencuesta, ola, c13) %>% 
