@@ -196,9 +196,9 @@ Se crea en una nueva variable *dicotómica*, `sector`, donde:
 -   `sector==1`: Sector privado (`m07==1`, `m07==4`, `m07==5`,` m07==6`, `m07==7`)
 
 ```{r,echo=FALSE}
-# Crear variable supervisa==1, no supervisa==0
+# Crear variable sector
 data <- data %>%
-  mutate(sector=if_else(rel_empleo=="Empleado u obrero del sector público"|rel_empleo=="Miembro de las Fuerzas Armadas y de Orden",0,1 ))
+  mutate(sector=if_else(rel_empleo=="Empleado u obrero del sector público"|rel_empleo=="Miembro de las Fuerzas Armadas y de Orden",0,1))
 
 # Tabla de frecuencias y porcentajes 
 sjt.xtab(data$sector, data$ola,
@@ -785,14 +785,20 @@ summary(data$brecha_obrero)
 
 ## Guardar datos
 
-Se guarda la base de datos en formato `.Rdata` y `.rds`.
+Las bases generadas serán:
 
-```{r}
+- Principal: Con todos los datos
+  - `elsoc-minicoes.Rdata`
+  - `elsoc-minicoes.rds`
+  
+```{r,echo=FALSE}
 save(data,file=(here::here("output/elsoc-minicoes.Rdata")))
 saveRDS(data,file=(here::here("output/elsoc-minicoes.rds")))
 ```
 
-También, se guarda la base de datos en formato `.Rdata` y `.rds`, sin atrición.
+- Principal: Con todos los datos sin atrición
+  - `elsoc-minicoes-sa.Rdata`
+  - `elsoc-minicoes-sa.rds`
 
 ```{r,echo=FALSE}
 data_sa <- data %>%
@@ -805,8 +811,52 @@ n_sa <- nrow(data_sa)
 
 La base de datos sin atrición comienza con `r n_sa` observaciones.
 
-```{r}
+```{r,echo=FALSE}
 save(data_sa,file=(here::here("output/elsoc-minicoes-sa.Rdata")))
 saveRDS(data_sa,file=(here::here("output/elsoc-minicoes-sa.rds")))
 ```
+
+- Alternativa: Sin datos para desocupados y jubilados
+  - `alt-elsoc-minicoes.Rdata`
+  - `alt-elsoc-minicoes.rds`
+  
+```{r,echo=FALSE}
+data_alt <- data %>%
+  filter(m02==1|m02==2|m02==3)
+```
+
+```{r,echo=FALSE}
+n_alt <- nrow(data_alt)
+```
+
+La base de datos alternativa comienza con `r n_alt` observaciones.
+
+```{r,echo=FALSE}
+save(data_alt,file=(here::here("output/alt-elsoc-minicoes.Rdata")))
+saveRDS(data_alt,file=(here::here("output/alt-elsoc-minicoes.rds")))
+```
+
+- Alternativa: Sin datos para desocupados y jubilados, y sin atrición
+  - `alt-elsoc-minicoes-sa.Rdata`
+  - `alt-elsoc-minicoes-sa.rds`
+
+```{r,echo=FALSE}
+data_altsa <- data_alt %>%
+  filter(tipo_atricion==1)
+```
+
+```{r,echo=FALSE}
+n_altsa <- nrow(data_altsa)
+```
+
+La base de datos alternativa sin atrición comienza con `r n_altsa` observaciones.
+
+```{r,echo=FALSE}
+save(data_altsa,file=(here::here("output/alt-elsoc-minicoes-sa.Rdata")))
+saveRDS(data_altsa,file=(here::here("output/alt-elsoc-minicoes-sa.rds")))
+```
+
+
+
+
 
