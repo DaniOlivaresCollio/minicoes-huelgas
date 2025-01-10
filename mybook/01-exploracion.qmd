@@ -585,7 +585,7 @@ sjt.xtab(data$class1, data$ola,
 
 Se crea la variable tipo factor posición de clase `class1a` con 6 categorías ordenadas, dejando a `Expert managers` como categoría de referencia.
 
-```{r}
+```{r,echo=FALSE}
 data$class1a <- factor(data$class1,
                        levels=c("Expert managers",
                                 "Petit bourgeoisie",
@@ -648,7 +648,7 @@ sjt.xtab(data$class2,data$ola,
 
 Se crea la variable tipo factor posición de clase `class2a` con 7 categorías ordenadas, dejando a `Expert managers` como categoría de referencia.
 
-```{r}
+```{r,echo=FALSE}
 data$class2a <- factor(data$class2,
                        levels=c("Expert managers",
                                 "Petit bourgeoisie",
@@ -671,23 +671,30 @@ sjt.xtab(data$class2a,data$ola,
 
 Se crea la variable tipo factor posición de clase `class3` con 6 categorías, fijando la clase para la ola 3.
 
-```{r}
+```{r,echo=FALSE}
 # Identificar los valores de "class1" en la ola 3
 class1_ola3 <- data %>%
   filter(ola==3) %>%
   select(idencuesta,class1) %>%  
-  rename(class3=class1) # Renombrar "class2" a "class3"
+  rename(class3=class1) # Renombrar "class1" a "class3"
 
 # Unir esta información con la base de datos original
 data <- data %>%
-  left_join(class1_ola3, by = "idencuesta") 
+  left_join(class1_ola3,by="idencuesta") 
+
+# Tabla de frecuencias y porcentajes 
+sjt.xtab(data$class3,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Posición de clase 3","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de la Posición de clase 3, por ola")
 ```
 
 
 ### Class 3 a 
 
-```{r}
-# Identificar los valores de "class1" en la ola 3
+```{r,echo=FALSE}
+# Identificar los valores de "class1a" en la ola 3
 class1a_ola3 <- data %>%
   filter(ola==3) %>%
   select(idencuesta,class1a) %>%  
@@ -695,13 +702,20 @@ class1a_ola3 <- data %>%
 
 # Unir esta información con la base de datos original
 data <- data %>%
-  left_join(class1a_ola3, by = "idencuesta") 
+  left_join(class1a_ola3,by="idencuesta")
+
+# Tabla de frecuencias y porcentajes 
+sjt.xtab(data$class3a,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Posición de clase 3 a","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de la Posición de clase 3 a, por ola")
 ```
 
 
 ### Class 4
 
-```{r}
+```{r,echo=FALSE}
 # Identificar los valores de "class1" en la ola 3
 class2_ola3 <- data %>%
   filter(ola==3) %>%
@@ -710,13 +724,20 @@ class2_ola3 <- data %>%
 
 # Unir esta información con la base de datos original
 data <- data %>%
-  left_join(class2_ola3, by = "idencuesta") 
+  left_join(class2_ola3,by="idencuesta") 
+
+# Tabla de frecuencias y porcentajes 
+sjt.xtab(data$class4,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Posición de clase 4","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de la Posición de clase 4, por ola")
 ```
 
 
 ### Class 4 a 
 
-```{r}
+```{r,echo=FALSE}
 # Identificar los valores de "class1" en la ola 3
 class2a_ola3 <- data %>%
   filter(ola==3) %>%
@@ -725,7 +746,14 @@ class2a_ola3 <- data %>%
 
 # Unir esta información con la base de datos original
 data <- data %>%
-  left_join(class2a_ola3, by = "idencuesta") 
+  left_join(class2a_ola3,by="idencuesta") 
+
+# Tabla de frecuencias y porcentajes 
+sjt.xtab(data$class4a,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Posición de clase 4 a","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de la Posición de clase 4 a, por ola")
 ```
 
 
@@ -794,36 +822,77 @@ sjt.xtab(data$c15,data$ola,
 ```
 
 
-### Interés en política
+### pol_id
 
 Con la variable *numérica* ELSOC:
 
+-   `c15`. Cambiando de tema, tradicionalmente en nuestro país la gente define las posiciones políticas como más cercanas a la izquierda, al centro o a la derecha. Usando una escala de 0 a 10, donde 0 es ser de "izquierda", 5 es ser de "centro" y 10 es ser de "derecha", ¿Dónde se ubicaría usted en esta escala?
+
+Se crea la variable *factor* `pol_id`.
+
+```{r,echo=FALSE}
+# Recodficar
+data$pol_id <- car::recode(data$c15,
+                           recodes=c("c(11,12,-888,-999)='No se identifica';
+                           c(0,1,2,3,4)='Izquierda';
+                           c(5)='Centro';
+                           c(6,7,8,9,10)='Derecha'"),
+                           as.factor=TRUE, 
+                           levels=c('Izquierda', 
+                                    'Centro',
+                                    'Derecha',
+                                    'No se identifica'))
+
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$pol_id,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Identificación política","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Identificación Política, por ola") 
+```
+
+
+### Interés en política
+
+Observamos la variable *numérica* ELSOC:
+
 -   `c13`. ¿Qué tan interesado está usted en la política?
 
-Se crea la variable `int_politica`.
+Se crea la variable `pol_interes`.
 
 ```{r,echo=FALSE}
 # Recodficar
 data <- data %>%
-  mutate(int_politica=car::recode(c13,
-                                  recodes=c("1='Nada interesado';
-                                             2='Poco interesado';
-                                             3='Algo interesado';
-                                             4='Bastante interesado';
-                                             5='Muy interesado'"),
-                                  as.factor=TRUE, # convertir a factor
-                                  levels=c("Nada interesado",
-                                           "Poco interesado",
-                                           "Algo interesado",
-                                           "Bastante interesado",
-                                           "Muy interesado"))) # ordenar niveles
+  mutate(pol_interes = c13)
 
 # Tabla de frecuencias y porcentajes
-sjt.xtab(data$c13,data$ola,
+sjt.xtab(data$pol_interes,data$ola,
          show.col.prc=TRUE, 
          var.labels=c("Interés en la política","Ola"),
          show.summary=FALSE,
          title="Frecuencias y porcentajes de Trabajadores/as interesados en la política, por ola") 
+```
+
+
+### Habla de política
+
+Observamos la variable *numérica* ELSOC:
+
+-   `c14_01`. ¿Qué tan interesado está usted en la política?
+
+Se crea la variable `pol_habla`.
+
+```{r,echo=FALSE}
+# Recodficar
+data <- data %>%
+  mutate(pol_habla=c14_01)
+
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$pol_habla,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Habla de política","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Habla de política, por ola") 
 ```
 
 ## Brechas salariales
@@ -888,6 +957,12 @@ summary(data$brecha_obrero)
 * Brecha > 0: El salario percibido de un obrero es mayor que el salario que debería tener (sobrepago).
 * Brecha = 0: El salario percibido de un obrero es igual al salario que debería tener (equidad).
 * Brecha < 0: El salario percibido de un obrero es menor que el salario que debería tener (infra-pago).
+
+## Sociodemográficos
+
+### Región
+
+### Educación
 
 
 ## Guardar datos
