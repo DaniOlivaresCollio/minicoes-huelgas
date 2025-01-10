@@ -581,6 +581,28 @@ sjt.xtab(data$class1, data$ola,
 ```
 
 
+### Class 1 a 
+
+Se crea la variable tipo factor posición de clase `class1a` con 6 categorías ordenadas, dejando a `Expert managers` como categoría de referencia.
+
+```{r}
+data$class1a <- factor(data$class1,
+                       levels=c("Expert managers",
+                                "Petit bourgeoisie",
+                                "Informal",
+                                "Experts",
+                                "Supervisors",
+                                "Workers"))
+
+# Tabla de frecuencias y porcentajes 
+sjt.xtab(data$class1a,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Posición de clase 1 a","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de la Posición de clase 1 a, por ola")
+```
+
+
 ### Class 2
 
 Se crea la variable tipo factor posición de clase `class2` con 7 categorías:
@@ -605,13 +627,13 @@ data <- mutate(data,
                                 actividad=="Jubilado o pensionado"|actividad=="Desempleado, buscando trabajo"~"Desocupados/Retirados"))
 
 data$class2 <- factor(data$class2,
-                      levels = c("Petit bourgeoisie",
-                                 "Informal",
-                                 "Expert managers",
-                                 "Experts",
-                                 "Supervisors",
-                                 "Workers",
-                                 "Desocupados/Retirados"))
+                      levels=c("Petit bourgeoisie",
+                               "Informal",
+                               "Expert managers",
+                               "Experts",
+                               "Supervisors",
+                               "Workers",
+                               "Desocupados/Retirados"))
 
 # Tabla de frecuencias y porcentajes 
 sjt.xtab(data$class2,data$ola,
@@ -619,6 +641,91 @@ sjt.xtab(data$class2,data$ola,
          var.labels=c("Posición de clase 2","Ola"),
          show.summary=FALSE,
          title="Frecuencias y porcentajes de la Posición de clase 2, por ola")
+```
+
+
+### Class 2 a 
+
+Se crea la variable tipo factor posición de clase `class2a` con 7 categorías ordenadas, dejando a `Expert managers` como categoría de referencia.
+
+```{r}
+data$class2a <- factor(data$class2,
+                       levels=c("Expert managers",
+                                "Petit bourgeoisie",
+                                "Informal",
+                                "Experts",
+                                "Supervisors",
+                                "Workers",
+                                "Desocupados/Retirados"))
+
+# Tabla de frecuencias y porcentajes 
+sjt.xtab(data$class2a,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Posición de clase 2 a","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de la Posición de clase 2 a, por ola")
+```
+
+
+### Class 3
+
+Se crea la variable tipo factor posición de clase `class3` con 6 categorías, fijando la clase para la ola 3.
+
+```{r}
+# Identificar los valores de "class1" en la ola 3
+class1_ola3 <- data %>%
+  filter(ola==3) %>%
+  select(idencuesta,class1) %>%  
+  rename(class3=class1) # Renombrar "class2" a "class3"
+
+# Unir esta información con la base de datos original
+data <- data %>%
+  left_join(class1_ola3, by = "idencuesta") 
+```
+
+
+### Class 3 a 
+
+```{r}
+# Identificar los valores de "class1" en la ola 3
+class1a_ola3 <- data %>%
+  filter(ola==3) %>%
+  select(idencuesta,class1a) %>%  
+  rename(class3a=class1a) # Renombrar "class2" a "class3"
+
+# Unir esta información con la base de datos original
+data <- data %>%
+  left_join(class1a_ola3, by = "idencuesta") 
+```
+
+
+### Class 4
+
+```{r}
+# Identificar los valores de "class1" en la ola 3
+class2_ola3 <- data %>%
+  filter(ola==3) %>%
+  select(idencuesta,class2) %>%  
+  rename(class4=class2) # Renombrar "class2" a "class3"
+
+# Unir esta información con la base de datos original
+data <- data %>%
+  left_join(class2_ola3, by = "idencuesta") 
+```
+
+
+### Class 4 a 
+
+```{r}
+# Identificar los valores de "class1" en la ola 3
+class2a_ola3 <- data %>%
+  filter(ola==3) %>%
+  select(idencuesta,class2a) %>%  
+  rename(class4a=class2a) # Renombrar "class2" a "class3"
+
+# Unir esta información con la base de datos original
+data <- data %>%
+  left_join(class2a_ola3, by = "idencuesta") 
 ```
 
 

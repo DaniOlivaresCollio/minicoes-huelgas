@@ -178,8 +178,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#rama-2" id="toc-rama-2" class="nav-link" data-scroll-target="#rama-2"><span class="header-section-number">1.1.7</span> Rama 2</a></li>
   <li><a href="#supervisión" id="toc-supervisión" class="nav-link" data-scroll-target="#supervisión"><span class="header-section-number">1.1.8</span> Supervisión</a></li>
   <li><a href="#class-1" id="toc-class-1" class="nav-link" data-scroll-target="#class-1"><span class="header-section-number">1.1.9</span> Class 1</a></li>
-  <li><a href="#class-2" id="toc-class-2" class="nav-link" data-scroll-target="#class-2"><span class="header-section-number">1.1.10</span> Class 2</a></li>
-  <li><a href="#alluvial" id="toc-alluvial" class="nav-link" data-scroll-target="#alluvial"><span class="header-section-number">1.1.11</span> Alluvial</a></li>
+  <li><a href="#class-1-a" id="toc-class-1-a" class="nav-link" data-scroll-target="#class-1-a"><span class="header-section-number">1.1.10</span> Class 1 a</a></li>
+  <li><a href="#class-2" id="toc-class-2" class="nav-link" data-scroll-target="#class-2"><span class="header-section-number">1.1.11</span> Class 2</a></li>
+  <li><a href="#class-2-a" id="toc-class-2-a" class="nav-link" data-scroll-target="#class-2-a"><span class="header-section-number">1.1.12</span> Class 2 a</a></li>
+  <li><a href="#class-3" id="toc-class-3" class="nav-link" data-scroll-target="#class-3"><span class="header-section-number">1.1.13</span> Class 3</a></li>
+  <li><a href="#class-3-a" id="toc-class-3-a" class="nav-link" data-scroll-target="#class-3-a"><span class="header-section-number">1.1.14</span> Class 3 a</a></li>
+  <li><a href="#class-4" id="toc-class-4" class="nav-link" data-scroll-target="#class-4"><span class="header-section-number">1.1.15</span> Class 4</a></li>
+  <li><a href="#class-4-a" id="toc-class-4-a" class="nav-link" data-scroll-target="#class-4-a"><span class="header-section-number">1.1.16</span> Class 4 a</a></li>
+  <li><a href="#alluvial" id="toc-alluvial" class="nav-link" data-scroll-target="#alluvial"><span class="header-section-number">1.1.17</span> Alluvial</a></li>
   </ul></li>
   <li><a href="#política" id="toc-política" class="nav-link" data-scroll-target="#política"><span class="header-section-number">1.2</span> Política</a>
   <ul class="collapse">
@@ -3304,8 +3310,194 @@ Económica</td>
 </div>
 </div>
 </section>
-<section id="class-2" class="level3" data-number="1.1.10">
-<h3 data-number="1.1.10" class="anchored" data-anchor-id="class-2"><span class="header-section-number">1.1.10</span> Class 2</h3>
+<section id="class-1-a" class="level3" data-number="1.1.10">
+<h3 data-number="1.1.10" class="anchored" data-anchor-id="class-1-a"><span class="header-section-number">1.1.10</span> Class 1 a</h3>
+<p>Se crea la variable tipo factor posición de clase <code>class1a</code> con 6 categorías ordenadas, dejando a <code>Expert managers</code> como categoría de referencia.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>class1a <span class="ot">&lt;-</span> <span class="fu">factor</span>(data<span class="sc">$</span>class1,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"Expert managers"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Petit bourgeoisie"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Informal"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Experts"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Supervisors"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Workers"</span>))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla de frecuencias y porcentajes </span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sjt.xtab</span>(data<span class="sc">$</span>class1a,data<span class="sc">$</span>ola,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">show.col.prc=</span><span class="cn">TRUE</span>, </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">var.labels=</span><span class="fu">c</span>(<span class="st">"Posición de clase 1 a"</span>,<span class="st">"Ola"</span>),</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">show.summary=</span><span class="cn">FALSE</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">title=</span><span class="st">"Frecuencias y porcentajes de la Posición de clase 1 a, por ola"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<caption>Frecuencias y porcentajes de la Posición de clase 1 a, por ola</caption>
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">Posición de clase 1<br>
+a</td>
+<td colspan="7" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">Ola</td>
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; font-weight: bolder; font-style: italic; border-bottom: 1px solid;">Total</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">2016</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">2017</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">2018</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">2019</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">2021</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">2022</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">2023</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Expert managers</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">94</span><br>
+<span style="color:#339933;">5.9&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">71</span><br>
+<span style="color:#339933;">5.4&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">120</span><br>
+<span style="color:#339933;">6.2&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">96</span><br>
+<span style="color:#339933;">5.8&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">115</span><br>
+<span style="color:#339933;">8.1&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">95</span><br>
+<span style="color:#339933;">8&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">138</span><br>
+<span style="color:#339933;">10.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">729</span><br>
+<span style="color:#339933;">7&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Petit bourgeoisie</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">105</span><br>
+<span style="color:#339933;">6.6&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">89</span><br>
+<span style="color:#339933;">6.8&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">143</span><br>
+<span style="color:#339933;">7.4&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">121</span><br>
+<span style="color:#339933;">7.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">118</span><br>
+<span style="color:#339933;">8.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">96</span><br>
+<span style="color:#339933;">8.1&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">84</span><br>
+<span style="color:#339933;">6.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">756</span><br>
+<span style="color:#339933;">7.2&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Informal</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">301</span><br>
+<span style="color:#339933;">19&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">260</span><br>
+<span style="color:#339933;">19.9&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">381</span><br>
+<span style="color:#339933;">19.6&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">323</span><br>
+<span style="color:#339933;">19.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">315</span><br>
+<span style="color:#339933;">22.1&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">278</span><br>
+<span style="color:#339933;">23.4&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">280</span><br>
+<span style="color:#339933;">21&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">2138</span><br>
+<span style="color:#339933;">20.5&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Experts</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">112</span><br>
+<span style="color:#339933;">7.1&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">84</span><br>
+<span style="color:#339933;">6.4&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">131</span><br>
+<span style="color:#339933;">6.8&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">105</span><br>
+<span style="color:#339933;">6.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">94</span><br>
+<span style="color:#339933;">6.6&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">71</span><br>
+<span style="color:#339933;">6&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">99</span><br>
+<span style="color:#339933;">7.4&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">696</span><br>
+<span style="color:#339933;">6.7&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Supervisors</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">606</span><br>
+<span style="color:#339933;">38.2&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">513</span><br>
+<span style="color:#339933;">39.2&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">683</span><br>
+<span style="color:#339933;">35.2&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">611</span><br>
+<span style="color:#339933;">36.9&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">516</span><br>
+<span style="color:#339933;">36.1&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">421</span><br>
+<span style="color:#339933;">35.4&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">468</span><br>
+<span style="color:#339933;">35.1&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">3818</span><br>
+<span style="color:#339933;">36.6&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Workers</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">370</span><br>
+<span style="color:#339933;">23.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">291</span><br>
+<span style="color:#339933;">22.2&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">482</span><br>
+<span style="color:#339933;">24.8&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">398</span><br>
+<span style="color:#339933;">24.1&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">270</span><br>
+<span style="color:#339933;">18.9&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">227</span><br>
+<span style="color:#339933;">19.1&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">266</span><br>
+<span style="color:#339933;">19.9&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">2304</span><br>
+<span style="color:#339933;">22.1&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; border-bottom: double; font-weight: bolder; font-style: italic; vertical-align: middle;">Total</td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1588</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1308</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1940</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1654</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1428</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1188</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1335</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">10441</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="class-2" class="level3" data-number="1.1.11">
+<h3 data-number="1.1.11" class="anchored" data-anchor-id="class-2"><span class="header-section-number">1.1.11</span> Class 2</h3>
 <p>Se crea la variable tipo factor posición de clase <code>class2</code> con 7 categorías:</p>
 <ol type="1">
 <li>Empleadores y autoempleados profesionales: pequeña burguesia</li>
@@ -3503,51 +3695,314 @@ Económica</td>
 </div>
 </div>
 </section>
-<section id="alluvial" class="level3" data-number="1.1.11">
-<h3 data-number="1.1.11" class="anchored" data-anchor-id="alluvial"><span class="header-section-number">1.1.11</span> Alluvial</h3>
+<section id="class-2-a" class="level3" data-number="1.1.12">
+<h3 data-number="1.1.12" class="anchored" data-anchor-id="class-2-a"><span class="header-section-number">1.1.12</span> Class 2 a</h3>
+<p>Se crea la variable tipo factor posición de clase <code>class2a</code> con 7 categorías ordenadas, dejando a <code>Expert managers</code> como categoría de referencia.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>elsoc_diseno <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span>segmento_disenno, <span class="co">#muestreo por conglomerado a nivel de manzanas (segmento)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">strata =</span> <span class="sc">~</span>estrato_disenno, <span class="co">#muestreo estratificado a nivel ciudad (estato)</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">weights =</span> <span class="sc">~</span>ponderador_long_total, <span class="co">#ponderador longitudinal</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">nest =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data =</span> data)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Paso 1</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>datos.clase <span class="ot">&lt;-</span> <span class="fu">data.frame</span>((<span class="fu">svytable</span>(<span class="sc">~</span>class1 <span class="sc">+</span> ola <span class="sc">+</span> idencuesta, elsoc_diseno, <span class="at">round =</span> F))) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Freq<span class="sc">&gt;</span><span class="dv">0</span>)  <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(ola) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">porcentaje=</span>Freq<span class="sc">/</span><span class="fu">sum</span>(Freq)) <span class="sc">%&gt;%</span> <span class="fu">na.omit</span>()</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Paso 2</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>etiquetas.clase <span class="ot">&lt;-</span> <span class="fu">data.frame</span>((<span class="fu">svytable</span>(<span class="sc">~</span>class1 <span class="sc">+</span> ola, elsoc_diseno, <span class="at">round =</span> F))) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(ola) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">porcentaje=</span>Freq<span class="sc">/</span><span class="fu">sum</span>(Freq)) <span class="sc">%&gt;%</span> <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">idencuesta =</span> <span class="dv">1</span>)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>datos.clase<span class="sc">$</span>class1 <span class="ot">&lt;-</span> <span class="fu">factor</span>(datos.clase<span class="sc">$</span>class1, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">levels</span>(datos.clase<span class="sc">$</span>class1)))</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>etiquetas.clase<span class="sc">$</span>class1 <span class="ot">&lt;-</span> <span class="fu">factor</span>(etiquetas.clase<span class="sc">$</span>class1, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">levels</span>(etiquetas.clase<span class="sc">$</span>class1)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>class2a <span class="ot">&lt;-</span> <span class="fu">factor</span>(data<span class="sc">$</span>class2,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"Expert managers"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Petit bourgeoisie"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Informal"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Experts"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Supervisors"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Workers"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Desocupados/Retirados"</span>))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla de frecuencias y porcentajes </span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">sjt.xtab</span>(data<span class="sc">$</span>class2a,data<span class="sc">$</span>ola,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">show.col.prc=</span><span class="cn">TRUE</span>, </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">var.labels=</span><span class="fu">c</span>(<span class="st">"Posición de clase 2 a"</span>,<span class="st">"Ola"</span>),</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">show.summary=</span><span class="cn">FALSE</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">title=</span><span class="st">"Frecuencias y porcentajes de la Posición de clase 2 a, por ola"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<caption>Frecuencias y porcentajes de la Posición de clase 2 a, por ola</caption>
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">Posición de clase 2<br>
+a</td>
+<td colspan="7" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">Ola</td>
+<td rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; font-weight: bolder; font-style: italic; border-bottom: 1px solid;">Total</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">2016</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">2017</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">2018</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">2019</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">2021</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">2022</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">2023</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Expert managers</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">94</span><br>
+<span style="color:#339933;">4.4&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">71</span><br>
+<span style="color:#339933;">4.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">120</span><br>
+<span style="color:#339933;">4.6&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">96</span><br>
+<span style="color:#339933;">4.4&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">115</span><br>
+<span style="color:#339933;">5.7&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">95</span><br>
+<span style="color:#339933;">5.4&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">138</span><br>
+<span style="color:#339933;">6.6&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">729</span><br>
+<span style="color:#339933;">5&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Petit bourgeoisie</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">105</span><br>
+<span style="color:#339933;">4.9&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">89</span><br>
+<span style="color:#339933;">5.4&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">143</span><br>
+<span style="color:#339933;">5.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">121</span><br>
+<span style="color:#339933;">5.6&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">118</span><br>
+<span style="color:#339933;">5.8&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">96</span><br>
+<span style="color:#339933;">5.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">84</span><br>
+<span style="color:#339933;">4&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">756</span><br>
+<span style="color:#339933;">5.2&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Informal</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">301</span><br>
+<span style="color:#339933;">14.2&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">260</span><br>
+<span style="color:#339933;">15.7&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">381</span><br>
+<span style="color:#339933;">14.6&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">323</span><br>
+<span style="color:#339933;">14.9&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">315</span><br>
+<span style="color:#339933;">15.6&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">278</span><br>
+<span style="color:#339933;">15.9&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">280</span><br>
+<span style="color:#339933;">13.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">2138</span><br>
+<span style="color:#339933;">14.8&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Experts</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">112</span><br>
+<span style="color:#339933;">5.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">84</span><br>
+<span style="color:#339933;">5.1&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">131</span><br>
+<span style="color:#339933;">5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">105</span><br>
+<span style="color:#339933;">4.8&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">94</span><br>
+<span style="color:#339933;">4.6&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">71</span><br>
+<span style="color:#339933;">4.1&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">99</span><br>
+<span style="color:#339933;">4.7&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">696</span><br>
+<span style="color:#339933;">4.8&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Supervisors</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">606</span><br>
+<span style="color:#339933;">28.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">513</span><br>
+<span style="color:#339933;">30.9&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">683</span><br>
+<span style="color:#339933;">26.2&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">611</span><br>
+<span style="color:#339933;">28.1&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">516</span><br>
+<span style="color:#339933;">25.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">421</span><br>
+<span style="color:#339933;">24&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">468</span><br>
+<span style="color:#339933;">22.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">3818</span><br>
+<span style="color:#339933;">26.4&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Workers</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">370</span><br>
+<span style="color:#339933;">17.4&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">291</span><br>
+<span style="color:#339933;">17.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">482</span><br>
+<span style="color:#339933;">18.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">398</span><br>
+<span style="color:#339933;">18.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">270</span><br>
+<span style="color:#339933;">13.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">227</span><br>
+<span style="color:#339933;">12.9&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">266</span><br>
+<span style="color:#339933;">12.7&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">2304</span><br>
+<span style="color:#339933;">16&nbsp;%</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Desocupados/Retirados</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">537</span><br>
+<span style="color:#339933;">25.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">353</span><br>
+<span style="color:#339933;">21.3&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">664</span><br>
+<span style="color:#339933;">25.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">519</span><br>
+<span style="color:#339933;">23.9&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">597</span><br>
+<span style="color:#339933;">29.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">565</span><br>
+<span style="color:#339933;">32.2&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">766</span><br>
+<span style="color:#339933;">36.5&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">4001</span><br>
+<span style="color:#339933;">27.7&nbsp;%</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; border-bottom: double; font-weight: bolder; font-style: italic; vertical-align: middle;">Total</td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">2125</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1661</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">2604</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">2173</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">2025</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">1753</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">2101</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double;"><span style="color:black;">14442</span><br>
+<span style="color:#339933;">100&nbsp;%</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="class-3" class="level3" data-number="1.1.13">
+<h3 data-number="1.1.13" class="anchored" data-anchor-id="class-3"><span class="header-section-number">1.1.13</span> Class 3</h3>
+<p>Se crea la variable tipo factor posición de clase <code>class3</code> con 6 categorías, fijando la clase para la ola 3.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identificar los valores de "class1" en la ola 3</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>class1_ola3 <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ola<span class="sc">==</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(idencuesta,class1) <span class="sc">%&gt;%</span>  </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">class3=</span>class1) <span class="co"># Renombrar "class2" a "class3"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Unir esta información con la base de datos original</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(class1_ola3, <span class="at">by =</span> <span class="st">"idencuesta"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="class-3-a" class="level3" data-number="1.1.14">
+<h3 data-number="1.1.14" class="anchored" data-anchor-id="class-3-a"><span class="header-section-number">1.1.14</span> Class 3 a</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identificar los valores de "class1" en la ola 3</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>class1a_ola3 <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ola<span class="sc">==</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(idencuesta,class1a) <span class="sc">%&gt;%</span>  </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">class3a=</span>class1a) <span class="co"># Renombrar "class2" a "class3"</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Unir esta información con la base de datos original</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(class1a_ola3, <span class="at">by =</span> <span class="st">"idencuesta"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="class-4" class="level3" data-number="1.1.15">
+<h3 data-number="1.1.15" class="anchored" data-anchor-id="class-4"><span class="header-section-number">1.1.15</span> Class 4</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identificar los valores de "class1" en la ola 3</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>class2_ola3 <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ola<span class="sc">==</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(idencuesta,class2) <span class="sc">%&gt;%</span>  </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">class4=</span>class2) <span class="co"># Renombrar "class2" a "class3"</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Unir esta información con la base de datos original</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(class2_ola3, <span class="at">by =</span> <span class="st">"idencuesta"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="class-4-a" class="level3" data-number="1.1.16">
+<h3 data-number="1.1.16" class="anchored" data-anchor-id="class-4-a"><span class="header-section-number">1.1.16</span> Class 4 a</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identificar los valores de "class1" en la ola 3</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>class2a_ola3 <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ola<span class="sc">==</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(idencuesta,class2a) <span class="sc">%&gt;%</span>  </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">class4a=</span>class2a) <span class="co"># Renombrar "class2" a "class3"</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Unir esta información con la base de datos original</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(class2a_ola3, <span class="at">by =</span> <span class="st">"idencuesta"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="alluvial" class="level3" data-number="1.1.17">
+<h3 data-number="1.1.17" class="anchored" data-anchor-id="alluvial"><span class="header-section-number">1.1.17</span> Alluvial</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>elsoc_diseno <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span>segmento_disenno, <span class="co">#muestreo por conglomerado a nivel de manzanas (segmento)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">strata =</span> <span class="sc">~</span>estrato_disenno, <span class="co">#muestreo estratificado a nivel ciudad (estato)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">weights =</span> <span class="sc">~</span>ponderador_long_total, <span class="co">#ponderador longitudinal</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">nest =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data =</span> data)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Paso 1</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>datos.clase <span class="ot">&lt;-</span> <span class="fu">data.frame</span>((<span class="fu">svytable</span>(<span class="sc">~</span>class1 <span class="sc">+</span> ola <span class="sc">+</span> idencuesta, elsoc_diseno, <span class="at">round =</span> F))) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(Freq<span class="sc">&gt;</span><span class="dv">0</span>)  <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(ola) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">porcentaje=</span>Freq<span class="sc">/</span><span class="fu">sum</span>(Freq)) <span class="sc">%&gt;%</span> <span class="fu">na.omit</span>()</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Paso 2</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>etiquetas.clase <span class="ot">&lt;-</span> <span class="fu">data.frame</span>((<span class="fu">svytable</span>(<span class="sc">~</span>class1 <span class="sc">+</span> ola, elsoc_diseno, <span class="at">round =</span> F))) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(ola) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">porcentaje=</span>Freq<span class="sc">/</span><span class="fu">sum</span>(Freq)) <span class="sc">%&gt;%</span> <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">idencuesta =</span> <span class="dv">1</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>datos.clase<span class="sc">$</span>class1 <span class="ot">&lt;-</span> <span class="fu">factor</span>(datos.clase<span class="sc">$</span>class1, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">levels</span>(datos.clase<span class="sc">$</span>class1)))</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>etiquetas.clase<span class="sc">$</span>class1 <span class="ot">&lt;-</span> <span class="fu">factor</span>(etiquetas.clase<span class="sc">$</span>class1, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">levels</span>(etiquetas.clase<span class="sc">$</span>class1)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>colors<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#f1eef6ff"</span>,<span class="st">"#bdc9e1ff"</span>,<span class="st">"#b3b3b3ff"</span>,<span class="st">"#74a9cfff"</span>,<span class="st">"#0570b0ff"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>alluvial_clase <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(datos.clase, <span class="fu">aes</span>(<span class="at">x =</span> ola, <span class="at">fill =</span> class1, <span class="at">stratum =</span> class1,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">alluvium =</span> idencuesta, <span class="at">y =</span> porcentaje))<span class="sc">+</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    ggalluvial<span class="sc">::</span><span class="fu">geom_flow</span>(<span class="at">alpha =</span> .<span class="dv">66</span>) <span class="sc">+</span> </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    ggalluvial<span class="sc">::</span><span class="fu">geom_stratum</span>(<span class="at">linetype =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span> </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="at">label =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="at">label =</span> <span class="cn">NULL</span>) <span class="sc">+</span> </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="co">#legend.position = 'top',</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#    scale_fill_manual(values = colors) +</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_shadowtext</span>(<span class="at">data =</span> etiquetas.clase, </span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">ifelse</span>(porcentaje <span class="sc">&gt;</span> <span class="dv">0</span> , scales<span class="sc">::</span><span class="fu">percent</span>(porcentaje, <span class="at">accuracy =</span> .<span class="dv">1</span>),<span class="st">""</span>)),</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>              <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> .<span class="dv">5</span>),</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">show.legend =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="dv">4</span>,</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="fu">rep</span>(<span class="st">'white'</span>),</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>              <span class="at">bg.colour=</span><span class="st">'grey30'</span>)<span class="sc">+</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="dv">2016</span>, <span class="dv">2017</span>, <span class="dv">2018</span>, <span class="dv">2019</span>, <span class="dv">2021</span>, <span class="dv">2022</span>, <span class="dv">2023</span>))</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>alluvial_clase</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>colors<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#f1eef6ff"</span>,<span class="st">"#bdc9e1ff"</span>,<span class="st">"#b3b3b3ff"</span>,<span class="st">"#74a9cfff"</span>,<span class="st">"#0570b0ff"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>alluvial_clase <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(datos.clase, <span class="fu">aes</span>(<span class="at">x =</span> ola, <span class="at">fill =</span> class1, <span class="at">stratum =</span> class1,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">alluvium =</span> idencuesta, <span class="at">y =</span> porcentaje))<span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    ggalluvial<span class="sc">::</span><span class="fu">geom_flow</span>(<span class="at">alpha =</span> .<span class="dv">66</span>) <span class="sc">+</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    ggalluvial<span class="sc">::</span><span class="fu">geom_stratum</span>(<span class="at">linetype =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span> </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="at">label =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="at">label =</span> <span class="cn">NULL</span>) <span class="sc">+</span> </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="co">#legend.position = 'top',</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#    scale_fill_manual(values = colors) +</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_shadowtext</span>(<span class="at">data =</span> etiquetas.clase, </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">ifelse</span>(porcentaje <span class="sc">&gt;</span> <span class="dv">0</span> , scales<span class="sc">::</span><span class="fu">percent</span>(porcentaje, <span class="at">accuracy =</span> .<span class="dv">1</span>),<span class="st">""</span>)),</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>              <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> .<span class="dv">5</span>),</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">show.legend =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="dv">4</span>,</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="fu">rep</span>(<span class="st">'white'</span>),</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>              <span class="at">bg.colour=</span><span class="st">'grey30'</span>)<span class="sc">+</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="dv">2016</span>, <span class="dv">2017</span>, <span class="dv">2018</span>, <span class="dv">2019</span>, <span class="dv">2021</span>, <span class="dv">2022</span>, <span class="dv">2023</span>))</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>alluvial_clase</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="01-exploracion_files/figure-html/alluvial-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(alluvial_clase, <span class="at">file=</span><span class="st">"output/graphs/alluvial_clase.png"</span>, <span class="at">height =</span> <span class="dv">8</span>, <span class="at">width =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(alluvial_clase, <span class="at">file=</span><span class="st">"output/graphs/alluvial_clase.png"</span>, <span class="at">height =</span> <span class="dv">8</span>, <span class="at">width =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -4022,7 +4477,7 @@ política</td>
 <h2 data-number="1.3" class="anchored" data-anchor-id="brechas-salariales"><span class="header-section-number">1.3</span> Brechas salariales</h2>
 <p>Eliminamos los casos que responden ‘0’ en salario. {revisar si se deberían eliminar también los que responden 1}</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>perc_gerente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>perc_gerente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 Min.               1st Qu.                Median 
                     0               5000000              10000000 
@@ -4031,49 +4486,49 @@ política</td>
                  NA's 
                  1144 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(perc_gerente<span class="sc">&gt;</span><span class="dv">100000</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(perc_gerente<span class="sc">&lt;</span><span class="dv">1200000000</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>perc_gerente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(perc_gerente<span class="sc">&gt;</span><span class="dv">100000</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(perc_gerente<span class="sc">&lt;</span><span class="dv">1200000000</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>perc_gerente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01-exploracion_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+<p><img src="01-exploracion_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>perc_obrero)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>perc_obrero)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max.      NA's 
       247    280000    320000    383931    400000 280000000        32 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(perc_obrero<span class="sc">&gt;</span><span class="dv">10000</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(perc_obrero<span class="sc">&lt;</span><span class="dv">10000000</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>perc_obrero)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(perc_obrero<span class="sc">&gt;</span><span class="dv">10000</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(perc_obrero<span class="sc">&lt;</span><span class="dv">10000000</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>perc_obrero)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01-exploracion_files/figure-html/unnamed-chunk-23-2.png" class="img-fluid" width="672"></p>
+<p><img src="01-exploracion_files/figure-html/unnamed-chunk-29-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>just_gerente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>just_gerente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      Min.    1st Qu.     Median       Mean    3rd Qu.       Max.       NA's 
          0    2000000    4500000   10988599    8000000 8000000000        378 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(just_gerente<span class="sc">&gt;</span><span class="dv">100000</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(just_gerente<span class="sc">&lt;</span><span class="dv">1200000000</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>just_gerente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(just_gerente<span class="sc">&gt;</span><span class="dv">100000</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(just_gerente<span class="sc">&lt;</span><span class="dv">1200000000</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>just_gerente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01-exploracion_files/figure-html/unnamed-chunk-23-3.png" class="img-fluid" width="672"></p>
+<p><img src="01-exploracion_files/figure-html/unnamed-chunk-29-3.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(just_obrero<span class="sc">&gt;</span><span class="dv">10000</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(just_obrero<span class="sc">&lt;</span><span class="dv">10000000</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>just_obrero)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(just_obrero<span class="sc">&gt;</span><span class="dv">10000</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(just_obrero<span class="sc">&lt;</span><span class="dv">10000000</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>just_obrero)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="01-exploracion_files/figure-html/unnamed-chunk-23-4.png" class="img-fluid" width="672"></p>
+<p><img src="01-exploracion_files/figure-html/unnamed-chunk-29-4.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>brecha_perc <span class="ot">&lt;-</span> <span class="fu">log</span>(data<span class="sc">$</span>perc_gerente<span class="sc">/</span>data<span class="sc">$</span>perc_obrero)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>brecha_just <span class="ot">&lt;-</span> <span class="fu">log</span>(data<span class="sc">$</span>just_gerente<span class="sc">/</span>data<span class="sc">$</span>just_obrero)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>brecha_gerente <span class="ot">&lt;-</span> <span class="fu">log</span>(data<span class="sc">$</span>perc_gerente<span class="sc">/</span>data<span class="sc">$</span>just_gerente)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>brecha_obrero <span class="ot">&lt;-</span> <span class="fu">log</span>(data<span class="sc">$</span>perc_obrero<span class="sc">/</span>data<span class="sc">$</span>just_obrero)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>brecha_perc <span class="ot">&lt;-</span> <span class="fu">log</span>(data<span class="sc">$</span>perc_gerente<span class="sc">/</span>data<span class="sc">$</span>perc_obrero)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>brecha_just <span class="ot">&lt;-</span> <span class="fu">log</span>(data<span class="sc">$</span>just_gerente<span class="sc">/</span>data<span class="sc">$</span>just_obrero)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>brecha_gerente <span class="ot">&lt;-</span> <span class="fu">log</span>(data<span class="sc">$</span>perc_gerente<span class="sc">/</span>data<span class="sc">$</span>just_gerente)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>brecha_obrero <span class="ot">&lt;-</span> <span class="fu">log</span>(data<span class="sc">$</span>perc_obrero<span class="sc">/</span>data<span class="sc">$</span>just_obrero)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>brecha_perc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>brecha_perc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  -1.204   2.590   3.352   3.400   4.135   9.567 </code></pre>
@@ -4085,7 +4540,7 @@ política</td>
 <li>Brecha &lt; 0: El salario percibido gerente es menor que el salario percibido obrero.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>brecha_just)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>brecha_just)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  -3.466   1.186   1.833   1.916   2.590   8.294 </code></pre>
@@ -4097,7 +4552,7 @@ política</td>
 <li>Brecha &lt; 0: El salario de un gerente debería ser menor que el salario obrero.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>brecha_gerente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>brecha_gerente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 -4.9416  0.2877  0.6931  0.9009  1.2730  7.9866 </code></pre>
@@ -4109,7 +4564,7 @@ política</td>
 <li>Brecha &lt; 0: El salario percibido de un gerente es menor que el salario que debería tener (infra-pago).</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>brecha_obrero)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data<span class="sc">$</span>brecha_obrero)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 -4.3820 -0.7340 -0.5390 -0.5834 -0.3567  3.2189 </code></pre>
