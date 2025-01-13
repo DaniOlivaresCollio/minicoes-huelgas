@@ -142,13 +142,6 @@ data$rel_empleo <- car::recode(data$m07,
                                         "Trabaja solo, no tiene empleados",
                                         "Familiar no remunerado",
                                         "Servicio doméstico")) # ordenar niveles
-
-# Tabla de frecuencias y porcentajes
-sjt.xtab(data$rel_empleo,data$ola,
-         show.col.prc=TRUE,
-         var.labels=c("Relación de empleo","Ola"),
-         show.summary=FALSE,
-         title="Frecuencias y porcentajes de la Relación de empleo, por ola")
 ```
 
 La variable de Relación de Empleo, llamada `rel_empleo`, solamente está presente en las olas 2016, 2018 y 2021. Por lo tanto, se duplican los datos de relación de empleo para los años siguientes, es decir, en 2017 se pondrán los valores de 2016, y así sucesivamente.
@@ -501,13 +494,6 @@ data <- data %>%
                              m06 >= 1 ~ 1,
                              m06 == -888 ~ NA,
                              m06 == -999 ~ NA))
-
-# Tabla de frecuencias y porcentajes 
-sjt.xtab(data$supervisa, data$ola,
-         show.col.prc = TRUE, 
-         var.labels = c("Supervisa","Ola"),
-         show.summary = FALSE,
-         title = "Frecuencias y porcentajes de variable Supervisa, por ola")
 ```
 
 Pero, dado que la variable `m06` solamente se encuentra en las olas 2016, 2018 y 2021, se duplican los datos para los años siguientes, es decir, en 2017 se pondrán los valores de 2016, y así sucesivamente.
