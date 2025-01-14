@@ -32,6 +32,9 @@ p_load(tidyverse,
        shadowtext)
 ```
 
+
+## Variables
+
 Cargamos la base de datos ELSOC 2016-2023 en formato *long*.
 
 ```{r datos-2,echo=FALSE}
@@ -50,9 +53,10 @@ data <- elsoc_long_2016_2023 %>%
          segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
          ponderador_long_total,                          # ponderador longit
          sexo=m0_sexo,edad=m0_edad,educ=m01,             # caract sociodem
-         m02,m06,m07,m08,m10,                            # caract sociodem
+         m02,m06,m07,m08,m10,region_cod,m13,m14,         # caract sociodem
          m03,ciuo88_m03,ciuo08_m03,                      # caract ocupacional
          m04,ciiu3_m04,ciiu4_m04,                        # caract ocupacional
+         c33,d01_01,                                     # clase y estatus
          c12_04,                                         # membresia sindicato
          marcha=c08_02,                                  # freq participa marchas
          huelga=c08_03,                                  # freq participa huelgas
@@ -86,6 +90,7 @@ Creamos la variable *tipo factor* `actividad` (la variable `m02` sigue siendo *n
 
 ```{r,echo=FALSE}
 # Recodficar
+data <- data[!is.na(data$m02), ]
 data$actividad <- car::recode(data$m02,
                               recodes=c("1='Trabaja de manera remunerada con jornada completa';
                                          2='Trabaja de manera remunerada a tiempo parcial';
@@ -115,6 +120,12 @@ sjt.xtab(data$actividad,data$ola,
          title="Frecuencias y porcentajes de Actividad principal, por ola") 
 ```
 
+```{r,echo=FALSE}
+n <- nrow(data)
+```
+
+Al remover los NA's se queda con `r n` observaciones.
+
 
 ### Relación de empleo
 
@@ -122,7 +133,7 @@ Con la variable *numérica* ELSOC:
 
 -   `m07`. En su actual ocupación usted trabaja como:
 
-Creamos la variable *tipo factor* `rel_empleo`, (la variable `m07` sigue siendo *numérica*).
+Creamos la variable *factor* `rel_empleo`, (la variable `m07` sigue siendo *numérica*).
 
 ```{r,echo=FALSE}
 # Recodficar
@@ -149,7 +160,6 @@ La variable de Relación de Empleo, llamada `rel_empleo`, solamente está presen
 ```{r,echo=FALSE}
 # Crear una columna con la variable rel_empleo adelantada una ola
 data <- data %>%
-  # arrange(idencuesta, ola) %>%  # Ordena por id y ola, por si acaso no está ordenado
   group_by(idencuesta) %>%        # Agrupa por id para trabajar en cada individuo
   mutate(rel_empleo_lagged=lag(as.character(rel_empleo),n=1)) %>%  # Desplaza rel_empleo a la siguiente ola, conviertiendo el factor en character temporalmente
   ungroup()
@@ -177,7 +187,7 @@ sjt.xtab(data$rel_empleo,data$ola,
          show.col.prc=TRUE,
          var.labels=c("Relación de empleo","Ola"),
          show.summary=FALSE,
-         title="Frecuencias y porcentajes de la Relación de Empleo, por ola")
+         title="Frecuencias y porcentajes de Relación de Empleo, por ola")
 ```
 
 
@@ -198,7 +208,7 @@ sjt.xtab(data$sector, data$ola,
          show.col.prc = TRUE, 
          var.labels = c("Sector","Ola"),
          show.summary = FALSE,
-         title = "Frecuencias y porcentajes de variable Sector, por ola")
+         title = "Frecuencias y porcentajes de Sector, por ola")
 ```
 
 
@@ -208,7 +218,7 @@ La variable *tipo character* ELSOC:
 
 -   `m03`. ¿Cuál es su ocupación u oficio actual? Describa sus principales tareas y funciones en el puesto de trabajo actual
 
-Se encuentra codificada de acuerdo con la CIUO88 para el año 2016, y CIUO08 para los años 2018 y 2021.
+Se encuentra codificada de acuerdo con la CIUO88 para el año 2016 en la variable *numérica* `ciuo88_m03`, y CIUO08 para los años 2018 y 2021, en la variable *numérica* `ciuo08_m03`.
 
 -   `ciuo88_m03`: CIUO (1988) del entrevistado, para año 2016
 -   `ciuo08_m03`: CIUO (2008) del entrevistado, para año 2018 y 2021
@@ -227,14 +237,6 @@ valores_repetidos <- valores_repetidos[valores_repetidos > 1]
 valores_repetidos <- table(isco08_88$isco08) # Contar los valores repetidos en la variable
 valores_repetidos <- valores_repetidos[valores_repetidos > 1]
 
-# data %>%
-#   group_by(ola) %>%
-#   summarise(datos_validos = sum(!is.na(ciuo88_m03)))
-# 
-# data %>%
-#   group_by(ola) %>%
-#   summarise(datos_validos = sum(!is.na(ciuo08_m03)))
-
 # CIUO - ISCO: Recodificación 88->08 4 digitos en datos elsoc
 indices <- match(data$ciuo88_m03,isco08_88$isco88)
 data$ciuo08_rec <- isco08_88$isco08[indices]
@@ -249,7 +251,6 @@ Además, esta variable también se presenta solamente en las olas 2016, 2018 y 2
 ```{r,echo=FALSE}
 # Crear una columna con la variable "isco08" adelantada una ola
 data <- data %>%
-  # arrange(idencuesta, ola) %>%  # Ordena por id y ola, por si acaso no está ordenado
   group_by(idencuesta) %>%        # Agrupa por id para trabajar en cada individuo
   mutate(isco08_lagged=lag(isco08,n=1)) %>%  # Desplaza isco08 a la siguiente ola
   ungroup()
@@ -291,7 +292,7 @@ sjt.xtab(data$isco08_2d,data$ola,
 
 ### Cualificación
 
-Se crea una nueva variable *tipo factor* con el Nivel de cualificación, de acuerdo con la variable CIUO08 de 2 dígitos *isco08_2d*, siguiendo el criterio:
+Se crea una nueva variable *tipo factor* con el Nivel de cualificación, de acuerdo con la variable CIUO08 de 2 dígitos `isco08_2d`, siguiendo el criterio:
 
 - Expertos (Experts): 11 a 34 con universitaria completa o más 
 - Calificados (Skilled): 11 a 34 con universitaria incompleta o menos, y 35,41,42,43,44,53, y 51,54,61,62,71,72,73,74,75,81 con media completa o más.
@@ -300,45 +301,20 @@ Se crea una nueva variable *tipo factor* con el Nivel de cualificación, de acue
 ```{r,echo=FALSE}
 # Creación variable Nivel de cualificación
 data <- mutate(data,
-               cualificacion = case_when(isco08_2d <= 34 & educ >= 9 ~ "Experts",
-                                         isco08_2d <= 34 & educ < 9 ~ "Skilled",
-                                         isco08_2d == 35 ~ "Skilled",
-                                         isco08_2d >= 41 & isco08_2d <= 44 ~ "Skilled",
-                                         isco08_2d == 53 ~ "Skilled",
-                                         isco08_2d == 51 & educ <= 5 ~ "Unskilled",
-                                         isco08_2d == 51 & educ > 5 ~ "Skilled",
-                                         isco08_2d == 54 & educ <= 5 ~ "Unskilled",
-                                         isco08_2d == 54 & educ > 5 ~ "Skilled",
-                                         isco08_2d == 61 & educ <= 5 ~ "Unskilled",
-                                         isco08_2d == 61 & educ > 5 ~ "Skilled",
-                                         isco08_2d == 62 & educ <= 5 ~ "Unskilled",
-                                         isco08_2d == 62 & educ > 5 ~ "Skilled",
-                                         isco08_2d == 71 & educ <= 5 ~ "Unskilled",
-                                         isco08_2d == 71 & educ > 5 ~ "Skilled",
-                                         isco08_2d == 72 & educ <= 5 ~ "Unskilled",
-                                         isco08_2d == 72 & educ > 5 ~ "Skilled",
-                                         isco08_2d == 73 & educ <= 5 ~ "Unskilled",
-                                         isco08_2d == 73 & educ > 5 ~ "Skilled",
-                                         isco08_2d == 74 & educ <= 5 ~ "Unskilled",
-                                         isco08_2d == 74 & educ > 5 ~ "Skilled",
-                                         isco08_2d == 75 & educ <= 5 ~ "Unskilled",
-                                         isco08_2d == 75 & educ > 5 ~ "Skilled",
-                                         isco08_2d == 81 & educ <= 5 ~ "Unskilled",
-                                         isco08_2d == 81 & educ > 5 ~ "Skilled",
-                                         isco08_2d == 52 ~ "Unskilled",
-                                         isco08_2d == 61 ~ "Unskilled",
-                                         isco08_2d == 63 ~ "Unskilled",
-                                         isco08_2d == 75 ~ "Unskilled",
-                                         isco08_2d == 82 ~ "Unskilled",
-                                         isco08_2d == 83 ~ "Unskilled",
-                                         isco08_2d == 90 ~ "Unskilled"))
+               cualificacion=factor(case_when(isco08_2d<=34&educ>=9~"Experts",
+                                              isco08_2d<=34&educ<9~"Skilled",
+                                              isco08_2d%in%c(35,41:44,53)~"Skilled",
+                                              isco08_2d%in%c(51,54,61,62,71:75,81)&educ>5~"Skilled",
+                                              isco08_2d%in%c(51,54,61,62,71:75,81)&educ<=5~"Unskilled",
+                                              isco08_2d%in%c(52,61,63,75,82,83,90)~"Unskilled"),
+                                    levels=c("Experts","Skilled","Unskilled")))
 
 # Tabla de frecuencias y porcentajes 
-sjt.xtab(data$cualificacion, data$ola,
-         show.col.prc = TRUE, 
-         var.labels = c("Nivel de cualificación","Ola"),
-         show.summary = FALSE,
-         title = "Frecuencias y porcentajes del Nivel de Cualificación, por ola")
+sjt.xtab(data$cualificacion,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Nivel de cualificación","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes del Nivel de Cualificación, por ola")
 ```
 
 
@@ -348,12 +324,12 @@ La variable *tipo character* ELSOC:
 
 -   `m04`. ¿A qué rubro o giro de actividad se dedica principalmente la empresa, institución o negocio para la cual usted trabaja?
 
-Se encuentra codificada de acuerdo con la CIIU3 para el año 2016, y CIIU4 para los años 2018 y 2021.
+Se encuentra codificada de acuerdo con la CIIU3 para el año 2016 en la variable *numérica* `ciiu3_m04`, y CIIU4 para los años 2018 y 2021 en la variable *numérica* `ciiu4_m04`.
 
 -   `ciiu3_m04`: CIIU (III version) del entrevistado, para el año 2016
 -   `ciiu4_m04`: CIIU (IV version) del entrevistado, para el año 2018 y 2021
 
-Por lo tanto, se realiza una recodificación generando una nueva variable donde están todas las olas homolagadas a la CIIU4, llamada `isic4`.
+Por lo tanto, se realiza una recodificación generando una nueva variable *numérica* donde están todas las olas homolagadas a la CIIU4, llamada `isic4`.
 
 ```{r,echo=FALSE,message=FALSE}
 # Recodificar variable CIIU 3 para que queden de 4 dígitos
@@ -361,14 +337,6 @@ data$ciiu3 <- sprintf("%04d",data$ciiu3_m04)
 
 # Recodificar variable CIIU 4 para que queden de 4 dígitos
 data$ciiu4 <- sprintf("%04d",data$ciiu4_m04)
-
-# data %>%
-#   group_by(ola) %>%
-#   summarise(datos_validos = sum(!is.na(ciiu3_m04)))
-# 
-# data %>%
-#   group_by(ola) %>%
-#   summarise(datos_validos = sum(!is.na(ciiu4_m04)))
 
 # Creación de variable CIIU 4 con CIIU 3
 ## Carga bbdd con comparacion 31 y 4
@@ -400,7 +368,7 @@ data <- data %>%
   select(-isic4_lagged)                 # Elimina la columna temporal
 ```
 
-Además, se crea la variable `isic4_2d` con 2 dígitos, y la variable `rama` con la agrupación del CIIU4 de dos dígitos en ramas de la actividad económica. 
+Además, se crea la variable *numérica*`isic4_2d` con 2 dígitos, y la variable *factor* `rama` con la agrupación del CIIU4 de dos dígitos en ramas de la actividad económica. 
 
 ```{r,echo=FALSE}
 # CIIU 4: creación de variable con 2 dígitos
@@ -411,7 +379,7 @@ data$isic4_2d <- as.numeric(data$isic4_2d)
 
 # Creación de variable con letra
 data <- mutate(data,
-               rama=case_when(isic4_2d<=03~"A",
+               rama=factor(case_when(isic4_2d<=03~"A",
                               isic4_2d>=05&isic4_2d<=09~"B",
                               isic4_2d>=10&isic4_2d<=33~"C",
                               isic4_2d==35~"D",
@@ -431,7 +399,7 @@ data <- mutate(data,
                               isic4_2d>=90&isic4_2d<=93~"R",
                               isic4_2d>=94&isic4_2d<=96~"S",
                               isic4_2d>=97&isic4_2d<=98~"T",
-                              isic4_2d==99~"U"))
+                              isic4_2d==99~"U"))) 
 
 # Tabla de frecuencias y porcentajes
 sjt.xtab(data$rama,data$ola,
@@ -444,7 +412,7 @@ sjt.xtab(data$rama,data$ola,
 
 ### Rama 2
 
-Se crea una segunda variable de Rama de la Actividad Económica, llamada `rama_2`, donde:
+Se crea una segunda variable *tipo factor* de Rama de la Actividad Económica, llamada `rama_2`, donde:
 
 -   Se unen *B* y *C*
 -   Se unen *D*, *E* y *F*
@@ -456,7 +424,7 @@ Se crea una segunda variable de Rama de la Actividad Económica, llamada `rama_2
 ```{r,echo=FALSE}
 # Creación de variable rama 2
 data <- mutate(data,
-               rama_2=case_when(rama=="A"~"A",
+               rama_2=factor(case_when(rama=="A"~"A",
                                 rama=="B"|rama=="C"~"BC",
                                 rama=="D"|rama=="E"|rama=="F"~"DEF",
                                 rama=="G"|rama=="I"~"GI",
@@ -465,7 +433,7 @@ data <- mutate(data,
                                 rama=="O"~"O",
                                 rama=="P"|rama=="Q"~"PQ",
                                 rama=="R"|rama=="S"|rama=="U"~"RSU",
-                                rama=="T"~"T"))
+                                rama=="T"~"T")))
 
 # Tabla de frecuencias y porcentajes
 sjt.xtab(data$rama_2,data$ola,
@@ -482,7 +450,7 @@ La variable *numérica* ELSOC:
 
 -   `m06`. En su trabajo, ¿a cuántas personas supervisa usted?
 
-Se recodifica en una nueva variable *dicotómica*, `supervisa`, donde:
+Se recodifica en una nueva variable *dicotómica numérica*, `supervisa`, donde:
 
 -   `supervisa==1`: Supervisa a una o más personas (`m06>=1`)
 -   `supervisa==0`: No supervisa (`m06==0`)
@@ -490,10 +458,10 @@ Se recodifica en una nueva variable *dicotómica*, `supervisa`, donde:
 ```{r,echo=FALSE}
 # Crear variable supervisa==1, no supervisa==0
 data <- data %>%
-  mutate(supervisa=case_when(m06 == 0 ~ 0,
-                             m06 >= 1 ~ 1,
-                             m06 == -888 ~ NA,
-                             m06 == -999 ~ NA))
+  mutate(supervisa=case_when(m06==0~0,
+                             m06>=1~1,
+                             m06==-888~NA,
+                             m06==-999~NA))
 ```
 
 Pero, dado que la variable `m06` solamente se encuentra en las olas 2016, 2018 y 2021, se duplican los datos para los años siguientes, es decir, en 2017 se pondrán los valores de 2016, y así sucesivamente.
@@ -745,7 +713,7 @@ sjt.xtab(data$class4a,data$ola,
 
 ### Alluvial
 
-```{r}
+```{r,echo=FALSE}
 elsoc_diseno <- svydesign(ids = ~segmento_disenno, #muestreo por conglomerado a nivel de manzanas (segmento)
                           strata = ~estrato_disenno, #muestreo estratificado a nivel ciudad (estato)
                           weights = ~ponderador_long_total, #ponderador longitudinal
@@ -762,7 +730,7 @@ datos.clase$class1 <- factor(datos.clase$class1, levels = rev(levels(datos.clase
 etiquetas.clase$class1 <- factor(etiquetas.clase$class1, levels = rev(levels(etiquetas.clase$class1)))
 ```
 
-```{r alluvial}
+```{r alluvial,echo=FALSE}
 colors<- c("#f1eef6ff","#bdc9e1ff","#b3b3b3ff","#74a9cfff","#0570b0ff")
 alluvial_clase <- ggplot(datos.clase, aes(x = ola, fill = class1, stratum = class1,
                              alluvium = idencuesta, y = porcentaje))+
@@ -818,11 +786,12 @@ Se crea la variable *factor* `pol_id`.
 
 ```{r,echo=FALSE}
 # Recodficar
+data <- data[!is.na(data$c15), ]
 data$pol_id <- car::recode(data$c15,
                            recodes=c("c(11,12,-888,-999)='No se identifica';
-                           c(0,1,2,3,4)='Izquierda';
-                           c(5)='Centro';
-                           c(6,7,8,9,10)='Derecha'"),
+                                      c(0,1,2,3,4)='Izquierda';
+                                      c(5)='Centro';
+                                      c(6,7,8,9,10)='Derecha'"),
                            as.factor=TRUE, 
                            levels=c('Izquierda', 
                                     'Centro',
@@ -848,8 +817,9 @@ Se crea la variable `pol_interes`.
 
 ```{r,echo=FALSE}
 # Recodficar
+data <- data[!is.na(data$c13), ]
 data <- data %>%
-  mutate(pol_interes = c13)
+  mutate(pol_interes=c13)
 
 # Tabla de frecuencias y porcentajes
 sjt.xtab(data$pol_interes,data$ola,
@@ -864,12 +834,13 @@ sjt.xtab(data$pol_interes,data$ola,
 
 Observamos la variable *numérica* ELSOC:
 
--   `c14_01`. ¿Qué tan interesado está usted en la política?
+-   `c14_01`. ¿Con qué frecuencia realiza usted las siguientes actividades? Habla de política con familiares o amigos
 
 Se crea la variable `pol_habla`.
 
 ```{r,echo=FALSE}
 # Recodficar
+data <- data[!is.na(data$c14_01), ]
 data <- data %>%
   mutate(pol_habla=c14_01)
 
@@ -880,6 +851,30 @@ sjt.xtab(data$pol_habla,data$ola,
          show.summary=FALSE,
          title="Frecuencias y porcentajes de Habla de política, por ola") 
 ```
+
+
+### Se informa de política
+
+Observamos la variable *numérica* ELSOC:
+
+-   `c14_02`. ¿Con qué frecuencia realiza usted las siguientes actividades? Se informa activamente sobre política en medios tales como televisión, radios, diarios o internet
+
+Se crea la variable `pol_inform`.
+
+```{r,echo=FALSE}
+# Recodficar
+data <- data[!is.na(data$c14_02), ]
+data <- data %>%
+  mutate(pol_inform=c14_02)
+
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$pol_inform,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Se informa de política","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Se informa de política, por ola") 
+```
+
 
 ## Brechas salariales
 
@@ -944,11 +939,139 @@ summary(data$brecha_obrero)
 * Brecha = 0: El salario percibido de un obrero es igual al salario que debería tener (equidad).
 * Brecha < 0: El salario percibido de un obrero es menor que el salario que debería tener (infra-pago).
 
+
 ## Sociodemográficos
 
 ### Región
 
+Con la variable *numérica* ELSOC:
+
+-   `region_cod`. Region (Codigo)
+
+Se crea la variable *dicotómica* `metrop`, donde:
+
+-   `metrop==0`: No pertenece a la Región Metropolitana
+-   `metrop==1`: Pertenece a la Región Metropolitana (`region_cod==13`)
+
+```{r,echo=FALSE}
+# Crear variable sector
+data <- data %>%
+  mutate(metrop=if_else(region_cod==13,1,0))
+
+# Tabla de frecuencias y porcentajes 
+sjt.xtab(data$metrop,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Región Metropolitana","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de variable Región Metropolitana, por ola")
+```
+
+
 ### Educación
+
+Con la variable *numérica* ELSOC:
+
+-   `m01`. ¿Cuál es su nivel educacional? Indique el tipo de estudio actual (si estudia actualmente) o el último tipo aprobado (si no estudia actualmente).
+
+Se crea la variable *factor* `educ`, donde:
+
+-   `educ==Básica`: Educación básica completa o menos (`m02==1`,`m02==2`,`m02==3`)
+-   `educ==Media`: Educación media incompleta o completa (`m02==4`,`m02==5`)
+-   `educ==Técnica`: Educación técnica incompleta o completa (`m02==6`,`m02==7`)
+-   `educ==Superior`: Educación superior incompleta o completa, y postgrado (`m02==8`,`m02==9`,`m02==10`)
+
+```{r,echo=FALSE}
+data <- data[!is.na(data$educ), ]
+data$educ <- car::recode(data$educ,
+                         recodes=c("c(1,2,3)='Básica';
+                                    c(4,5)='Media';
+                                    c(6,7)='Técnica';
+                                    c(8,9,10)='Superior'"),
+                         as.factor=TRUE, 
+                         levels=c('Básica',
+                                  'Media',
+                                  'Técnica',
+                                  'Superior'))
+
+# Tabla de frecuencias y porcentajes 
+sjt.xtab(data$educ,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Educación","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de variable Educación, por ola")
+```
+
+
+### Identidad de clase
+
+Con la variable *numérica* ELSOC:
+
+-   `c33`. En la sociedad, comúnmente, existen distintos grupos o clases sociales. Las personas de clase social alta son las que tienen los ingresos más altos, el mayor nivel de educación y los trabajos más valorados. Las personas de clase social baja son las que tienen los ingresos más bajos, el menor nivel de educación y los trabajos menos valorados. Entre estas clases existen otras intermedias. Según su opinión, a cuál de los siguientes grupos o clases sociales pertenece usted:
+
+Se crea la variable *factor* `class_id`, donde:
+
+-   `class_id==Baja`: Clase baja y media baja (`c33==1`,`c33==2`)
+-   `class_id==Media`: Clase media  (`c33==3`)
+-   `class_id==Alta`: Clase media alta y alta (`c33==4`,`c33==5`)
+
+```{r,echo=FALSE}
+# data <- data[!is.na(data$c33), ]
+data$class_id <- car::recode(data$c33,
+                         recodes=c("c(1,2)='Baja';
+                                    c(3)='Media';
+                                    c(4,5)='Alta'"),
+                         as.factor=TRUE, 
+                         levels=c('Baja',
+                                  'Media',
+                                  'Alta'))
+
+# Tabla de frecuencias y porcentajes 
+sjt.xtab(data$class_id,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Identidad de Clase","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de variable Identidad de Clase, por ola")
+```
+
+
+### Estatus social subjetivo
+
+Con la variable *numérica* ELSOC:
+
+-   `d01_01`. En nuestra sociedad, hay grupos que tienden a ubicarse en los niveles más altos y grupos que tienden a ubicarse en los niveles más bajos de la sociedad. Usando la escala presentada, donde 0 es el nivel más bajo y 10 el nivel más alto,  ¿Dónde se ubicaría usted en la sociedad chilena?
+
+Se crea la variable *numérica* `class_estatus`, donde:
+
+```{r,echo=FALSE}
+data <- data[!is.na(data$d01_01), ]
+data <- data %>%
+  mutate(class_estatus=d01_01)
+
+# Tabla de frecuencias y porcentajes 
+sjt.xtab(data$class_estatus,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Estatus social subjetivo","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de variable Estatus social subjetivo, por ola")
+```
+
+
+### Ingreso
+
+
+### Edad al cuadrado
+
+Con la variable *numérica* ELSOC:
+
+- `m0_edad`: Edad del entrevistado
+
+Se crea la variable *numérica* `edad2` con la edad al cuadrado.
+
+```{r,echo=FALSE}
+data$edad2 <- (data$edad)**2
+```
+
+
 
 
 ## Guardar datos
