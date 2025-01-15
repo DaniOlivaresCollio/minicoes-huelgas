@@ -43,7 +43,7 @@ load(here::here("input/data/ELSOC_Long_2016_2023.RData"))
 
 Seleccionamos las variables de interés.
 
-```{r seleccion}
+```{r variables,echo=FALSE}
 # Seleccion solo para mirar, aun sin ponderadores
 data <- elsoc_long_2016_2023 %>%
   select(idencuesta,                                     # identificacion enctdo
@@ -53,7 +53,7 @@ data <- elsoc_long_2016_2023 %>%
          segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
          ponderador_long_total,                          # ponderador longit
          sexo=m0_sexo,edad=m0_edad,educ=m01,             # caract sociodem
-         m02,m06,m07,m08,m10,region_cod,m13,m14,         # caract sociodem
+         m02,m06,m07,m08,m10,region_cod,m13,m14,m14b,    # caract sociodem
          m03,ciuo88_m03,ciuo08_m03,                      # caract ocupacional
          m04,ciiu3_m04,ciiu4_m04,                        # caract ocupacional
          c33,d01_01,                                     # clase y estatus
@@ -80,7 +80,7 @@ Se comienza con `r n` observaciones.
 
 ## Caracterización empleo
 
-### Actividad
+### actividad
 
 Con la variable *numérica* ELSOC:
 
@@ -127,7 +127,7 @@ n <- nrow(data)
 Al remover los NA's se queda con `r n` observaciones.
 
 
-### Relación de empleo
+### rel_empleo
 
 Con la variable *numérica* ELSOC:
 
@@ -191,7 +191,7 @@ sjt.xtab(data$rel_empleo,data$ola,
 ```
 
 
-### Sector
+### sector
 
 Se crea en una nueva variable *dicotómica*, `sector`, donde:
 
@@ -444,7 +444,7 @@ sjt.xtab(data$rama_2,data$ola,
 ```
 
 
-### Supervisión 
+### supervisa
 
 La variable *numérica* ELSOC:
 
@@ -459,9 +459,7 @@ Se recodifica en una nueva variable *dicotómica numérica*, `supervisa`, donde:
 # Crear variable supervisa==1, no supervisa==0
 data <- data %>%
   mutate(supervisa=case_when(m06==0~0,
-                             m06>=1~1,
-                             m06==-888~NA,
-                             m06==-999~NA))
+                             m06>=1~1))
 ```
 
 Pero, dado que la variable `m06` solamente se encuentra en las olas 2016, 2018 y 2021, se duplican los datos para los años siguientes, es decir, en 2017 se pondrán los valores de 2016, y así sucesivamente.
@@ -484,9 +482,7 @@ data <- data %>%
 # Crear variable supervisa==1, no supervisa==0
 data <- data %>%
   mutate(supervisa=case_when(m06_full==0~0,
-                             m06_full>=1~1,
-                             m06_full==-888~NA,
-                             m06_full==-999~NA))
+                             m06_full>=1~1))
 
 # Tabla de frecuencias y porcentajes 
 sjt.xtab(data$supervisa,data$ola,
@@ -497,7 +493,7 @@ sjt.xtab(data$supervisa,data$ola,
 ```
 
 
-### Class 1
+### class1
 
 Se crea la variable tipo factor posición de clase `class1` con 6 categorías:
 
@@ -519,12 +515,12 @@ data <- mutate(data,
                                cualificacion=="Skilled"|cualificacion=="Unskilled"&supervisa==0~"Workers"))
 
 data$class1 <- factor(data$class1,
-                      levels = c("Petit bourgeoisie",
-                                 "Informal",
-                                 "Expert managers",
-                                 "Experts",
-                                 "Supervisors",
-                                 "Workers"))
+                      levels=c("Petit bourgeoisie",
+                               "Informal",
+                               "Expert managers",
+                               "Experts",
+                               "Supervisors",
+                               "Workers"))
 
 # Tabla de frecuencias y porcentajes 
 sjt.xtab(data$class1, data$ola,
@@ -535,7 +531,7 @@ sjt.xtab(data$class1, data$ola,
 ```
 
 
-### Class 1 a 
+### class1a 
 
 Se crea la variable tipo factor posición de clase `class1a` con 6 categorías ordenadas, dejando a `Expert managers` como categoría de referencia.
 
@@ -557,7 +553,7 @@ sjt.xtab(data$class1a,data$ola,
 ```
 
 
-### Class 2
+### class2
 
 Se crea la variable tipo factor posición de clase `class2` con 7 categorías:
 
@@ -598,7 +594,7 @@ sjt.xtab(data$class2,data$ola,
 ```
 
 
-### Class 2 a 
+### class2a 
 
 Se crea la variable tipo factor posición de clase `class2a` con 7 categorías ordenadas, dejando a `Expert managers` como categoría de referencia.
 
@@ -621,7 +617,7 @@ sjt.xtab(data$class2a,data$ola,
 ```
 
 
-### Class 3
+### class3
 
 Se crea la variable tipo factor posición de clase `class3` con 6 categorías, fijando la clase para la ola 3.
 
@@ -645,7 +641,7 @@ sjt.xtab(data$class3,data$ola,
 ```
 
 
-### Class 3 a 
+### class3a 
 
 ```{r,echo=FALSE}
 # Identificar los valores de "class1a" en la ola 3
@@ -667,7 +663,7 @@ sjt.xtab(data$class3a,data$ola,
 ```
 
 
-### Class 4
+### class4
 
 ```{r,echo=FALSE}
 # Identificar los valores de "class1" en la ola 3
@@ -689,7 +685,7 @@ sjt.xtab(data$class4,data$ola,
 ```
 
 
-### Class 4 a 
+### class4a 
 
 ```{r,echo=FALSE}
 # Identificar los valores de "class1" en la ola 3
@@ -757,6 +753,69 @@ alluvial_clase
 ggsave(alluvial_clase, file="output/graphs/alluvial_clase.png", height = 8, width = 7)
 ```
 
+### Participación en sindicatos
+
+Con la variable *numérica* ELSOC:
+
+-   `c12_04`. Membresía sindicatos
+
+Se crea la variable `mem_sindicato`. Pero, dado que la variable `c12_04` solamente se encuentra en las olas 2016, 2018 y 2021, se duplican los datos para los años siguientes, es decir, en 2017 se pondrán los valores de 2016, y así sucesivamente.
+
+```{r,echo=FALSE}
+# Crear una columna con la variable "c12_04" adelantada una ola
+data <- data %>%
+  arrange(ola) %>%  # Ordena por ola, por si acaso no está ordenado
+  group_by(idencuesta) %>%        # Agrupa por id para trabajar en cada individuo
+  mutate(c12_04_lagged=lag(c12_04,n=1)) %>%  # Desplaza c12_04 a la siguiente ola
+  ungroup() 
+
+# Rellenar los valores NA en la variable original
+data <- data %>%
+  mutate(c12_04_full=ifelse(!is.na(c12_04),c12_04,c12_04_lagged)) %>%  # Si c12_04 es NA, sustituir con el valor de la ola anterior
+  select(-c12_04_lagged) 
+```
+
+```{r,echo=FALSE}
+# Recodficar
+data <- data %>%
+  mutate(mem_sindicato=car::recode(c12_04_full,
+                                   recodes=c("1='No es miembro';
+                                              2='Miembro inactivo';
+                                              3='Miembro activo'"),
+                                   as.factor=TRUE, # convertir a factor
+                                   levels=c("No es miembro",
+                                            "Miembro inactivo",
+                                            "Miembro activo"))) # ordenar niveles
+
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$mem_sindicato,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Membresía sindical","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Trabajadores/as miembros/as de sindicatos, por ola") 
+```
+
+
+### unionized
+
+Se crea una nueva variable *dicotómica*, llamada `unionized`, para identificar a aquellas personas que:
+
+-   `unionized==1`: Sean mienmbros activos (`c12_04==3`) o inactivos (`c12_04==2`) de sindicatos
+-   `unionized==0`: No sean miembros de sindicatos (`c12_04==1`)
+
+```{r,echo=FALSE}
+# Crear variable binaria: unionized
+data <- mutate(data,
+               unionized=if_else(c12_04_full==2|c12_04_full==3,1,0))
+
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$unionized,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Unionized","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Trabajadores/as Sindicalizados/as, por ola") 
+```
+
 
 ## Política
 
@@ -807,7 +866,7 @@ sjt.xtab(data$pol_id,data$ola,
 ```
 
 
-### Interés en política
+### pol_interes
 
 Observamos la variable *numérica* ELSOC:
 
@@ -830,7 +889,7 @@ sjt.xtab(data$pol_interes,data$ola,
 ```
 
 
-### Habla de política
+### pol_habla
 
 Observamos la variable *numérica* ELSOC:
 
@@ -853,7 +912,7 @@ sjt.xtab(data$pol_habla,data$ola,
 ```
 
 
-### Se informa de política
+### pol_inform
 
 Observamos la variable *numérica* ELSOC:
 
@@ -1024,14 +1083,37 @@ data$class_id <- car::recode(data$c33,
                          levels=c('Baja',
                                   'Media',
                                   'Alta'))
+```
 
-# Tabla de frecuencias y porcentajes 
+Ya que esta variable no se preguntó en la ola 2 (2018), se duplican los valores de la ola 1. Tener en consideración que desde la ola 4 en adelante, solamente se pregunta para la muestra de refresco.
+
+```{r,echo=FALSE}
+# Crear una columna con la variable class_id adelantada una ola
+data <- data %>%
+  group_by(idencuesta) %>%  # Agrupa por id para trabajar en cada individuo
+  mutate(class_id_lagged=if_else(ola==2,lag(as.character(class_id),n=1),NA_character_)) %>%  # Desplaza class_id solo para la ola 2
+  ungroup() %>%
+# Rellenar los valores NA (de las olas que no estaban) en la variable original
+  mutate(class_id=ifelse(!is.na(class_id),as.character(class_id),class_id_lagged)) %>%  # Sustituye valores de class_id si es NA solo con la variable desplazada
+  mutate(class_id=factor(class_id)) %>%  # Convierte de nuevo a factor
+  select(-class_id_lagged)  # Elimina la columna temporal
+```
+
+```{r,echo=FALSE}
+# Volver a establecer niveles
+data$class_id <- factor(data$class_id,
+                        levels=c("Baja",
+                                 "Media",
+                                 "Alta"))
+
+# Tabla de frecuencias y porcentajes
 sjt.xtab(data$class_id,data$ola,
          show.col.prc=TRUE, 
          var.labels=c("Identidad de Clase","Ola"),
          show.summary=FALSE,
          title="Frecuencias y porcentajes de variable Identidad de Clase, por ola")
 ```
+
 
 
 ### Estatus social subjetivo
@@ -1058,6 +1140,55 @@ sjt.xtab(data$class_estatus,data$ola,
 
 ### Ingreso
 
+```{r,echo=FALSE}
+#Impute midpoint of income ranges
+data$m14_rec <- as.numeric(car::recode(data$m14,
+                                       "1=20000;
+                                       2=62500;
+                                       3=105000;
+                                       4=147500;
+                                       5=190000;
+                                       6=220000;
+                                       7=255000;
+                                       8=300000;
+                                       9=340000;
+                                       10=380000;
+                                       11=432500;
+                                       12=502500;
+                                       13=602500;
+                                       14=757500;
+                                       15=1075000;
+                                       16=1300000"))
+
+#Impute midpoint of income ranges (2021)
+data$m14b_rec <- as.numeric(car::recode(data$m14b,
+                                        "1=125000;
+                                        2=300000;
+                                        3=400000;
+                                        4=575000;
+                                        5=700000;
+                                        c(9,10,11,12,16)=NA"))
+
+#Recode DK/DA of Income to NA
+data$m13_rec <- as.numeric(car::recode(data$m13,"c(-888,-999)=NA"))
+
+#replace NA of income with new imputed variable
+data$m13_imp <- ifelse(!is.na(data$m13_rec),data$m13_rec,data$m14_rec)
+summary(data$m13_imp)
+
+data$m13_imp <- ifelse(is.na(data$m13_imp),data$m14b_rec,data$m13_imp)
+summary(data$m13_imp)
+
+data$ingreso <- data$m13_imp
+```
+
+
+### Log del ingreso
+
+```{r,echo=FALSE}
+data$ingreso_log <- log(data$ingreso)
+```
+
 
 ### Edad al cuadrado
 
@@ -1072,8 +1203,6 @@ data$edad2 <- (data$edad)**2
 ```
 
 
-
-
 ## Guardar datos
 
 Las bases generadas serán:
@@ -1083,8 +1212,32 @@ Las bases generadas serán:
   - `elsoc-minicoes.rds`
   
 ```{r,echo=FALSE}
-save(data,file=(here::here("output/elsoc-minicoes.Rdata")))
-saveRDS(data,file=(here::here("output/elsoc-minicoes.rds")))
+# Seleccionar variables
+elsoc_minicoes <- data %>%
+  select(idencuesta,                                     # identificacion enctdo
+         ola,                                            # identificacion ola
+         version,muestra,tipo_atricion,estrato,          # identificacion srvy
+         segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
+         sexo,edad,edad2,educ,metrop,                    # caract sociodem
+         ingreso,ingreso_log,                            # caract sociodem
+         actividad,rel_empleo,rama,rama_2,supervisa,     # caract ocupacional
+         isco08,isco08_1d,isco08_2d,sector,cualificacion,# caract ocupacional
+         class_id,class_estatus,                         # clase y estatus
+         class1,class1a,class2,class2a,                  # clase y estatus
+         class3,class3a,class4,class4a,                  # clase y estatus
+         mem_sindicato,unionized,                        # membresia sindicato
+         marcha,                                         # freq participa marchas
+         huelga,                                         # freq participa huelgas
+         c15,pol_id,pol_interes,pol_habla,pol_inform,    # interes politica
+         perc_gerente,                                   # Salario percibido gerente
+         perc_obrero,                                    # Salario percibido obrero
+         just_gerente,                                   # Salario justo gerente
+         just_obrero                                     # Salario justo obrero
+         ) %>% 
+  sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
+
+save(elsoc_minicoes,file=(here::here("output/elsoc-minicoes.Rdata")))
+saveRDS(elsoc_minicoes,file=(here::here("output/elsoc-minicoes.rds")))
 ```
 
 - Principal: Con todos los datos sin atrición
@@ -1092,62 +1245,59 @@ saveRDS(data,file=(here::here("output/elsoc-minicoes.rds")))
   - `elsoc-minicoes-sa.rds`
 
 ```{r,echo=FALSE}
-data_sa <- data %>%
+elsoc_minicoes_sa <- elsoc_minicoes %>%
   filter(tipo_atricion==1)
 ```
 
 ```{r,echo=FALSE}
-n_sa <- nrow(data_sa)
+n_sa <- nrow(elsoc_minicoes_sa)
 ```
 
 La base de datos sin atrición comienza con `r n_sa` observaciones.
 
 ```{r,echo=FALSE}
-save(data_sa,file=(here::here("output/elsoc-minicoes-sa.Rdata")))
-saveRDS(data_sa,file=(here::here("output/elsoc-minicoes-sa.rds")))
+save(elsoc_minicoes_sa,file=(here::here("output/elsoc-minicoes-sa.Rdata")))
+saveRDS(elsoc_minicoes_sa,file=(here::here("output/elsoc-minicoes-sa.rds")))
 ```
 
 - Alternativa: Sin datos para desocupados y jubilados
-  - `alt-elsoc-minicoes.Rdata`
-  - `alt-elsoc-minicoes.rds`
+  - `elsoc-minicoes-alt.Rdata`
+  - `elsoc-minicoes-alt.rds`
   
 ```{r,echo=FALSE}
-data_alt <- data %>%
-  filter(m02==1|m02==2|m02==3)
+elsoc_minicoes_alt <- elsoc_minicoes %>%
+  filter(actividad=='Trabaja de manera remunerada con jornada completa'|
+           actividad=='Trabaja de manera remunerada a tiempo parcial'|
+           actividad=='Estudia y trabaja')
 ```
 
 ```{r,echo=FALSE}
-n_alt <- nrow(data_alt)
+n_alt <- nrow(elsoc_minicoes_alt)
 ```
 
 La base de datos alternativa comienza con `r n_alt` observaciones.
 
 ```{r,echo=FALSE}
-save(data_alt,file=(here::here("output/alt-elsoc-minicoes.Rdata")))
-saveRDS(data_alt,file=(here::here("output/alt-elsoc-minicoes.rds")))
+save(elsoc_minicoes_alt,file=(here::here("output/elsoc_minicoes_alt.Rdata")))
+saveRDS(elsoc_minicoes_alt,file=(here::here("output/elsoc_minicoes_alt.rds")))
 ```
 
 - Alternativa: Sin datos para desocupados y jubilados, y sin atrición
-  - `alt-elsoc-minicoes-sa.Rdata`
-  - `alt-elsoc-minicoes-sa.rds`
+  - `elsoc-minicoes-altsa.Rdata`
+  - `elsoc-minicoes-altsa.rds`
 
 ```{r,echo=FALSE}
-data_altsa <- data_alt %>%
+elsoc_minicoes_altsa <- elsoc_minicoes_alt %>%
   filter(tipo_atricion==1)
 ```
 
 ```{r,echo=FALSE}
-n_altsa <- nrow(data_altsa)
+n_altsa <- nrow(elsoc_minicoes_altsa)
 ```
 
 La base de datos alternativa sin atrición comienza con `r n_altsa` observaciones.
 
 ```{r,echo=FALSE}
-save(data_altsa,file=(here::here("output/alt-elsoc-minicoes-sa.Rdata")))
-saveRDS(data_altsa,file=(here::here("output/alt-elsoc-minicoes-sa.rds")))
+save(elsoc_minicoes_altsa,file=(here::here("output/elsoc-minicoes-altsa.Rdata")))
+saveRDS(elsoc_minicoes_altsa,file=(here::here("output/elsoc-minicoes-altsa.rds")))
 ```
-
-
-
-
-
