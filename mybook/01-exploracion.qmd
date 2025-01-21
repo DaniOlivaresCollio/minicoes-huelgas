@@ -86,7 +86,7 @@ Con la variable *numérica* ELSOC:
 
 -   `m02`. ¿Cuál de estas situaciones describe mejor su actividad principal durante el último mes?
 
-Creamos la variable *tipo factor* `actividad` (la variable `m02` sigue siendo *numérica*).
+Creamos la variable *factor* `actividad`.
 
 ```{r,echo=FALSE}
 # Recodficar
@@ -133,7 +133,7 @@ Con la variable *numérica* ELSOC:
 
 -   `m07`. En su actual ocupación usted trabaja como:
 
-Creamos la variable *factor* `rel_empleo`, (la variable `m07` sigue siendo *numérica*).
+Creamos la variable *factor* `rel_empleo`.
 
 ```{r,echo=FALSE}
 # Recodficar
@@ -155,7 +155,7 @@ data$rel_empleo <- car::recode(data$m07,
                                         "Servicio doméstico")) # ordenar niveles
 ```
 
-La variable de Relación de Empleo, llamada `rel_empleo`, solamente está presente en las olas 2016, 2018 y 2021. Por lo tanto, se duplican los datos de relación de empleo para los años siguientes, es decir, en 2017 se pondrán los valores de 2016, y así sucesivamente.
+Esta variable solamente está presente en las olas 2016, 2018 y 2021. Por lo tanto, se duplican los datos de relación de empleo para los años siguientes, es decir, en 2017 se pondrán los valores de 2016, y así sucesivamente.
 
 ```{r,echo=FALSE}
 # Crear una columna con la variable rel_empleo adelantada una ola
@@ -212,7 +212,7 @@ sjt.xtab(data$sector, data$ola,
 ```
 
 
-### Ocupación
+### Ocupación: isco08
 
 La variable *tipo character* ELSOC:
 
@@ -290,9 +290,9 @@ sjt.xtab(data$isco08_2d,data$ola,
 ```
 
 
-### Cualificación
+### cualificacion
 
-Se crea una nueva variable *tipo factor* con el Nivel de cualificación, de acuerdo con la variable CIUO08 de 2 dígitos `isco08_2d`, siguiendo el criterio:
+Se crea una nueva variable *factor* con el Nivel de cualificación, llamada `cualificacion`, de acuerdo con la variable CIUO08 de 2 dígitos `isco08_2d`, siguiendo el criterio:
 
 - Expertos (Experts): 11 a 34 con universitaria completa o más 
 - Calificados (Skilled): 11 a 34 con universitaria incompleta o menos, y 35,41,42,43,44,53, y 51,54,61,62,71,72,73,74,75,81 con media completa o más.
@@ -318,7 +318,7 @@ sjt.xtab(data$cualificacion,data$ola,
 ```
 
 
-### Rama
+### Rama: isic4 y rama
 
 La variable *tipo character* ELSOC:
 
@@ -410,7 +410,7 @@ sjt.xtab(data$rama,data$ola,
 ```
 
 
-### Rama 2
+### rama2
 
 Se crea una segunda variable *tipo factor* de Rama de la Actividad Económica, llamada `rama_2`, donde:
 
@@ -452,8 +452,8 @@ La variable *numérica* ELSOC:
 
 Se recodifica en una nueva variable *dicotómica numérica*, `supervisa`, donde:
 
--   `supervisa==1`: Supervisa a una o más personas (`m06>=1`)
 -   `supervisa==0`: No supervisa (`m06==0`)
+-   `supervisa==1`: Supervisa a una o más personas (`m06>=1`)
 
 ```{r,echo=FALSE}
 # Crear variable supervisa==1, no supervisa==0
@@ -704,6 +704,95 @@ sjt.xtab(data$class4a,data$ola,
          var.labels=c("Posición de clase 4 a","Ola"),
          show.summary=FALSE,
          title="Frecuencias y porcentajes de la Posición de clase 4 a, por ola")
+```
+
+### class5
+
+Se crea la variable tipo factor posición de clase `class3` con 6 categorías, fijando la clase para la ola 3.
+
+```{r,echo=FALSE}
+# Identificar los valores de "class1" en la ola 3
+class1_ola1 <- data %>%
+  filter(ola==1) %>%
+  select(idencuesta,class1) %>%  
+  rename(class5=class1) # Renombrar "class1" a "class3"
+
+# Unir esta información con la base de datos original
+data <- data %>%
+  left_join(class1_ola1,by="idencuesta") 
+
+# Tabla de frecuencias y porcentajes 
+sjt.xtab(data$class5,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Posición de clase 5","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de la Posición de clase 5, por ola")
+```
+
+
+### class5a 
+
+```{r,echo=FALSE}
+# Identificar los valores de "class1a" en la ola 3
+class1a_ola1 <- data %>%
+  filter(ola==1) %>%
+  select(idencuesta,class1a) %>%  
+  rename(class5a=class1a) # Renombrar "class2" a "class3"
+
+# Unir esta información con la base de datos original
+data <- data %>%
+  left_join(class1a_ola1,by="idencuesta")
+
+# Tabla de frecuencias y porcentajes 
+sjt.xtab(data$class5a,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Posición de clase 5 a","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de la Posición de clase 5 a, por ola")
+```
+
+
+### class6
+
+```{r,echo=FALSE}
+# Identificar los valores de "class1" en la ola 3
+class2_ola1 <- data %>%
+  filter(ola==1) %>%
+  select(idencuesta,class2) %>%  
+  rename(class6=class2) # Renombrar "class2" a "class3"
+
+# Unir esta información con la base de datos original
+data <- data %>%
+  left_join(class2_ola1,by="idencuesta") 
+
+# Tabla de frecuencias y porcentajes 
+sjt.xtab(data$class6,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Posición de clase 6","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de la Posición de clase 6, por ola")
+```
+
+
+### class6a 
+
+```{r,echo=FALSE}
+# Identificar los valores de "class1" en la ola 3
+class2a_ola1 <- data %>%
+  filter(ola==1) %>%
+  select(idencuesta,class2a) %>%  
+  rename(class6a=class2a) # Renombrar "class2" a "class3"
+
+# Unir esta información con la base de datos original
+data <- data %>%
+  left_join(class2a_ola1,by="idencuesta") 
+
+# Tabla de frecuencias y porcentajes 
+sjt.xtab(data$class6a,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Posición de clase 6 a","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de la Posición de clase 6 a, por ola")
 ```
 
 
@@ -1001,7 +1090,7 @@ summary(data$brecha_obrero)
 
 ## Sociodemográficos
 
-### Región
+### metrop
 
 Con la variable *numérica* ELSOC:
 
@@ -1026,7 +1115,7 @@ sjt.xtab(data$metrop,data$ola,
 ```
 
 
-### Educación
+### educ
 
 Con la variable *numérica* ELSOC:
 
@@ -1203,6 +1292,28 @@ data$edad2 <- (data$edad)**2
 ```
 
 
+### female
+
+Se crea una nueva variable dicotómica, llamada `female`, para identificar a aquellas personas que:
+
+-   `female==0`: En la variable sexo no se identifican como mujeres
+-   `female==1`: En la variable sexo se identifican como mujeres
+
+```{r,echo=FALSE}
+# Crear variable binaria: female
+data <- mutate(data,
+               female=if_else(sexo==2,1,0))
+
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$female,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Female","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Mujeres, por ola") 
+```
+
+
+
 ## Guardar datos
 
 Las bases generadas serán:
@@ -1218,13 +1329,14 @@ elsoc_minicoes <- data %>%
          ola,                                            # identificacion ola
          version,muestra,tipo_atricion,estrato,          # identificacion srvy
          segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
-         sexo,edad,edad2,educ,metrop,                    # caract sociodem
+         sexo,female,edad,edad2,educ,metrop,             # caract sociodem
          ingreso,ingreso_log,                            # caract sociodem
          actividad,rel_empleo,rama,rama_2,supervisa,     # caract ocupacional
          isco08,isco08_1d,isco08_2d,sector,cualificacion,# caract ocupacional
          class_id,class_estatus,                         # clase y estatus
          class1,class1a,class2,class2a,                  # clase y estatus
          class3,class3a,class4,class4a,                  # clase y estatus
+         class5,class5a,class6,class6a,                  # clase y estatus
          mem_sindicato,unionized,                        # membresia sindicato
          marcha,                                         # freq participa marchas
          huelga,                                         # freq participa huelgas
@@ -1232,7 +1344,8 @@ elsoc_minicoes <- data %>%
          perc_gerente,                                   # Salario percibido gerente
          perc_obrero,                                    # Salario percibido obrero
          just_gerente,                                   # Salario justo gerente
-         just_obrero                                     # Salario justo obrero
+         just_obrero,                                    # Salario justo obrero
+         brecha_perc,brecha_just,brecha_gerente,brecha_obrero
          ) %>% 
   sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
 
