@@ -80,6 +80,7 @@ Se comienza con `r n` observaciones.
 
 ## Caracterización empleo
 
+
 ### actividad
 
 Con la variable *numérica* ELSOC:
@@ -90,6 +91,7 @@ Creamos la variable *factor* `actividad`.
 
 ```{r,echo=FALSE}
 # Recodficar
+sum(is.na(data$m02)) # 48 casos
 data <- data[!is.na(data$m02), ]
 data$actividad <- car::recode(data$m02,
                               recodes=c("1='Trabaja de manera remunerada con jornada completa';
@@ -125,6 +127,61 @@ n <- nrow(data)
 ```
 
 Al remover los NA's se queda con `r n` observaciones.
+
+```{r,echo=FALSE}
+# Ir armando data final
+data2 <- data %>%
+  select(idencuesta,                                     # identificacion enctdo
+         ola,                                            # identificacion ola
+         version,muestra,tipo_atricion,estrato,          # identificacion srvy
+         segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
+         actividad                                       # caract empleo
+         ) %>% 
+  sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
+
+# 20.713 obs.
+```
+
+
+### actividad ocupados
+
+Se crea la variable actividad solamente para ocupados
+
+```{r,echo=FALSE}
+# Definir las categorías que deseas mantener
+categorias_a_mantener <- c("Trabaja de manera remunerada con jornada completa",
+                           "Trabaja de manera remunerada a tiempo parcial",
+                           "Estudia y trabaja") 
+
+# Crear la nueva variable actividad2
+data$actividad2 <- ifelse(as.character(data$actividad) %in% categorias_a_mantener,as.character(data$actividad),NA)
+data$actividad2 <- factor(data$actividad2,
+                          levels=categorias_a_mantener)
+
+
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$actividad2,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Actividad 2","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Actividad de ocupados, por ola")
+```
+
+```{r,echo=FALSE}
+# Ir armando data final
+data2 <- data %>%
+  select(idencuesta,                                     # identificacion enctdo
+         ola,                                            # identificacion ola
+         version,muestra,tipo_atricion,estrato,          # identificacion srvy
+         segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
+         actividad,actividad2                            # caract empleo
+         ) %>% 
+  sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
+
+data2 <- na.omit(data2)
+
+# 12.653 obs.
+```
 
 
 ### rel_empleo
@@ -190,6 +247,63 @@ sjt.xtab(data$rel_empleo,data$ola,
          title="Frecuencias y porcentajes de Relación de Empleo, por ola")
 ```
 
+```{r,echo=FALSE}
+# Ir armando data final
+data2 <- data %>%
+  select(idencuesta,                                     # identificacion enctdo
+         ola,                                            # identificacion ola
+         version,muestra,tipo_atricion,estrato,          # identificacion srvy
+         segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
+         actividad,actividad2,rel_empleo                 # caract empleo
+         ) %>% 
+  sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
+
+data2 <- na.omit(data2)
+
+# 11.495 obs.
+```
+
+
+### rel_empleo2
+
+```{r,echo=FALSE}
+data$rel_empleo2 <- car::recode(data$rel_empleo,
+                                recodes=c("'Patrón/a o empleador/a'='Empleador';
+                                           'Trabaja solo, no tiene empleados'='Autoempleado';
+                                           'Empleado u obrero en empresa privada'='Asalariado';
+                                           'Empleado u obrero del sector público'='Asalariado';
+                                           'Miembro de las Fuerzas Armadas y de Orden'='Asalariado';
+                                           'Familiar no remunerado'='Asalariado';
+                                           'Servicio doméstico'='Asalariado'"),
+                                as.factor=TRUE, # convertir a factor
+                                levels=c("Empleador",
+                                         "Autoempleado",
+                                         "Asalariado")) # ordenar niveles
+
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$rel_empleo2,data$ola,
+         show.col.prc=TRUE,
+         var.labels=c("Relación de empleo 2","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Relación de Empleo 2, por ola")
+```
+
+```{r,echo=FALSE}
+# Ir armando data final
+data2 <- data %>%
+  select(idencuesta,                                     # identificacion enctdo
+         ola,                                            # identificacion ola
+         version,muestra,tipo_atricion,estrato,          # identificacion srvy
+         segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
+         actividad,actividad2,rel_empleo,rel_empleo2     # caract empleo
+         ) %>% 
+  sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
+
+data2 <- na.omit(data2)
+
+# 11.495 obs.
+```
+
 
 ### sector
 
@@ -209,6 +323,23 @@ sjt.xtab(data$sector, data$ola,
          var.labels = c("Sector","Ola"),
          show.summary = FALSE,
          title = "Frecuencias y porcentajes de Sector, por ola")
+```
+
+```{r,echo=FALSE}
+# Ir armando data final
+data2 <- data %>%
+  select(idencuesta,                                     # identificacion enctdo
+         ola,                                            # identificacion ola
+         version,muestra,tipo_atricion,estrato,          # identificacion srvy
+         segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
+         actividad,actividad2,rel_empleo,rel_empleo2,    # caract empleo
+         sector                                          # caract empleo
+         ) %>% 
+  sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
+
+data2 <- na.omit(data2)
+
+# 11.495 obs.
 ```
 
 
@@ -289,6 +420,23 @@ sjt.xtab(data$isco08_2d,data$ola,
          title="Frecuencias y porcentajes de Ocupación con 2 dígitos, por ola")
 ```
 
+```{r,echo=FALSE}
+# Ir armando data final
+data2 <- data %>%
+  select(idencuesta,                                     # identificacion enctdo
+         ola,                                            # identificacion ola
+         version,muestra,tipo_atricion,estrato,          # identificacion srvy
+         segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
+         actividad,actividad2,rel_empleo,rel_empleo2,    # caract empleo
+         sector,isco08,isco08_1d,isco08_2d               # caract empleo
+         ) %>% 
+  sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
+
+data2 <- na.omit(data2)
+
+# 11.462 obs.
+```
+
 
 ### cualificacion
 
@@ -296,7 +444,7 @@ Se crea una nueva variable *factor* con el Nivel de cualificación, llamada `cua
 
 - Expertos (Experts): 11 a 34 con universitaria completa o más 
 - Calificados (Skilled): 11 a 34 con universitaria incompleta o menos, y 35,41,42,43,44,53, y 51,54,61,62,71,72,73,74,75,81 con media completa o más.
-- No calificados (Unskilled): 51,54,61,62,71,72,73,74,75,81 con media incompleta o menos, y 52,61,63,75,82,83,90+ 
+- No calificados (Unskilled): 51,54,61,62,71,72,73,74,75,81 con media incompleta o menos, y 52,63,82,83,90+ 
 
 ```{r,echo=FALSE}
 # Creación variable Nivel de cualificación
@@ -306,7 +454,7 @@ data <- mutate(data,
                                               isco08_2d%in%c(35,41:44,53)~"Skilled",
                                               isco08_2d%in%c(51,54,61,62,71:75,81)&educ>5~"Skilled",
                                               isco08_2d%in%c(51,54,61,62,71:75,81)&educ<=5~"Unskilled",
-                                              isco08_2d%in%c(52,61,63,75,82,83,90)~"Unskilled"),
+                                              isco08_2d%in%c(52,63,82,83,91:99)~"Unskilled"),
                                     levels=c("Experts","Skilled","Unskilled")))
 
 # Tabla de frecuencias y porcentajes 
@@ -315,6 +463,24 @@ sjt.xtab(data$cualificacion,data$ola,
          var.labels=c("Nivel de cualificación","Ola"),
          show.summary=FALSE,
          title="Frecuencias y porcentajes del Nivel de Cualificación, por ola")
+```
+
+```{r,echo=FALSE}
+# Ir armando data final
+data2 <- data %>%
+  select(idencuesta,                                     # identificacion enctdo
+         ola,                                            # identificacion ola
+         version,muestra,tipo_atricion,estrato,          # identificacion srvy
+         segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
+         actividad,actividad2,rel_empleo,rel_empleo2,    # caract empleo
+         sector,isco08,isco08_1d,isco08_2d,              # caract empleo
+         cualificacion                                   # caract empleo
+         ) %>% 
+  sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
+
+data2 <- na.omit(data2)
+
+# 11.434
 ```
 
 
@@ -368,7 +534,7 @@ data <- data %>%
   select(-isic4_lagged)                 # Elimina la columna temporal
 ```
 
-Además, se crea la variable *numérica*`isic4_2d` con 2 dígitos, y la variable *factor* `rama` con la agrupación del CIIU4 de dos dígitos en ramas de la actividad económica. 
+Además, se crea la variable *numérica* `isic4_2d` con 2 dígitos, y la variable *factor* `rama` con la agrupación del CIIU4 de dos dígitos en ramas de la actividad económica. 
 
 ```{r,echo=FALSE}
 # CIIU 4: creación de variable con 2 dígitos
@@ -376,6 +542,15 @@ data$isic4 <- sprintf("%04d",data$isic4)
 data$isic4_2d <- as.character(data$isic4)
 data$isic4_2d <- substr(data$isic4,1,2)
 data$isic4_2d <- as.numeric(data$isic4_2d)
+
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$isic4_2d,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Rama de Actividad Económica","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de la Rama de Actividad Económica, por ola")
+
+
 
 # Creación de variable con letra
 data <- mutate(data,
@@ -443,6 +618,24 @@ sjt.xtab(data$rama_2,data$ola,
          title="Frecuencias y porcentajes de la Rama 2, por ola")
 ```
 
+```{r,echo=FALSE}
+# Ir armando data final
+data2 <- data %>%
+  select(idencuesta,                                     # identificacion enctdo
+         ola,                                            # identificacion ola
+         version,muestra,tipo_atricion,estrato,          # identificacion srvy
+         segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
+         actividad,actividad2,rel_empleo,rel_empleo2,    # caract empleo
+         sector,isco08,isco08_1d,isco08_2d,              # caract empleo
+         cualificacion,isic4,isic4_2d,rama,rama_2        # caract empleo
+         ) %>% 
+  sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
+
+data2 <- na.omit(data2)
+
+# 10.858 obs.
+```
+
 
 ### supervisa
 
@@ -490,6 +683,37 @@ sjt.xtab(data$supervisa,data$ola,
          var.labels=c("Supervisa","Ola"),
          show.summary=FALSE,
          title="Frecuencias y porcentajes de variable Supervisa, por ola")
+
+
+# # Tabla de frecuencias y porcentajes 
+# sjt.xtab(elsoc_long_2016_2023$m06,elsoc_long_2016_2023$ola,
+#          show.col.prc=TRUE, 
+#          var.labels=c("Supervisa","Ola"),
+#          show.summary=FALSE,
+#          title="Frecuencias y porcentajes de variable Supervisa, por ola")
+# 
+# resumen_na <- elsoc_long_2016_2023 %>%
+#   group_by(ola) %>%                   # Agrupa por la columna "ola"
+#   summarise(total_na = sum(is.na(m06)))
+```
+
+```{r,echo=FALSE}
+# Ir armando data final
+data2 <- data %>%
+  select(idencuesta,                                     # identificacion enctdo
+         ola,                                            # identificacion ola
+         version,muestra,tipo_atricion,estrato,          # identificacion srvy
+         segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
+         actividad,actividad2,rel_empleo,rel_empleo2,    # caract empleo
+         sector,isco08,isco08_1d,isco08_2d,              # caract empleo
+         cualificacion,isic4,isic4_2d,rama,rama_2,       # caract empleo
+         supervisa                                       # caract empleo
+         ) %>% 
+  sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
+
+data2 <- na.omit(data2)
+
+# 10.130 obs.
 ```
 
 
@@ -499,7 +723,7 @@ Se crea la variable tipo factor posición de clase `class1` con 6 categorías:
 
 1. Empleadores y autoempleados profesionales: pequeña burguesia
 2. Autoempleados superior incompleta o menos: informales
-3. Eexpert managers
+3. Expert managers
 4. Experts
 5. Supervisors
 6. Workers
@@ -507,12 +731,16 @@ Se crea la variable tipo factor posición de clase `class1` con 6 categorías:
 ```{r,echo=FALSE}
 # Creación de variable posición de clase
 data <- mutate(data,
-               class1=case_when(rel_empleo=="Patrón/a o empleador/a"|rel_empleo=="Trabaja solo, no tiene empleados"&educ>=9~"Petit bourgeoisie",
-                               rel_empleo=="Trabaja solo, no tiene empleados"&educ<9~"Informal",
-                               cualificacion=="Experts"&supervisa==1~"Expert managers",
-                               cualificacion=="Experts"&supervisa==0~"Experts",
-                               cualificacion=="Skilled"|cualificacion=="Unskilled"&supervisa==1~"Supervisors",
-                               cualificacion=="Skilled"|cualificacion=="Unskilled"&supervisa==0~"Workers"))
+               class1=case_when(
+                 rel_empleo2=="Empleador"~"Petit bourgeoisie",
+                 rel_empleo2=="Autoempleado"&educ>=9~"Petit bourgeoisie",
+                 rel_empleo2=="Autoempleado"&educ<9~"Informal",
+                 rel_empleo2=="Asalariado"&cualificacion=="Experts"&supervisa==1~"Expert managers",
+                 rel_empleo2=="Asalariado"&cualificacion=="Experts"&supervisa==0~"Experts",
+                 rel_empleo2=="Asalariado"&cualificacion=="Skilled"&supervisa==1~"Supervisors",
+                 rel_empleo2=="Asalariado"&cualificacion=="Unskilled"&supervisa==1~"Supervisors",
+                 rel_empleo2=="Asalariado"&cualificacion=="Skilled"&supervisa==0~"Workers",
+                 rel_empleo2=="Asalariado"&cualificacion=="Unskilled"&supervisa==0~"Workers"))
 
 data$class1 <- factor(data$class1,
                       levels=c("Petit bourgeoisie",
@@ -795,6 +1023,28 @@ sjt.xtab(data$class6a,data$ola,
          title="Frecuencias y porcentajes de la Posición de clase 6 a, por ola")
 ```
 
+```{r,echo=FALSE}
+# Ir armando data final
+data2 <- data %>%
+  select(idencuesta,                                     # identificacion enctdo
+         ola,                                            # identificacion ola
+         version,muestra,tipo_atricion,estrato,          # identificacion srvy
+         segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
+         actividad,actividad2,rel_empleo,rel_empleo2,    # caract empleo
+         sector,isco08,isco08_1d,isco08_2d,              # caract empleo
+         cualificacion,isic4,isic4_2d,rama,rama_2,       # caract empleo
+#         supervisa,                                      # caract empleo
+#         class1,class1a,class2,class2a,class3,
+         class3a   # caract empleo
+#         class4,class4a,class5,class5a,class6,class6a    # caract empleo
+         ) %>% 
+  sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
+
+data2 <- na.omit(data2)
+
+# 9.072 obs.
+```
+
 
 ### Alluvial
 
@@ -903,6 +1153,29 @@ sjt.xtab(data$unionized,data$ola,
          var.labels=c("Unionized","Ola"),
          show.summary=FALSE,
          title="Frecuencias y porcentajes de Trabajadores/as Sindicalizados/as, por ola") 
+```
+
+```{r,echo=FALSE}
+# Ir armando data final
+data2 <- data %>%
+  select(idencuesta,                                     # identificacion enctdo
+         ola,                                            # identificacion ola
+         version,muestra,tipo_atricion,estrato,          # identificacion srvy
+         segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
+         actividad,actividad2,rel_empleo,rel_empleo2,    # caract empleo
+         sector,isco08,isco08_1d,isco08_2d,              # caract empleo
+         cualificacion,isic4,isic4_2d,rama,rama_2,       # caract empleo
+#         supervisa,                                      # caract empleo
+#         class1,class1a,class2,class2a,class3,
+         class3a   # caract empleo
+#         class4,class4a,class5,class5a,class6,class6a    # caract empleo
+#         unionized
+) %>% 
+  sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
+
+data2 <- na.omit(data2)
+
+# 9.072 obs.
 ```
 
 
@@ -1323,7 +1596,7 @@ Las bases generadas serán:
   - `elsoc-minicoes.rds`
   
 ```{r,echo=FALSE}
-# Seleccionar variables
+# Ir armando data final
 elsoc_minicoes <- data %>%
   select(idencuesta,                                     # identificacion enctdo
          ola,                                            # identificacion ola
@@ -1331,9 +1604,52 @@ elsoc_minicoes <- data %>%
          segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
          sexo,female,edad,edad2,educ,metrop,             # caract sociodem
          ingreso,ingreso_log,                            # caract sociodem
-         actividad,rel_empleo,rama,rama_2,supervisa,     # caract ocupacional
-         isco08,isco08_1d,isco08_2d,sector,cualificacion,# caract ocupacional
-         class_id,class_estatus,                         # clase y estatus
+         actividad,actividad2,rel_empleo,rel_empleo2,    # caract empleo
+         sector,isco08,isco08_1d,isco08_2d,              # caract empleo
+         cualificacion,isic4,isic4_2d,rama,rama_2,       # caract empleo
+         supervisa,                                      # caract empleo
+         class1,class1a,class2,class2a,                  # clase y estatus
+         class3,class3a,class4,class4a,                  # clase y estatus
+         class5,class5a,class6,class6a,                  # clase y estatus
+         class_id, class_estatus,
+         mem_sindicato,unionized,                        # membresia sindicato
+         marcha,                                         # freq participa marchas
+         huelga,                                         # freq participa huelgas
+         c15,pol_id,pol_interes,pol_habla,pol_inform,    # interes politica
+         perc_gerente,                                   # Salario percibido gerente
+         perc_obrero,                                    # Salario percibido obrero
+         just_gerente,                                   # Salario justo gerente
+         just_obrero,                                    # Salario justo obrero
+         brecha_perc,brecha_just,brecha_gerente,brecha_obrero
+         ) %>% 
+  sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
+
+save(elsoc_minicoes,file=(here::here("output/elsoc-minicoes.Rdata")))
+saveRDS(elsoc_minicoes,file=(here::here("output/elsoc-minicoes.rds")))
+
+# data2 <- na.omit(data2)
+
+# 18.645 obs.
+```  
+  
+```{r}
+colSums(is.na(elsoc_minicoes))
+```
+
+
+```{r,echo=FALSE}
+# Ir armando data final
+elsoc_minicoes2 <- data %>%
+  select(idencuesta,                                     # identificacion enctdo
+         ola,                                            # identificacion ola
+         version,muestra,tipo_atricion,estrato,          # identificacion srvy
+         segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
+         sexo,female,edad,edad2,educ,metrop,             # caract sociodem
+         ingreso,ingreso_log,                            # caract sociodem
+         actividad,actividad2,rel_empleo,rel_empleo2,    # caract empleo
+         sector,isco08,isco08_1d,isco08_2d,              # caract empleo
+         cualificacion,isic4,isic4_2d,rama,rama_2,       # caract empleo
+         supervisa,                                      # caract empleo
          class1,class1a,class2,class2a,                  # clase y estatus
          class3,class3a,class4,class4a,                  # clase y estatus
          class5,class5a,class6,class6a,                  # clase y estatus
@@ -1349,68 +1665,16 @@ elsoc_minicoes <- data %>%
          ) %>% 
   sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
 
-save(elsoc_minicoes,file=(here::here("output/elsoc-minicoes.Rdata")))
-saveRDS(elsoc_minicoes,file=(here::here("output/elsoc-minicoes.rds")))
-```
-
-- Principal: Con todos los datos sin atrición
-  - `elsoc-minicoes-sa.Rdata`
-  - `elsoc-minicoes-sa.rds`
-
-```{r,echo=FALSE}
-elsoc_minicoes_sa <- elsoc_minicoes %>%
-  filter(tipo_atricion==1)
-```
-
-```{r,echo=FALSE}
-n_sa <- nrow(elsoc_minicoes_sa)
-```
-
-La base de datos sin atrición comienza con `r n_sa` observaciones.
-
-```{r,echo=FALSE}
-save(elsoc_minicoes_sa,file=(here::here("output/elsoc-minicoes-sa.Rdata")))
-saveRDS(elsoc_minicoes_sa,file=(here::here("output/elsoc-minicoes-sa.rds")))
-```
-
-- Alternativa: Sin datos para desocupados y jubilados
-  - `elsoc-minicoes-alt.Rdata`
-  - `elsoc-minicoes-alt.rds`
-  
-```{r,echo=FALSE}
-elsoc_minicoes_alt <- elsoc_minicoes %>%
+elsoc_minicoes2 <- elsoc_minicoes2 %>%
   filter(actividad=='Trabaja de manera remunerada con jornada completa'|
-           actividad=='Trabaja de manera remunerada a tiempo parcial'|
-           actividad=='Estudia y trabaja')
-```
+         actividad=='Trabaja de manera remunerada a tiempo parcial'|
+         actividad=='Estudia y trabaja')
 
-```{r,echo=FALSE}
-n_alt <- nrow(elsoc_minicoes_alt)
-```
+# elsoc_minicoes2 <- na.omit(elsoc_minicoes2)
 
-La base de datos alternativa comienza con `r n_alt` observaciones.
+save(elsoc_minicoes2,file=(here::here("output/elsoc-minicoes2.Rdata")))
+saveRDS(elsoc_minicoes2,file=(here::here("output/elsoc-minicoes2.rds")))
 
-```{r,echo=FALSE}
-save(elsoc_minicoes_alt,file=(here::here("output/elsoc_minicoes_alt.Rdata")))
-saveRDS(elsoc_minicoes_alt,file=(here::here("output/elsoc_minicoes_alt.rds")))
-```
+# 11.632 obs.
+```  
 
-- Alternativa: Sin datos para desocupados y jubilados, y sin atrición
-  - `elsoc-minicoes-altsa.Rdata`
-  - `elsoc-minicoes-altsa.rds`
-
-```{r,echo=FALSE}
-elsoc_minicoes_altsa <- elsoc_minicoes_alt %>%
-  filter(tipo_atricion==1)
-```
-
-```{r,echo=FALSE}
-n_altsa <- nrow(elsoc_minicoes_altsa)
-```
-
-La base de datos alternativa sin atrición comienza con `r n_altsa` observaciones.
-
-```{r,echo=FALSE}
-save(elsoc_minicoes_altsa,file=(here::here("output/elsoc-minicoes-altsa.Rdata")))
-saveRDS(elsoc_minicoes_altsa,file=(here::here("output/elsoc-minicoes-altsa.rds")))
-```
