@@ -11,6 +11,7 @@ book:
     - 01-exploracion.qmd
     - 02-regresiones.qmd
     - 03-cross-lagged.qmd
+    - 04-graphs.qmd
     # - summary.qmd
     # - references.qmd
 
