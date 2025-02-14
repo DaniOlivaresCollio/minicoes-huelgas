@@ -64,7 +64,17 @@ data <- elsoc_long_2016_2023 %>%
          perc_gerente=d03_01,                            # Salario percibido gerente
          perc_obrero=d03_02,                             # Salario percibido obrero
          just_gerente=d04_01,                            # Salario justo gerente
-         just_obrero=d04_02                              # Salario justo obrero
+         just_obrero=d04_02,                             # Salario justo obrero
+         voto_deber=c10_01,                              # Votar es mi deber como ciudadano         
+         voto_influye=c10_02,                            # Mi voto influye
+         voto_ideas=c10_03,                              # Votar permite expresar mis ideas
+         c18_01,                                         # Sociedad requiere grupos inferiores y superiores
+         c18_02,                                         # Se debe dar a todos las mismas oportunidades
+         c18_03,                                         # Se debe igualar las condiciones
+         c18_08,                                         # Cambio social es posible
+         c18_09,                                         # Las personas son recompensadas por su esfuerzo
+         c18_10,                                         # Las personas son recompensadas por su inteligencia
+         c18_11                                          # Las diferencias de ingreso son demasiado grandes.
          ) %>% 
   sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
 ```
@@ -1586,6 +1596,148 @@ sjt.xtab(data$female,data$ola,
 ```
 
 
+## Nuevas
+
+### c10_01: Votar es mi deber como ciudadano
+
+```{r,echo=FALSE}
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$voto_deber,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Votar es mi deber como ciudadano","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Votar es mi deber como ciudadano, por ola") 
+```
+
+
+### c10_02: Mi voto influye
+
+```{r,echo=FALSE}
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$voto_influye,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Mi voto influye","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Mi voto influye, por ola") 
+```
+
+
+### c10_03: Votar permite expresar mis ideas
+
+```{r,echo=FALSE}
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$voto_ideas,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Votar permite expresar mis ideas","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Votar permite expresar mis ideas, por ola") 
+```
+
+
+### c18_01: Sociedad requiere grupos inferiores y superiores
+
+```{r}
+data <- data %>%
+  mutate(grupos_inf_sup=c18_01)
+
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$grupos_inf_sup,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Sociedad requiere grupos inferiores y superiores","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Sociedad requiere grupos inferiores y superiores, por ola") 
+```
+
+
+### c18_02: Se debe dar a todos las mismas oportunidades
+
+```{r}
+data <- data %>%
+  mutate(mismas_oportunidades=c18_02)
+
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$mismas_oportunidades,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Se debe dar a todos las mismas oportunidades","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Se debe dar a todos las mismas oportunidades, por ola") 
+```
+
+
+### c18_03: Se debe igualar las condiciones
+
+```{r}
+data <- data %>%
+  mutate(igualar_condiciones=c18_03)
+
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$igualar_condiciones,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Se debe igualar las condiciones","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Se debe igualar las condiciones, por ola") 
+```
+
+
+### c18_08: Cambio social es posible
+
+```{r}
+data <- data %>%
+  mutate(cambio_posible=c18_08)
+
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$cambio_posible,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Cambio social es posible","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Cambio social es posible, por ola") 
+```
+
+
+### c18_09: Las personas son recompensadas por su esfuerzo
+
+```{r}
+data <- data %>%
+  mutate(recompensa_esfuerzo=c18_09)
+
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$recompensa_esfuerzo,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Las personas son recompensadas por su esfuerzo","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Las personas son recompensadas por su esfuerzo, por ola") 
+```
+
+
+### c18_10: Las personas son recompensadas por su inteligencia
+
+```{r}
+data <- data %>%
+  mutate(recompensa_inteligencia=c18_10)
+
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$recompensa_inteligencia,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Las personas son recompensadas por su inteligencia","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Las personas son recompensadas por su inteligencia, por ola") 
+```
+
+
+### c18_11: Las diferencias de ingreso son demasiado grandes
+
+```{r}
+data <- data %>%
+  mutate(dif_ingreso=c18_11)
+
+# Tabla de frecuencias y porcentajes
+sjt.xtab(data$dif_ingreso,data$ola,
+         show.col.prc=TRUE, 
+         var.labels=c("Las diferencias de ingreso son demasiado grandes","Ola"),
+         show.summary=FALSE,
+         title="Frecuencias y porcentajes de Las diferencias de ingreso son demasiado grandes, por ola") 
+```
+
 
 ## Guardar datos
 
@@ -1611,8 +1763,8 @@ elsoc_minicoes <- data %>%
          class1,class1a,class2,class2a,                  # clase y estatus
          class3,class3a,class4,class4a,                  # clase y estatus
          class5,class5a,class6,class6a,                  # clase y estatus
-         class_id, class_estatus,
-         mem_sindicato,unionized,                        # membresia sindicato
+         class_id, class_estatus,                        # clase y estatus
+         c12_04,c12_04_full,mem_sindicato,unionized,     # membresia sindicato
          marcha,                                         # freq participa marchas
          huelga,                                         # freq participa huelgas
          c15,pol_id,pol_interes,pol_habla,pol_inform,    # interes politica
@@ -1620,14 +1772,18 @@ elsoc_minicoes <- data %>%
          perc_obrero,                                    # Salario percibido obrero
          just_gerente,                                   # Salario justo gerente
          just_obrero,                                    # Salario justo obrero
-         brecha_perc,brecha_just,brecha_gerente,brecha_obrero
+         brecha_perc,brecha_just,
+         brecha_gerente,brecha_obrero,
+         voto_deber,voto_influye,voto_ideas,
+         grupos_inf_sup,mismas_oportunidades,
+         igualar_condiciones,cambio_posible,
+         recompensa_esfuerzo,recompensa_inteligencia,
+         dif_ingreso
          ) %>% 
   sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
 
 save(elsoc_minicoes,file=(here::here("output/elsoc-minicoes.Rdata")))
 saveRDS(elsoc_minicoes,file=(here::here("output/elsoc-minicoes.rds")))
-
-# data2 <- na.omit(data2)
 
 # 18.645 obs.
 ```  
@@ -1639,38 +1795,10 @@ colSums(is.na(elsoc_minicoes))
 
 ```{r,echo=FALSE}
 # Ir armando data final
-elsoc_minicoes2 <- data %>%
-  select(idencuesta,                                     # identificacion enctdo
-         ola,                                            # identificacion ola
-         version,muestra,tipo_atricion,estrato,          # identificacion srvy
-         segmento_disenno,ponderador02,estrato_disenno,  # identificacion srvy
-         sexo,female,edad,edad2,educ,metrop,             # caract sociodem
-         ingreso,ingreso_log,                            # caract sociodem
-         actividad,actividad2,rel_empleo,rel_empleo2,    # caract empleo
-         sector,isco08,isco08_1d,isco08_2d,              # caract empleo
-         cualificacion,isic4,isic4_2d,rama,rama_2,       # caract empleo
-         supervisa,                                      # caract empleo
-         class1,class1a,class2,class2a,                  # clase y estatus
-         class3,class3a,class4,class4a,                  # clase y estatus
-         class5,class5a,class6,class6a,                  # clase y estatus
-         mem_sindicato,unionized,                        # membresia sindicato
-         marcha,                                         # freq participa marchas
-         huelga,                                         # freq participa huelgas
-         c15,pol_id,pol_interes,pol_habla,pol_inform,    # interes politica
-         perc_gerente,                                   # Salario percibido gerente
-         perc_obrero,                                    # Salario percibido obrero
-         just_gerente,                                   # Salario justo gerente
-         just_obrero,                                    # Salario justo obrero
-         brecha_perc,brecha_just,brecha_gerente,brecha_obrero
-         ) %>% 
-  sjlabelled::set_na(.,na=c(-999,-888,-777,-666))
-
-elsoc_minicoes2 <- elsoc_minicoes2 %>%
+elsoc_minicoes2 <- elsoc_minicoes %>%
   filter(actividad=='Trabaja de manera remunerada con jornada completa'|
          actividad=='Trabaja de manera remunerada a tiempo parcial'|
          actividad=='Estudia y trabaja')
-
-# elsoc_minicoes2 <- na.omit(elsoc_minicoes2)
 
 save(elsoc_minicoes2,file=(here::here("output/elsoc-minicoes2.Rdata")))
 saveRDS(elsoc_minicoes2,file=(here::here("output/elsoc-minicoes2.rds")))
