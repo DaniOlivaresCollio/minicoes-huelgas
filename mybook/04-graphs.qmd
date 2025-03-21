@@ -438,5 +438,55 @@ ggplot(datos.clase, aes(x = ola, fill = class_group, stratum = class_group,
 
 ```
 
+# Justificación y percepción de desigualdad en ISSP
 
+```{r}
+pacman::p_load(dplyr, haven, stargazer, sjmisc, sjPlot, sjlabelled, tidyverse, summarytools, srvyr)
 
+load(url("https://github.com/justicia-distributiva/brechas-genero/raw/refs/heads/main/input/proc/inter_2019.RData"))
+
+```
+## Ponderadores
+
+```{r}
+inter_2019 <- inter_2019 %>% mutate_at(vars(starts_with(c("v", "brecha"))), ~(as.numeric(.))) 
+
+inter_2019_exp <- inter_2019 %>% as_survey_design(ids = 1,
+                                                      weights = WEIGHT)
+```
+
+```{r}
+brecha_pais_2019 <- inter_2019_exp %>% filter(!is.na(sex)) %>% 
+  group_by(pais) %>%
+  summarise(brecha_perc_2019 = survey_median(brecha_perc_2019, na.rm = T),
+            brecha_just_2019 = survey_median(brecha_just_2019, na.rm = T)
+            ) %>%
+  arrange(brecha_perc_2019)
+
+brecha_pais_2019$pais <- factor(brecha_pais_2019$pais, labels = get_labels(inter_2019$pais))
+brecha_pais_2019$pais <- sub("^[0-9]+\\.\\s*[A-Z]{2}-", "", brecha_pais_2019$pais)
+
+brecha_pais <- brecha_pais_2019 %>%
+    mutate(pais = factor(pais, levels = .$pais))
+
+```
+
+### Cleveland 2019
+
+```{r cleveland-2019}
+ggplot(brecha_pais) +
+  theme_bw() +
+  geom_line(aes(x = brecha_perc_2019, y = pais, group = pais), color = "black", size = 0.5) +
+  geom_line(aes(x = brecha_just_2019, y = pais, group = pais), color = "black", size = 0.5) +
+  geom_point(aes(x = brecha_perc_2019, y = pais, fill = "Perceived gap"), shape = 21, size = 3, color = "black") +
+  geom_point(aes(x = brecha_just_2019, y = pais, fill = "Just gap"), shape = 21, size = 3, color = "black") +
+  xlab("Average gap") +
+  ylab("Country") +
+  xlim(0, 35) +
+  scale_fill_manual(name = "Gap", 
+                    values = c("Perceived gap" = "black", "Just gap" = "white"),
+                    breaks = c("Perceived gap", "Just gap")) + 
+  theme(axis.text.y = element_text(colour = c(rep("black", 26), "red", rep("black", 2))),
+        legend.position = "right")
+
+```

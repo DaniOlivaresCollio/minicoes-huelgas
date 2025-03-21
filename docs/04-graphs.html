@@ -705,6 +705,77 @@ Workers           | 4889 | 42.03 |   47.27 | 100.00
 </div>
 </div>
 </div>
+</section>
+</section>
+</section>
+<section id="justificación-y-percepción-de-desigualdad-en-issp" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Justificación y percepción de desigualdad en ISSP</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, haven, stargazer, sjmisc, sjPlot, sjlabelled, tidyverse, summarytools, srvyr)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/justicia-distributiva/brechas-genero/raw/refs/heads/main/input/proc/inter_2019.RData"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="ponderadores" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="ponderadores"><span class="header-section-number">7.1</span> Ponderadores</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>inter_2019 <span class="ot">&lt;-</span> inter_2019 <span class="sc">%&gt;%</span> <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="fu">starts_with</span>(<span class="fu">c</span>(<span class="st">"v"</span>, <span class="st">"brecha"</span>))), <span class="sc">~</span>(<span class="fu">as.numeric</span>(.))) </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>inter_2019_exp <span class="ot">&lt;-</span> inter_2019 <span class="sc">%&gt;%</span> <span class="fu">as_survey_design</span>(<span class="at">ids =</span> <span class="dv">1</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                                                      <span class="at">weights =</span> WEIGHT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>brecha_pais_2019 <span class="ot">&lt;-</span> inter_2019_exp <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sex)) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pais) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">brecha_perc_2019 =</span> <span class="fu">survey_median</span>(brecha_perc_2019, <span class="at">na.rm =</span> T),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">brecha_just_2019 =</span> <span class="fu">survey_median</span>(brecha_just_2019, <span class="at">na.rm =</span> T)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(brecha_perc_2019)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>brecha_pais_2019<span class="sc">$</span>pais <span class="ot">&lt;-</span> <span class="fu">factor</span>(brecha_pais_2019<span class="sc">$</span>pais, <span class="at">labels =</span> <span class="fu">get_labels</span>(inter_2019<span class="sc">$</span>pais))</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>brecha_pais_2019<span class="sc">$</span>pais <span class="ot">&lt;-</span> <span class="fu">sub</span>(<span class="st">"^[0-9]+</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">s*[A-Z]{2}-"</span>, <span class="st">""</span>, brecha_pais_2019<span class="sc">$</span>pais)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>brecha_pais <span class="ot">&lt;-</span> brecha_pais_2019 <span class="sc">%&gt;%</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">pais =</span> <span class="fu">factor</span>(pais, <span class="at">levels =</span> .<span class="sc">$</span>pais))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="cleveland-2019" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="cleveland-2019"><span class="header-section-number">7.1.1</span> Cleveland 2019</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(brecha_pais) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> brecha_perc_2019, <span class="at">y =</span> pais, <span class="at">group =</span> pais), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> brecha_just_2019, <span class="at">y =</span> pais, <span class="at">group =</span> pais), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> brecha_perc_2019, <span class="at">y =</span> pais, <span class="at">fill =</span> <span class="st">"Perceived gap"</span>), <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> brecha_just_2019, <span class="at">y =</span> pais, <span class="at">fill =</span> <span class="st">"Just gap"</span>), <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Average gap"</span>) <span class="sc">+</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Country"</span>) <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>, <span class="dv">35</span>) <span class="sc">+</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">name =</span> <span class="st">"Gap"</span>, </span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>                    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Perceived gap"</span> <span class="ot">=</span> <span class="st">"black"</span>, <span class="st">"Just gap"</span> <span class="ot">=</span> <span class="st">"white"</span>),</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>                    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="st">"Perceived gap"</span>, <span class="st">"Just gap"</span>)) <span class="sc">+</span> </span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"black"</span>, <span class="dv">26</span>), <span class="st">"red"</span>, <span class="fu">rep</span>(<span class="st">"black"</span>, <span class="dv">2</span>))),</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"right"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Vectorized input to `element_text()` is not officially supported.
+ℹ Results may be unexpected or may change in future versions of ggplot2.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?
+`geom_line()`: Each group consists of only one observation.
+ℹ Do you need to adjust the group aesthetic?</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04-graphs_files/figure-html/cleveland-2019-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 </section>
