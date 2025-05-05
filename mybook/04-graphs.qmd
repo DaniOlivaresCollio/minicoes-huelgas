@@ -62,7 +62,6 @@ ggplot() +
 
 ```
 
-
 # Cambios de clase
 
 ```{r}
@@ -276,7 +275,6 @@ ggplot() +
 
 ```
 
-
 # Cambios de clase
 
 ```{r}
@@ -354,7 +352,6 @@ ggplot(datos.clase, aes(x = ola, fill = class1a, stratum = class1a,
   scale_x_discrete(labels = c(2016, 2017, 2018, 2019, 2021, 2022, 2023))
 
 ```
-
 
 ## Con solo dos clases ('distancias largas')
 
@@ -446,6 +443,7 @@ pacman::p_load(dplyr, haven, stargazer, sjmisc, sjPlot, sjlabelled, tidyverse, s
 load(url("https://github.com/justicia-distributiva/brechas-genero/raw/refs/heads/main/input/proc/inter_2019.RData"))
 
 ```
+
 ## Ponderadores
 
 ```{r}
@@ -479,14 +477,15 @@ ggplot(brecha_pais) +
   geom_line(aes(x = brecha_perc_2019, y = pais, group = pais), color = "black", size = 0.5) +
   geom_line(aes(x = brecha_just_2019, y = pais, group = pais), color = "black", size = 0.5) +
   geom_point(aes(x = brecha_perc_2019, y = pais, fill = "Perceived gap"), shape = 21, size = 3, color = "black") +
-  geom_point(aes(x = brecha_just_2019, y = pais, fill = "Just gap"), shape = 21, size = 3, color = "black") +
+  geom_point(aes(x = brecha_just_2019, y = pais, fill = "Fair gap"), shape = 21, size = 3, color = "black") +
   xlab("Average gap") +
   ylab("Country") +
   xlim(0, 35) +
   scale_fill_manual(name = "Gap", 
-                    values = c("Perceived gap" = "black", "Just gap" = "white"),
-                    breaks = c("Perceived gap", "Just gap")) + 
-  theme(axis.text.y = element_text(colour = c(rep("black", 26), "red", rep("black", 2))),
+                    values = c("Perceived gap" = "black", "Fair gap" = "white"),
+                    breaks = c("Perceived gap", "Fair gap")) + 
+  theme(axis.text.y = element_text(color = c(rep("gray30", 26), "black", rep("gray30", 2)),
+                                 face = c(rep("plain", 26), "bold", rep("plain", 2))),
         legend.position = "right")
 
 ```
