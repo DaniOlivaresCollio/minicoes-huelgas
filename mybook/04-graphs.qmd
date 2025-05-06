@@ -57,7 +57,7 @@ ggplot() +
        y = "Number of protest events") +
   theme_minimal() +
   # Secondary axis for the percentage of people attending protests
-  scale_y_continuous(sec.axis = sec_axis(~./50, name = "Percentage of people attending protests"))
+  scale_y_continuous(sec.axis = sec_axis(~./50, name = "Percentage of people attending marches-demonstrations"))
 
 
 ```
@@ -489,3 +489,28 @@ ggplot(brecha_pais) +
         legend.position = "right")
 
 ```
+
+## Descripcion variables
+
+Perception of economic inequality: The main independent variable refers to the perception of economic inequality, measured through the perceived wage gap (Jasso, 1980; Castillo, 2009; Hadler, 2005). This measure is derived from the salary gap between the perceived salaries of jobs at opposite ends of the occupational hierarchy. Specifically, it relies on the division between the perceived salary of a large-company president and that of an unskilled worker (Castillo, 2011). Higher values of this term indicate a greater perception of economic inequality between occupations located at the extremes of the status continuum. This measure includes a logarithmic term to adjust income magnitudes (usually fewer cases with high income):
+
+$$
+\text{perceived wage gap} = \log_{10}\left(\frac{\text{perceived salary of a large-company president}}{\text{perceived salary of an unskilled worker}}\right)
+$$
+
+Justification of economic inequality: This construct is measured as the just earnings gap, an approach to measuring the justification of economic inequality based on earning differences considered just between high and low status occupations (Castillo, 2012). Similarly to economic inequality perception, this indicator relies on the logarithmic ratio between the just salary of a large-company president and that of an unskilled worker. Higher values of this term indicate a greater justification of economic inequality.
+
+Jasso, G. (1980). A New Theory of Distributive Justice. American Sociological Review, 45(1), 3. https://doi.org/10.2307/2095239
+
+Castillo, J. C. (2009). ¿Cuál es la Brecha Salarial Justa? Opinión Pública y Legitimación de la Desigualdad Económica en Chile. Estudios Públicos, 113, 237-266.
+
+Castillo, J. C. (2011). Legitimacy of Inequality in a Highly Unequal Context: Evidence from the Chilean Case. Social Justice Research, 24(4), 314-340. https://doi.org/10.1007/s11211-011-0144-5
+
+Castillo, J. C. (2012). La legitimidad de las desigualdades salariales. Una aproximación multidimensional. Revista Internacional de Sociología, 70(3), 533-560. https://doi.org/10.3989/ris.2010.11.22
+
+Hadler, M. (2005). Why Do People Accept Different Income Ratios?: A Multi-level Comparison of Thirty Countries. Acta Sociologica, 48(2), 131-154. https://doi.org/10.1177/0001699305053768
+
+
+## Ejemplificación en dólares
+
+Para ilustrar esta relación, la Figura 4 muestra el efecto marginal promedio de la ubicación de clase sobre la brecha salarial justa. Esta figura muestra, por ejemplo, que un trabajador autónomo informal y un trabajador no directivo creen que una brecha salarial justa debería ser de log (1,8) y log (1,9), equivalentes a USD$1890$ y USD$3660$, respectivamente. Por otro lado, un directivo experto considera que una brecha salarial justa debería ser de log (2,2), equivalente a USD$5600$. Esta diferencia es estadísticamente significativa (valor p < 0,001) y en la dirección hipotética, lo que indica que H1 debería aceptarse.
