@@ -9,30 +9,31 @@ rm(list=ls())
 options(scipen = 999)
 
 library(pacman)
-p_load(tidyverse,
-       knitr,
-       bookdown,
+p_load(bookdown,
        car,
+       forcats,
+       ggrepel,
+       ggalluvial,
+       ggplot2,
+       gridExtra,
+       httr,
+       kableExtra,
+       knitr,
+       labelled,
+       lubridate,
+       psych,
+       readr,
+       readxl,
+       shadowtext,
        sjmisc,
        sjPlot,
        sjlabelled,
-       psych,
-       kableExtra,
-       gridExtra,
-       lubridate,
-       viridis,
        statar,
-       readxl,
+       survey,
        tinytex,
-       ggrepel,
-       ggalluvial,
-       survey, 
-       httr,
-       readr, 
-       ggplot2, 
-       labelled,
-       shadowtext,
-       forcats)
+       tidyverse,
+       viridis
+       )
 ```
 
 ## Cargar datos

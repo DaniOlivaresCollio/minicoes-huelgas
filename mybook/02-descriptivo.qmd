@@ -9,29 +9,34 @@ rm(list=ls())
 options(scipen = 999)
 
 library(pacman)
-p_load(tidyverse,
-       knitr,
-       bookdown,
+p_load(bookdown,
        car,
+       flextable,
+       forcats,
+       ggrepel,
+       ggalluvial,
+       ggplot2,
+       gridExtra,
+       httr,
+       janitor,
+       kableExtra,
+       knitr,
+       labelled,
+       lubridate,
+       officer,
+       psych,
+       readr,
+       readxl,
+       shadowtext,
        sjmisc,
        sjPlot,
        sjlabelled,
-       psych,
-       kableExtra,
-       gridExtra,
-       lubridate,
-       viridis,
        statar,
-       readxl,
+       survey,
        tinytex,
-       ggrepel,
-       ggalluvial,
-       survey, 
-       httr,
-       readr, 
-       ggplot2, 
-       labelled,
-       shadowtext)
+       tidyverse,
+       viridis
+       )
 ```
 
 ## Cargar datos
@@ -40,6 +45,96 @@ p_load(tidyverse,
 data <- readRDS(here::here("input/data/elsoc_paper2.rds"))
 ```
 
-## 
+## Variables numéricas
 
+```{r}
+# Definir variables numéricas
+vars_numericas <- c("brecha_just", "marcha", "edad", "pol_scale", 
+                    "brecha_perc", "cambio_posible", "Meritocracy_scale")
+
+# Tabla descriptiva con sjmisc
+tabla_numericas <- data %>%
+  select(all_of(vars_numericas)) %>%
+  descr(show = c("label", "mean", "sd", "range", "NA.prc"))
+
+# Mostrar tabla según formato de salida
+if (knitr::is_html_output() || knitr::is_latex_output()) {
+  # HTML o PDF
+  kable(tabla_numericas, format = "pipe", digits = 2)
+} else {
+  # Word
+  tabla_ft <- flextable(tabla_numericas) %>%
+    theme_booktabs() %>%
+    set_table_properties(width = 1, layout = "autofit") %>%
+    fontsize(size = 10, part = "all") %>%
+    font(fontname = "Calibri", part = "all") %>%
+    bold(part = "header") %>%
+    align(align = "left", part = "all") %>%
+    align(j = 1, align = "left", part = "all") %>%
+    padding(padding = 5, part = "all")
+  
+  tabla_ft
+}
+
+# # Crear documento Word y agregar la tabla
+# doc <- officer::read_docx() %>%
+#   body_add_par("Tabla descriptiva de variables numéricas", style = "heading 1") %>%
+#   body_add_flextable(tabla_ft)
+# 
+# # Guardar en carpeta "output"
+# print(doc, target = "output/tabla_descriptiva_numericas.docx")
+```
+
+
+```{r}
+# Definir variables numéricas
+vars_numericas <- c("brecha_just", "marcha", "edad", "pol_scale", 
+                    "brecha_perc", "cambio_posible", "Meritocracy_scale")
+
+# Crear tabla descriptiva con sjmisc
+tabla_numericas <- data %>%
+  select(all_of(vars_numericas)) %>%
+  descr(show = c("label", "mean", "sd", "range", "NA.prc"))
+
+# Mostrar tabla según formato de salida
+if (knitr::is_html_output() || knitr::is_latex_output()) {
+  
+  # Tabla para HTML o PDF con kable
+  knitr::kable(tabla_numericas, format = "pipe", digits = 2, align = "c")
+
+} else {
+  
+  # Tabla para Word con flextable
+  flextable(tabla_numericas) %>%
+    theme_booktabs() %>%
+    set_table_properties(width = 1, layout = "autofit") %>%
+    fontsize(size = 10, part = "all") %>%
+    font(fontname = "Calibri", part = "all") %>%
+    bold(part = "header") %>%
+    align(align = "center", part = "all") %>%
+    align(j = 1, align = "left", part = "all") %>%
+    padding(padding = 5, part = "all")
+}
+
+# Crear y guardar archivo Word con la tabla
+tabla_docx <- flextable(tabla_numericas) %>%
+  theme_booktabs() %>%
+  set_table_properties(width = 1, layout = "autofit") %>%
+  fontsize(size = 10, part = "all") %>%
+  font(fontname = "Calibri", part = "all") %>%
+  bold(part = "header") %>%
+  align(align = "center", part = "all") %>%
+  align(j = 1, align = "left", part = "all") %>%
+  padding(padding = 5, part = "all")
+
+# Crear documento Word
+doc <- officer::read_docx() %>%
+  body_add_par("Tabla descriptiva de variables numéricas", style = "heading 1") %>%
+  body_add_flextable(tabla_docx)
+
+# Guardar archivo Word en carpeta output
+print(doc, target = "output/tabla_descriptiva.docx")
+
+
+```
 
