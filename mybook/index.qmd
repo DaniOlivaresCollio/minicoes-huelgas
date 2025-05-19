@@ -1,2 +1,23 @@
+![](img/conclat_LIn_banner_1.png){width=100%}
+
 # Presentación {.unnumbered}
 
+<div style="text-align: justify">
+
+Este libro corresponde al repositorio del procesamiento y análisis de la base de datos del Estudio Longitudinal Social de Chile ([ELSOC](https://coes.cl/encuesta-panel/)), como uno de los estudios realizados en el marco del Proyecto CONCLAT y financiado por un Mini-COES.
+
+### Proyecto CONCLAT
+
+El Proyecto [CONCLAT](https://www.conclat.org/) busca estudiar cómo se percibe el conflicto laboral y político en Argentina y Chile. Particularmente, analiza cómo las personas de distintas clases y con distinto estatus sindical (por ejemplo, afiliados/as y no afiliados/as a sindicatos) perciben el conflicto dentro y fuera del lugar de trabajo. 
+
+[CONCLAT](https://www.conclat.org/) es el Proyecto FONDECYT Regular (No 1230056) “Clases sociales, movimientos sindicales y conflicto en tiempos de crisis: un estudio comparativo de Argentina y Chile”. Patrocinado por la [Universidad de Chile](https://uchile.cl/) y el Centro de Estudios de Conflicto y Cohesión Social ([COES](https://coes.cl/)). Tiene como propósito contribuir a la investigación internacional sobre clases, trabajo y conflicto produciendo datos cuantitativos originales y un instrumento de investigación comparable a nivel internacional.
+
+### ELSOC
+
+The Chilean Longitudinal Social Survey ([ELSOC](https://coes.cl/encuesta-panel/)), is a panel study collected annually from 2016 to 2023. The survey has been designed to evaluate the way in which chileans think, feel, and behave regarding a set of social issues related to conflict and social cohesion in Chile. 
+
+ELSOC employs a probabilistic, stratified, clustered, multistage sampling design encompassing major urban centers (Santiago, Valparaíso, and Concepción) and smaller cities. 
+
+The target population includes women and men aged 18–75 who are habitual residents of private dwellings. The first wave included 2,927 participants, covering 77% of the country’s total population and 93% of its urban population, with a response rate of 62.4%. Wave 3 included a refreshment sample (N = 1,519) to counter attrition.
+
+The survey has been conducted yearly since 2016, except in 2020, when it was suspended due to the pandemic. More details on sampling, attrition, and weighting can be found at [https://coes.cl/encuesta-panel/](https://coes.cl/encuesta-panel/), and the dataset is publicly available at [https://dataverse.harvard.edu/dataverse/elsoc](https://dataverse.harvard.edu/dataverse/elsoc).

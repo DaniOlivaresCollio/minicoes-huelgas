@@ -22,5 +22,20 @@
   },
   "04-graphs.qmd": {
     "04-graphs.html": "8c185d77"
+  },
+  "01-procesamiento.qmd": {
+    "01-procesamiento.html": "c59419bc"
+  },
+  "02-descriptivo.qmd": {
+    "02-descriptivo.html": "6b0022e3"
+  },
+  "03-regresiones.qmd": {
+    "03-regresiones.html": "1a1761aa"
+  },
+  "04-cross-lagged.qmd": {
+    "04-cross-lagged.html": "ffbe950a"
+  },
+  "05-graphs.qmd": {
+    "05-graphs.html": "0ac3e298"
   }
 }

@@ -1,8 +1,10 @@
-# Exploración y Preparación de datos
+# Exploración y Procesamiento de datos
 
 <div style="text-align: justify">
 
-```{r cargar-paquetes-2,echo=FALSE,warning=FALSE,message=FALSE}
+## Cargar librerías
+
+```{r,message=FALSE,warning=FALSE}
 rm(list=ls())
 options(scipen = 999)
 
@@ -29,21 +31,19 @@ p_load(tidyverse,
        readr, 
        ggplot2, 
        labelled,
-       shadowtext)
+       shadowtext,
+       forcats)
 ```
 
+## Cargar datos
 
-## Variables
-
-Cargamos la base de datos ELSOC 2016-2023 en formato *long*.
-
-```{r datos-2,echo=FALSE}
+```{r}
 load(here::here("input/data/ELSOC_Long_2016_2023.RData"))
 ```
 
-Seleccionamos las variables de interés.
+## Variables
 
-```{r variables,echo=FALSE}
+```{r}
 # Seleccion solo para mirar, aun sin ponderadores
 data <- elsoc_long_2016_2023 %>%
   select(idencuesta,                                     # identificacion enctdo
@@ -87,9 +87,7 @@ n <- nrow(data)
 
 Se comienza con `r n` observaciones.
 
-
 ## Caracterización empleo
-
 
 ### actividad
 
@@ -99,30 +97,29 @@ Con la variable *numérica* ELSOC:
 
 Creamos la variable *factor* `actividad`.
 
-```{r,echo=FALSE}
+```{r}
 # Recodficar
-sum(is.na(data$m02)) # 48 casos
-data <- data[!is.na(data$m02), ]
-data$actividad <- car::recode(data$m02,
-                              recodes=c("1='Trabaja de manera remunerada con jornada completa';
-                                         2='Trabaja de manera remunerada a tiempo parcial';
-                                         3='Estudia y trabaja';
-                                         4='Solo estudia';
-                                         5='Jubilado o pensionado';
-                                         6='Desempleado, buscando trabajo';
-                                         7='Realiza tareas no remuneradas';
-                                         8='Esta enfermo o tiene una discapacidad';
-                                         9='No estudia, no trabaja y no busca trabajo'"),
-                              as.factor=TRUE, 
-                              levels=c("Trabaja de manera remunerada con jornada completa",
-                                       "Trabaja de manera remunerada a tiempo parcial",
-                                       "Estudia y trabaja",
-                                       "Solo estudia",
-                                       "Jubilado o pensionado",
-                                       "Desempleado, buscando trabajo",
-                                       "Realiza tareas no remuneradas",
-                                       "Esta enfermo o tiene una discapacidad",
-                                       "No estudia, no trabaja y no busca trabajo"))
+etiquetas_actividad <- c("Trabaja de manera remunerada con jornada completa",
+                         "Trabaja de manera remunerada a tiempo parcial",
+                         "Estudia y trabaja",
+                         "Solo estudia",
+                         "Jubilado o pensionado",
+                         "Desempleado, buscando trabajo",
+                         "Realiza tareas no remuneradas",
+                         "Está enfermo o tiene una discapacidad",
+                         "No estudia, no trabaja y no busca trabajo")
+
+etiquetas_actividad_cc <- paste0(1:9, ". ", etiquetas_actividad)
+
+# sum(is.na(data$m02)) # 48 casos
+data <- data %>%
+  filter(!is.na(m02)) %>%
+  mutate(actividad = factor(m02, 
+                            levels = 1:9, 
+                            labels = etiquetas_actividad_cc))
+# class(data$actividad)
+# levels(data$actividad)
+# as.numeric(data$actividad)
 
 # Tabla de frecuencias y porcentajes
 sjt.xtab(data$actividad,data$ola,
@@ -136,7 +133,7 @@ sjt.xtab(data$actividad,data$ola,
 n <- nrow(data)
 ```
 
-Al remover los NA's se queda con `r n` observaciones.
+Al remover los NA's de `actividad` se queda con `r n` observaciones.
 
 ```{r,echo=FALSE}
 # Ir armando data final
@@ -152,29 +149,32 @@ data2 <- data %>%
 # 20.713 obs.
 ```
 
+### actividad2
 
-### actividad ocupados
+Se crea la variable de actividad solamente para ocupados: `actividad2`.
 
-Se crea la variable actividad solamente para ocupados
+```{r}
+# Recodficar
+etiquetas_actividad2 <- c("Trabaja de manera remunerada con jornada completa",
+                          "Trabaja de manera remunerada a tiempo parcial",
+                          "Estudia y trabaja")
 
-```{r,echo=FALSE}
-# Definir las categorías que deseas mantener
-categorias_a_mantener <- c("Trabaja de manera remunerada con jornada completa",
-                           "Trabaja de manera remunerada a tiempo parcial",
-                           "Estudia y trabaja") 
+etiquetas_actividad2_cc <- paste0(1:3, ". ", etiquetas_actividad2)
 
-# Crear la nueva variable actividad2
-data$actividad2 <- ifelse(as.character(data$actividad) %in% categorias_a_mantener,as.character(data$actividad),NA)
-data$actividad2 <- factor(data$actividad2,
-                          levels=categorias_a_mantener)
+data <- data %>%
+  mutate(
+    actividad2 = if_else(m02 %in% 1:3, m02, NA_real_),
+    actividad2 = factor(actividad2,
+                        levels = 1:3,
+                        labels = etiquetas_actividad2_cc
+                        ))
 
-
-# Tabla de frecuencias y porcentajes
-sjt.xtab(data$actividad2,data$ola,
-         show.col.prc=TRUE, 
-         var.labels=c("Actividad 2","Ola"),
-         show.summary=FALSE,
-         title="Frecuencias y porcentajes de Actividad de ocupados, por ola")
+# Tabla de frecuencias y procentajes
+sjt.xtab(data$actividad2, data$ola,
+         show.col.prc = TRUE, 
+         var.labels = c("Actividad 2", "Ola"),
+         show.summary = FALSE,
+         title = "Frecuencias y porcentajes de Actividad de ocupados, por ola")
 ```
 
 ```{r,echo=FALSE}
@@ -193,7 +193,6 @@ data2 <- na.omit(data2)
 # 12.653 obs.
 ```
 
-
 ### rel_empleo
 
 Con la variable *numérica* ELSOC:
@@ -202,53 +201,42 @@ Con la variable *numérica* ELSOC:
 
 Creamos la variable *factor* `rel_empleo`.
 
-```{r,echo=FALSE}
+```{r}
 # Recodficar
-data$rel_empleo <- car::recode(data$m07,
-                               recodes=c("1='Empleado u obrero en empresa privada';
-                                          2='Empleado u obrero del sector público';
-                                          3='Miembro de las Fuerzas Armadas y de Orden';
-                                          4='Patrón/a o empleador/a';
-                                          5='Trabaja solo, no tiene empleados';
-                                          6='Familiar no remunerado';
-                                          7='Servicio doméstico'"),
-                               as.factor=TRUE, # convertir a factor
-                               levels=c("Empleado u obrero en empresa privada",
-                                        "Empleado u obrero del sector público",
-                                        "Miembro de las Fuerzas Armadas y de Orden",
-                                        "Patrón/a o empleador/a",
-                                        "Trabaja solo, no tiene empleados",
-                                        "Familiar no remunerado",
-                                        "Servicio doméstico")) # ordenar niveles
+etiquetas_rel_empleo <- c("Empleado u obrero en empresa privada",
+                          "Empleado u obrero del sector público",
+                          "Miembro de las Fuerzas Armadas y de Orden",
+                          "Patrón/a o empleador/a",
+                          "Trabaja solo, no tiene empleados",
+                          "Familiar no remunerado",
+                          "Servicio doméstico")
+
+etiquetas_rel_empleo_cc <- paste0(1:7, ". ", etiquetas_rel_empleo)
+
+data <- data %>% 
+  mutate(rel_empleo = factor(m07,
+                             levels = 1:7,
+                             labels= etiquetas_rel_empleo_cc
+                             ))
 ```
 
 Esta variable solamente está presente en las olas 2016, 2018 y 2021. Por lo tanto, se duplican los datos de relación de empleo para los años siguientes, es decir, en 2017 se pondrán los valores de 2016, y así sucesivamente.
 
-```{r,echo=FALSE}
-# Crear una columna con la variable rel_empleo adelantada una ola
+```{r}
+# Crear columna desplazada y rellenar valores NA
 data <- data %>%
-  group_by(idencuesta) %>%        # Agrupa por id para trabajar en cada individuo
-  mutate(rel_empleo_lagged=lag(as.character(rel_empleo),n=1)) %>%  # Desplaza rel_empleo a la siguiente ola, conviertiendo el factor en character temporalmente
-  ungroup()
-
-# Rellenar los valores NA (de las olas que no estaban) en la variable original
-data <- data %>%
-  mutate(rel_empleo=ifelse(!is.na(rel_empleo),as.character(rel_empleo),rel_empleo_lagged)) %>%  # Si rel empleo no es NA, sustituir con el valor de rel_empleo, y si es NA con la ola variable desplazada una ola y asegurarse que actividad esté en formato carácter
-  mutate(rel_empleo=factor(rel_empleo)) %>%  # Convertir de nuevo a factor
-  select(-rel_empleo_lagged)                 # Elimina la columna temporal
+  group_by(idencuesta) %>%                                              # Agrupa por id para trabajar en cada individuo
+  mutate(rel_empleo_lagged = lag(as.character(rel_empleo), n = 1)) %>%  # Desplaza rel_empleo a la siguiente ola
+  ungroup() %>%
+  mutate(rel_empleo = if_else(!is.na(rel_empleo), 
+                              as.character(rel_empleo), 
+                              rel_empleo_lagged),
+         rel_empleo = factor(rel_empleo,                                # Convertir de nuevo a factor
+                             levels = etiquetas_rel_empleo_cc)) %>%
+  select(-rel_empleo_lagged)                                            # Elimina la columna temporal
 ```
 
-```{r,echo=FALSE}
-# Volver a establecer niveles
-data$rel_empleo <- factor(data$rel_empleo,
-                          levels=c("Empleado u obrero en empresa privada",
-                                   "Empleado u obrero del sector público",
-                                   "Miembro de las Fuerzas Armadas y de Orden",
-                                   "Patrón/a o empleador/a",
-                                   "Trabaja solo, no tiene empleados",
-                                   "Familiar no remunerado",
-                                   "Servicio doméstico"))
-
+```{r}
 # Tabla de frecuencias y porcentajes
 sjt.xtab(data$rel_empleo,data$ola,
          show.col.prc=TRUE,
@@ -273,22 +261,26 @@ data2 <- na.omit(data2)
 # 11.495 obs.
 ```
 
-
 ### rel_empleo2
 
-```{r,echo=FALSE}
-data$rel_empleo2 <- car::recode(data$rel_empleo,
-                                recodes=c("'Patrón/a o empleador/a'='Empleador';
-                                           'Trabaja solo, no tiene empleados'='Autoempleado';
-                                           'Empleado u obrero en empresa privada'='Asalariado';
-                                           'Empleado u obrero del sector público'='Asalariado';
-                                           'Miembro de las Fuerzas Armadas y de Orden'='Asalariado';
-                                           'Familiar no remunerado'='Asalariado';
-                                           'Servicio doméstico'='Asalariado'"),
-                                as.factor=TRUE, # convertir a factor
-                                levels=c("Empleador",
-                                         "Autoempleado",
-                                         "Asalariado")) # ordenar niveles
+```{r}
+data <- data %>%
+  mutate(rel_empleo2_raw = case_when(
+    as.numeric(rel_empleo) == 4 ~ 1,
+    as.numeric(rel_empleo) == 5 ~ 2,
+    as.numeric(rel_empleo) %in% c(1,2,3,6,7) ~ 3,
+    TRUE ~ NA_real_
+  ))
+
+etiquetas_rel_empleo2 <- c("Empleador", "Autoempleado", "Asalariado")
+
+etiquetas_rel_empleo2_cc <- paste0(1:3, ". ", etiquetas_rel_empleo2)
+
+data <- data %>%
+  mutate(rel_empleo2 = factor(rel_empleo2_raw,
+                              levels = 1:3,
+                              labels = etiquetas_rel_empleo2_cc)) %>%
+  select(-rel_empleo2_raw)  # eliminar variable temporal si querés
 
 # Tabla de frecuencias y porcentajes
 sjt.xtab(data$rel_empleo2,data$ola,
@@ -314,7 +306,6 @@ data2 <- na.omit(data2)
 # 11.495 obs.
 ```
 
-
 ### sector
 
 Se crea en una nueva variable *dicotómica*, `sector`, donde:
@@ -322,7 +313,7 @@ Se crea en una nueva variable *dicotómica*, `sector`, donde:
 -   `sector==0`: Sector público más fuerzas armadas (`m07==2`, `m07==3`)
 -   `sector==1`: Sector privado (`m07==1`, `m07==4`, `m07==5`,` m07==6`, `m07==7`)
 
-```{r,echo=FALSE}
+```{r}
 # Crear variable sector
 data <- data %>%
   mutate(sector=if_else(rel_empleo=="Empleado u obrero del sector público"|rel_empleo=="Miembro de las Fuerzas Armadas y de Orden",0,1))
@@ -335,7 +326,7 @@ sjt.xtab(data$sector, data$ola,
          title = "Frecuencias y porcentajes de Sector, por ola")
 ```
 
-```{r,echo=FALSE}
+```{r}
 # Ir armando data final
 data2 <- data %>%
   select(idencuesta,                                     # identificacion enctdo
@@ -352,7 +343,6 @@ data2 <- na.omit(data2)
 # 11.495 obs.
 ```
 
-
 ### Ocupación: isco08
 
 La variable *tipo character* ELSOC:
@@ -366,7 +356,7 @@ Se encuentra codificada de acuerdo con la CIUO88 para el año 2016 en la variabl
 
 Por lo tanto, se realiza una recodificación creando una nueva variable *numérica* donde están todas las olas homolagadas a la CIUO08, llamada `isco08`. 
 
-```{r,echo=FALSE,message=FALSE,warning=FALSE}
+```{r}
 # Carga bbdd con comparacion 88 y 08
 isco08_88 <- read_excel(here::here("input/isco08-88.xls"))
 isco08_88 <- isco08_88 %>%
@@ -389,7 +379,7 @@ data$isco08 <- ifelse(!is.na(data$ciuo08_rec),data$ciuo08_rec,data$ciuo08_m03) #
 
 Además, esta variable también se presenta solamente en las olas 2016, 2018 y 2021. Por lo que, se duplican los datos de ocupación para los años siguientes, es decir, en 2017 se pondrán los valores de 2016, y así sucesivamente.
 
-```{r,echo=FALSE}
+```{r}
 # Crear una columna con la variable "isco08" adelantada una ola
 data <- data %>%
   group_by(idencuesta) %>%        # Agrupa por id para trabajar en cada individuo
@@ -404,7 +394,7 @@ data <- data %>%
 
 Se crean dos nuevas variables `isco08_1d` y `isco08_2d`, de la ISCO08 con 1 y 2 dígitos respectivamente. 
 
-```{r,echo=FALSE}
+```{r}
 # CIUO - ISCO: creación de variables con 1 dígito
 data$isco08_1d <- as.character(data$isco08)
 data$isco08_1d <- substr(data$isco08_1d,1,1)
@@ -430,7 +420,7 @@ sjt.xtab(data$isco08_2d,data$ola,
          title="Frecuencias y porcentajes de Ocupación con 2 dígitos, por ola")
 ```
 
-```{r,echo=FALSE}
+```{r}
 # Ir armando data final
 data2 <- data %>%
   select(idencuesta,                                     # identificacion enctdo
@@ -447,7 +437,6 @@ data2 <- na.omit(data2)
 # 11.462 obs.
 ```
 
-
 ### cualificacion
 
 Se crea una nueva variable *factor* con el Nivel de cualificación, llamada `cualificacion`, de acuerdo con la variable CIUO08 de 2 dígitos `isco08_2d`, siguiendo el criterio:
@@ -456,7 +445,7 @@ Se crea una nueva variable *factor* con el Nivel de cualificación, llamada `cua
 - Calificados (Skilled): 11 a 34 con universitaria incompleta o menos, y 35,41,42,43,44,53, y 51,54,61,62,71,72,73,74,75,81 con media completa o más.
 - No calificados (Unskilled): 51,54,61,62,71,72,73,74,75,81 con media incompleta o menos, y 52,63,82,83,90+ 
 
-```{r,echo=FALSE}
+```{r}
 # Creación variable Nivel de cualificación
 data <- mutate(data,
                cualificacion=factor(case_when(isco08_2d<=34&educ>=9~"Experts",
@@ -475,7 +464,7 @@ sjt.xtab(data$cualificacion,data$ola,
          title="Frecuencias y porcentajes del Nivel de Cualificación, por ola")
 ```
 
-```{r,echo=FALSE}
+```{r}
 # Ir armando data final
 data2 <- data %>%
   select(idencuesta,                                     # identificacion enctdo
@@ -493,7 +482,6 @@ data2 <- na.omit(data2)
 # 11.434
 ```
 
-
 ### Rama: isic4 y rama
 
 La variable *tipo character* ELSOC:
@@ -507,7 +495,7 @@ Se encuentra codificada de acuerdo con la CIIU3 para el año 2016 en la variable
 
 Por lo tanto, se realiza una recodificación generando una nueva variable *numérica* donde están todas las olas homolagadas a la CIIU4, llamada `isic4`.
 
-```{r,echo=FALSE,message=FALSE}
+```{r}
 # Recodificar variable CIIU 3 para que queden de 4 dígitos
 data$ciiu3 <- sprintf("%04d",data$ciiu3_m04)
 
@@ -546,7 +534,7 @@ data <- data %>%
 
 Además, se crea la variable *numérica* `isic4_2d` con 2 dígitos, y la variable *factor* `rama` con la agrupación del CIIU4 de dos dígitos en ramas de la actividad económica. 
 
-```{r,echo=FALSE}
+```{r}
 # CIIU 4: creación de variable con 2 dígitos
 data$isic4 <- sprintf("%04d",data$isic4)
 data$isic4_2d <- as.character(data$isic4)
@@ -594,7 +582,6 @@ sjt.xtab(data$rama,data$ola,
          title="Frecuencias y porcentajes de la Rama de Actividad Económica, por ola")
 ```
 
-
 ### rama2
 
 Se crea una segunda variable *tipo factor* de Rama de la Actividad Económica, llamada `rama_2`, donde:
@@ -606,7 +593,7 @@ Se crea una segunda variable *tipo factor* de Rama de la Actividad Económica, l
 -   Se unen *P* y *Q*
 -   Se unen *R*, *S* y *U*
 
-```{r,echo=FALSE}
+```{r}
 # Creación de variable rama 2
 data <- mutate(data,
                rama_2=factor(case_when(rama=="A"~"A",
@@ -646,7 +633,6 @@ data2 <- na.omit(data2)
 # 10.858 obs.
 ```
 
-
 ### supervisa
 
 La variable *numérica* ELSOC:
@@ -658,7 +644,7 @@ Se recodifica en una nueva variable *dicotómica numérica*, `supervisa`, donde:
 -   `supervisa==0`: No supervisa (`m06==0`)
 -   `supervisa==1`: Supervisa a una o más personas (`m06>=1`)
 
-```{r,echo=FALSE}
+```{r}
 # Crear variable supervisa==1, no supervisa==0
 data <- data %>%
   mutate(supervisa=case_when(m06==0~0,
@@ -667,7 +653,7 @@ data <- data %>%
 
 Pero, dado que la variable `m06` solamente se encuentra en las olas 2016, 2018 y 2021, se duplican los datos para los años siguientes, es decir, en 2017 se pondrán los valores de 2016, y así sucesivamente.
 
-```{r,echo=FALSE}
+```{r}
 # Crear una columna con la variable "m06" adelantada una ola
 data <- data %>%
   arrange(ola) %>%  # Ordena por ola, por si acaso no está ordenado
@@ -681,7 +667,7 @@ data <- data %>%
   select(-m06_lagged) 
 ```
 
-```{r,echo=FALSE}
+```{r}
 # Crear variable supervisa==1, no supervisa==0
 data <- data %>%
   mutate(supervisa=case_when(m06_full==0~0,
@@ -726,7 +712,6 @@ data2 <- na.omit(data2)
 # 10.130 obs.
 ```
 
-
 ### class1
 
 Se crea la variable tipo factor posición de clase `class1` con 6 categorías:
@@ -738,7 +723,7 @@ Se crea la variable tipo factor posición de clase `class1` con 6 categorías:
 5. Supervisors
 6. Workers
 
-```{r,echo=FALSE}
+```{r}
 # Creación de variable posición de clase
 data <- mutate(data,
                class1=case_when(

@@ -7,7 +7,7 @@ rm(list=ls())
 options(scipen = 999)
 
 library(pacman)
-pacman::p_load(tidyverse,
+p_load(tidyverse,
        knitr,
        bookdown,
        car,
@@ -39,7 +39,7 @@ Cargamos la base de datos ELSOC 2016-2023 procesada en formato *long*.
 ```{r datos-2,echo=FALSE}
 load(here::here("output/elsoc-minicoes.Rdata"))
 
-data <- data %>% filter(muestra==1)
+data <- dplyr::filter(elsoc_minicoes,muestra==1)
 
 # obtain the idencuesta for wave 7
 ids <- 
@@ -108,7 +108,7 @@ frq(empresa_privada_parcial$rama_2)
 ```{r}
 data <- data %>% 
   dplyr::select(brecha_perc, brecha_just, brecha_obrero, brecha_gerente,
-                marcha, class2, sexo, edad, pos_id, idencuesta, ola, c13) %>% 
+                marcha, class2, sexo, edad, pos_id, idencuesta, ola) %>% 
   na.omit()
 
 frq(data$ola)

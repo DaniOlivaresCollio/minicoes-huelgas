@@ -4,14 +4,15 @@ project:
 
 book:
   title: "Mini-COES Huelgas"
-  author: "Daniela, Kevin, Pablo"
-  date: "11-25-2024"
+  author: "Pablo Pérez, Kevin Carrasco, Daniela Olivares"
+  date: "05-19-2025"
   chapters:
     - index.qmd
-    - 01-exploracion.qmd
-    - 02-regresiones.qmd
-    - 03-cross-lagged.qmd
-    - 04-graphs.qmd
+    - 01-procesamiento.qmd
+    - 02-descriptivo.qmd
+    - 03-regresiones.qmd
+    - 04-cross-lagged.qmd
+    - 05-graphs.qmd
     # - summary.qmd
     # - references.qmd
 

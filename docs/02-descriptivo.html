@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Pablo Pérez, Kevin Carrasco, Daniela Olivares">
-<meta name="dcterms.date" content="2025-05-19">
 
-<title>Mini-COES Huelgas</title>
+<title>Mini-COES Huelgas - 2&nbsp; Estadísticos descriptivos</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01-procesamiento.html" rel="next">
+<link href="./03-regresiones.html" rel="next">
+<link href="./01-procesamiento.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -75,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Presentación</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-descriptivo.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Estadísticos descriptivos</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -102,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Presentación</span></a>
   </div>
 </li>
@@ -114,8 +147,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02-descriptivo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Exploración y Procesamiento de datos</span></span></a>
+  <a href="./02-descriptivo.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Estadísticos descriptivos</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -146,11 +179,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#presentación" id="toc-presentación" class="nav-link active" data-scroll-target="#presentación">Presentación</a>
-  <ul class="collapse">
-  <li><a href="#proyecto-conclat" id="toc-proyecto-conclat" class="nav-link" data-scroll-target="#proyecto-conclat">Proyecto CONCLAT</a></li>
-  <li><a href="#elsoc" id="toc-elsoc" class="nav-link" data-scroll-target="#elsoc">ELSOC</a></li>
-  </ul></li>
+  <li><a href="#cargar-librerías" id="toc-cargar-librerías" class="nav-link active" data-scroll-target="#cargar-librerías"><span class="header-section-number">2.1</span> Cargar librerías</a></li>
+  <li><a href="#cargar-datos" id="toc-cargar-datos" class="nav-link" data-scroll-target="#cargar-datos"><span class="header-section-number">2.2</span> Cargar datos</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">2.3</span> </a></li>
   </ul>
 </nav>
     </div>
@@ -159,26 +190,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Mini-COES Huelgas</h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Estadísticos descriptivos</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Pablo Pérez, Kevin Carrasco, Daniela Olivares </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">May 19, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -186,29 +205,53 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><img src="img/conclat_LIn_banner_1.png" class="img-fluid" style="width:100.0%"></p>
-<section id="presentación" class="level1 unnumbered">
-<h1 class="unnumbered">Presentación</h1>
 <div style="text-align: justify">
 
-<p>Este libro corresponde al repositorio del procesamiento y análisis de la base de datos del Estudio Longitudinal Social de Chile (<a href="https://coes.cl/encuesta-panel/">ELSOC</a>), como uno de los estudios realizados en el marco del Proyecto CONCLAT y financiado por un Mini-COES.</p>
-<section id="proyecto-conclat" class="level3">
-<h3 class="anchored" data-anchor-id="proyecto-conclat">Proyecto CONCLAT</h3>
-<p>El Proyecto <a href="https://www.conclat.org/">CONCLAT</a> busca estudiar cómo se percibe el conflicto laboral y político en Argentina y Chile. Particularmente, analiza cómo las personas de distintas clases y con distinto estatus sindical (por ejemplo, afiliados/as y no afiliados/as a sindicatos) perciben el conflicto dentro y fuera del lugar de trabajo.</p>
-<p><a href="https://www.conclat.org/">CONCLAT</a> es el Proyecto FONDECYT Regular (No 1230056) “Clases sociales, movimientos sindicales y conflicto en tiempos de crisis: un estudio comparativo de Argentina y Chile”. Patrocinado por la <a href="https://uchile.cl/">Universidad de Chile</a> y el Centro de Estudios de Conflicto y Cohesión Social (<a href="https://coes.cl/">COES</a>). Tiene como propósito contribuir a la investigación internacional sobre clases, trabajo y conflicto produciendo datos cuantitativos originales y un instrumento de investigación comparable a nivel internacional.</p>
+<section id="cargar-librerías" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="cargar-librerías"><span class="header-section-number">2.1</span> Cargar librerías</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(tidyverse,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>       knitr,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>       bookdown,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>       car,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>       sjmisc,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>       sjPlot,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>       sjlabelled,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>       psych,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>       kableExtra,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>       gridExtra,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>       lubridate,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>       viridis,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>       statar,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>       readxl,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>       tinytex,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>       ggrepel,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>       ggalluvial,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>       survey, </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>       httr,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>       readr, </span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>       ggplot2, </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>       labelled,</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>       shadowtext)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="elsoc" class="level3">
-<h3 class="anchored" data-anchor-id="elsoc">ELSOC</h3>
-<p>The Chilean Longitudinal Social Survey (<a href="https://coes.cl/encuesta-panel/">ELSOC</a>), is a panel study collected annually from 2016 to 2023. The survey has been designed to evaluate the way in which chileans think, feel, and behave regarding a set of social issues related to conflict and social cohesion in Chile.</p>
-<p>ELSOC employs a probabilistic, stratified, clustered, multistage sampling design encompassing major urban centers (Santiago, Valparaíso, and Concepción) and smaller cities.</p>
-<p>The target population includes women and men aged 18–75 who are habitual residents of private dwellings. The first wave included 2,927 participants, covering 77% of the country’s total population and 93% of its urban population, with a response rate of 62.4%. Wave 3 included a refreshment sample (N = 1,519) to counter attrition.</p>
-<p>The survey has been conducted yearly since 2016, except in 2020, when it was suspended due to the pandemic. More details on sampling, attrition, and weighting can be found at <a href="https://coes.cl/encuesta-panel/">https://coes.cl/encuesta-panel/</a>, and the dataset is publicly available at <a href="https://dataverse.harvard.edu/dataverse/elsoc">https://dataverse.harvard.edu/dataverse/elsoc</a>.</p>
+<section id="cargar-datos" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="cargar-datos"><span class="header-section-number">2.2</span> Cargar datos</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"input/data/elsoc_paper2.rds"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="section" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="section"><span class="header-section-number">2.3</span> </h2>
 
 
 </section>
-</div></section>
 
-</main> <!-- /main -->
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -444,10 +487,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./01-procesamiento.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Exploración y Procesamiento de datos</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01-procesamiento.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Exploración y Procesamiento de datos</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./03-regresiones.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Regresiones</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

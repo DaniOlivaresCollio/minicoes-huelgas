@@ -1,0 +1,45 @@
+# Estadísticos descriptivos
+
+<div style="text-align: justify">
+
+## Cargar librerías
+
+```{r,message=FALSE,warning=FALSE}
+rm(list=ls())
+options(scipen = 999)
+
+library(pacman)
+p_load(tidyverse,
+       knitr,
+       bookdown,
+       car,
+       sjmisc,
+       sjPlot,
+       sjlabelled,
+       psych,
+       kableExtra,
+       gridExtra,
+       lubridate,
+       viridis,
+       statar,
+       readxl,
+       tinytex,
+       ggrepel,
+       ggalluvial,
+       survey, 
+       httr,
+       readr, 
+       ggplot2, 
+       labelled,
+       shadowtext)
+```
+
+## Cargar datos
+
+```{r}
+data <- readRDS(here::here("input/data/elsoc_paper2.rds"))
+```
+
+## 
+
+
