@@ -96,6 +96,7 @@ data <- set_label(data, label = c(
 # Crear tabla resumen para todas las variables seleccionadas
 df_summary <- dfSummary(
   data,
+  round.digits = 2,
   plain.ascii = FALSE,
   style = "multiline",
   tmp.img.dir = "/tmp",       # Necesario para gráficos mini en HTML

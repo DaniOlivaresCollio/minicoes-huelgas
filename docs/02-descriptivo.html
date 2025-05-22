@@ -296,30 +296,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear tabla resumen para todas las variables seleccionadas</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df_summary <span class="ot">&lt;-</span> <span class="fu">dfSummary</span>(</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  data,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">plain.ascii =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">style =</span> <span class="st">"multiline"</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">tmp.img.dir =</span> <span class="st">"/tmp"</span>,       <span class="co"># Necesario para gráficos mini en HTML</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph.magnif =</span> <span class="fl">0.75</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">headings =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">varnumbers =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels.col =</span> <span class="cn">TRUE</span>,          <span class="co"># Mostrar etiquetas en vez de nombres</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.col =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph.col =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">valid.col =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.widths =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Eliminar columna de nombre técnico si quieres</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>df_summary<span class="sc">$</span>Variable <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Imprimir</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">round.digits =</span> <span class="dv">2</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">plain.ascii =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">style =</span> <span class="st">"multiline"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">tmp.img.dir =</span> <span class="st">"/tmp"</span>,       <span class="co"># Necesario para gráficos mini en HTML</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph.magnif =</span> <span class="fl">0.75</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">headings =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">varnumbers =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels.col =</span> <span class="cn">TRUE</span>,          <span class="co"># Mostrar etiquetas en vez de nombres</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.col =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph.col =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">valid.col =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.widths =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Eliminar columna de nombre técnico si quieres</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>df_summary<span class="sc">$</span>Variable <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Imprimir</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="tbl-summary-todas" class="anchored">
 <table class="table table-sm table-striped small">
 <caption>Table&nbsp;2.1: Resumen descriptivo de las variables seleccionadas</caption>
 <colgroup>
-<col style="width: 36%">
-<col style="width: 24%">
+<col style="width: 35%">
+<col style="width: 25%">
 <col style="width: 19%">
 <col style="width: 9%">
 <col style="width: 9%">
@@ -336,10 +337,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Percepción de injusticia</td>
-<td style="text-align: left;">Mean (sd) : 2 (1.1)<br>
+<td style="text-align: left;">Mean (sd) : 1.95 (1.11)<br>
 min &lt; med &lt; max:<br>
--3.5 &lt; 1.9 &lt; 8.3<br>
-IQR (CV) : 1.4 (0.6)</td>
+-3.47 &lt; 1.9 &lt; 8.29<br>
+IQR (CV) : 1.44 (0.57)</td>
 <td style="text-align: left;">504 distinct values</td>
 <td style="text-align: left;">9143<br>
 (100.0%)</td>
@@ -348,10 +349,10 @@ IQR (CV) : 1.4 (0.6)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Justificación de marchas</td>
-<td style="text-align: left;">Mean (sd) : 1.3 (0.8)<br>
+<td style="text-align: left;">Mean (sd) : 1.35 (0.83)<br>
 min &lt; med &lt; max:<br>
 1 &lt; 1 &lt; 5<br>
-IQR (CV) : 0 (0.6)</td>
+IQR (CV) : 0 (0.61)</td>
 <td style="text-align: left;">1 : 7492 (81.9%)<br>
 2 : 568 ( 6.2%)<br>
 3 : 717 ( 7.8%)<br>
@@ -364,10 +365,10 @@ IQR (CV) : 0 (0.6)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Edad del entrevistado/a</td>
-<td style="text-align: left;">Mean (sd) : 45.6 (12.6)<br>
+<td style="text-align: left;">Mean (sd) : 45.57 (12.58)<br>
 min &lt; med &lt; max:<br>
 18 &lt; 46 &lt; 82<br>
-IQR (CV) : 21 (0.3)</td>
+IQR (CV) : 21 (0.28)</td>
 <td style="text-align: left;">65 distinct values</td>
 <td style="text-align: left;">9143<br>
 (100.0%)</td>
@@ -376,10 +377,10 @@ IQR (CV) : 21 (0.3)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Ubicación en escala izquierda-derecha</td>
-<td style="text-align: left;">Mean (sd) : 4.7 (3.1)<br>
+<td style="text-align: left;">Mean (sd) : 4.69 (3.09)<br>
 min &lt; med &lt; max:<br>
 0 &lt; 4 &lt; 12<br>
-IQR (CV) : 5 (0.7)</td>
+IQR (CV) : 5 (0.66)</td>
 <td style="text-align: left;">13 distinct values</td>
 <td style="text-align: left;">9143<br>
 (100.0%)</td>
@@ -388,10 +389,10 @@ IQR (CV) : 5 (0.7)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Percepción de desigualdad</td>
-<td style="text-align: left;">Mean (sd) : 3.5 (1.2)<br>
+<td style="text-align: left;">Mean (sd) : 3.45 (1.16)<br>
 min &lt; med &lt; max:<br>
--0.9 &lt; 3.4 &lt; 9.6<br>
-IQR (CV) : 1.5 (0.3)</td>
+-0.92 &lt; 3.4 &lt; 9.57<br>
+IQR (CV) : 1.5 (0.34)</td>
 <td style="text-align: left;">963 distinct values</td>
 <td style="text-align: left;">9143<br>
 (100.0%)</td>
@@ -400,7 +401,7 @@ IQR (CV) : 1.5 (0.3)</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Percepción de posibilidad de cambio</td>
-<td style="text-align: left;">Mean (sd) : 4 (0.8)<br>
+<td style="text-align: left;">Mean (sd) : 3.95 (0.79)<br>
 min &lt; med &lt; max:<br>
 1 &lt; 4 &lt; 5<br>
 IQR (CV) : 0 (0.2)</td>
@@ -416,10 +417,10 @@ IQR (CV) : 0 (0.2)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Actitudes meritocráticas</td>
-<td style="text-align: left;">Mean (sd) : 3.4 (1.9)<br>
+<td style="text-align: left;">Mean (sd) : 3.39 (1.87)<br>
 min &lt; med &lt; max:<br>
 0 &lt; 3 &lt; 8<br>
-IQR (CV) : 3 (0.6)</td>
+IQR (CV) : 3 (0.55)</td>
 <td style="text-align: left;">0 : 566 ( 6.2%)<br>
 1 : 291 ( 3.2%)<br>
 2 : 3118 (34.1%)<br>
@@ -514,6 +515,9 @@ IQR (CV) : 3 (0.6)</td>
 </tbody>
 </table>
 </div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Guardar en HTML</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_summary, <span class="at">file =</span> <span class="st">"output/tabla_resumen.html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>Output file written: C:\Users\danie\Documents\fondecyt\minicoes-huelgas\mybook\output\tabla_resumen.html</code></pre>
 </div>
 
 
