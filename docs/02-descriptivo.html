@@ -181,7 +181,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#cargar-librerías" id="toc-cargar-librerías" class="nav-link active" data-scroll-target="#cargar-librerías"><span class="header-section-number">2.1</span> Cargar librerías</a></li>
   <li><a href="#cargar-datos" id="toc-cargar-datos" class="nav-link" data-scroll-target="#cargar-datos"><span class="header-section-number">2.2</span> Cargar datos</a></li>
-  <li><a href="#variables-numéricas" id="toc-variables-numéricas" class="nav-link" data-scroll-target="#variables-numéricas"><span class="header-section-number">2.3</span> Variables numéricas</a></li>
+  <li><a href="#procesamiento" id="toc-procesamiento" class="nav-link" data-scroll-target="#procesamiento"><span class="header-section-number">2.3</span> Procesamiento</a></li>
+  <li><a href="#descriptivos" id="toc-descriptivos" class="nav-link" data-scroll-target="#descriptivos"><span class="header-section-number">2.4</span> Descriptivos</a></li>
   </ul>
 </nav>
     </div>
@@ -236,283 +237,283 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>       sjmisc,</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>       sjPlot,</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>       sjlabelled,</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>       statar,</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>       survey,</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>       tinytex,</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>       tidyverse,</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>       viridis</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>       )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>       summarytools,</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>       statar,</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>       survey,</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>       tinytex,</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>       tidyverse,</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>       viridis</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>       )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="cargar-datos" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="cargar-datos"><span class="header-section-number">2.2</span> Cargar datos</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"input/data/elsoc_paper2.rds"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_completa <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"input/data/elsoc_paper2.rds"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="variables-numéricas" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="variables-numéricas"><span class="header-section-number">2.3</span> Variables numéricas</h2>
+<section id="procesamiento" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="procesamiento"><span class="header-section-number">2.3</span> Procesamiento</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir variables numéricas</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>vars_numericas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"brecha_just"</span>, <span class="st">"marcha"</span>, <span class="st">"edad"</span>, <span class="st">"pol_scale"</span>, </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"brecha_perc"</span>, <span class="st">"cambio_posible"</span>, <span class="st">"Meritocracy_scale"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla descriptiva con sjmisc</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>tabla_numericas <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(vars_numericas)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">descr</span>(<span class="at">show =</span> <span class="fu">c</span>(<span class="st">"label"</span>, <span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"range"</span>, <span class="st">"NA.prc"</span>))</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionar variables</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data_completa <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># numericas</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"brecha_just"</span>,<span class="st">"marcha"</span>,<span class="st">"edad"</span>,<span class="st">"pol_scale"</span>,<span class="st">"brecha_perc"</span>,<span class="st">"cambio_posible"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Meritocracy_scale"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># categoricas</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"class3a"</span>,<span class="st">"female"</span>,<span class="st">"sector"</span>,<span class="st">"pol_id"</span>,<span class="st">"ola"</span>)</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostrar tabla según formato de salida</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (knitr<span class="sc">::</span><span class="fu">is_html_output</span>() <span class="sc">||</span> knitr<span class="sc">::</span><span class="fu">is_latex_output</span>()) {</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># HTML o PDF</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(tabla_numericas, <span class="at">format =</span> <span class="st">"pipe"</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Word</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  tabla_ft <span class="ot">&lt;-</span> <span class="fu">flextable</span>(tabla_numericas) <span class="sc">%&gt;%</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_booktabs</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_table_properties</span>(<span class="at">width =</span> <span class="dv">1</span>, <span class="at">layout =</span> <span class="st">"autofit"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fontsize</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">part =</span> <span class="st">"all"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">font</span>(<span class="at">fontname =</span> <span class="st">"Calibri"</span>, <span class="at">part =</span> <span class="st">"all"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bold</span>(<span class="at">part =</span> <span class="st">"header"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">align</span>(<span class="at">align =</span> <span class="st">"left"</span>, <span class="at">part =</span> <span class="st">"all"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">align</span>(<span class="at">j =</span> <span class="dv">1</span>, <span class="at">align =</span> <span class="st">"left"</span>, <span class="at">part =</span> <span class="st">"all"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">padding</span>(<span class="at">padding =</span> <span class="dv">5</span>, <span class="at">part =</span> <span class="st">"all"</span>)</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  tabla_ft</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertir a tipo factor y numérico</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>vars_numericas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"brecha_just"</span>, <span class="st">"marcha"</span>, <span class="st">"edad"</span>, <span class="st">"pol_scale"</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"brecha_perc"</span>, <span class="st">"cambio_posible"</span>, <span class="st">"Meritocracy_scale"</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>vars_categoricas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"class3a"</span>, <span class="st">"female"</span>, <span class="st">"sector"</span>, <span class="st">"pol_id"</span>, <span class="st">"ola"</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>data[vars_numericas] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(data[vars_numericas], as.numeric)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>data[vars_categoricas] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(data[vars_categoricas], as.factor)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Etiquetar variables </span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">set_label</span>(data, <span class="at">label =</span> <span class="fu">c</span>(</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">brecha_just       =</span> <span class="st">"Percepción de injusticia"</span>,</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">marcha            =</span> <span class="st">"Justificación de marchas"</span>,</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">edad              =</span> <span class="st">"Edad del entrevistado/a"</span>,</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">pol_scale         =</span> <span class="st">"Ubicación en escala izquierda-derecha"</span>,</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">brecha_perc       =</span> <span class="st">"Percepción de desigualdad"</span>,</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">cambio_posible    =</span> <span class="st">"Percepción de posibilidad de cambio"</span>,</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">Meritocracy_scale =</span> <span class="st">"Actitudes meritocráticas"</span>,</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">class3a           =</span> <span class="st">"Clase"</span>,</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">female            =</span> <span class="st">"Female"</span>,</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">sector            =</span> <span class="st">"Sector de actividad económica"</span>,</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">pol_id            =</span> <span class="st">"Identificación política"</span>,</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">ola               =</span> <span class="st">"Ola"</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="descriptivos" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="descriptivos"><span class="header-section-number">2.4</span> Descriptivos</h2>
+<div class="cell tbl-cap-location-top">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear tabla resumen para todas las variables seleccionadas</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df_summary <span class="ot">&lt;-</span> <span class="fu">dfSummary</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  data,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">plain.ascii =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">style =</span> <span class="st">"multiline"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">tmp.img.dir =</span> <span class="st">"/tmp"</span>,       <span class="co"># Necesario para gráficos mini en HTML</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph.magnif =</span> <span class="fl">0.75</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">headings =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">varnumbers =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels.col =</span> <span class="cn">TRUE</span>,          <span class="co"># Mostrar etiquetas en vez de nombres</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.col =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph.col =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">valid.col =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.widths =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Eliminar columna de nombre técnico si quieres</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>df_summary<span class="sc">$</span>Variable <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Imprimir</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-summary-todas" class="anchored">
 <table class="table table-sm table-striped small">
+<caption>Table&nbsp;2.1: Resumen descriptivo de las variables seleccionadas</caption>
 <colgroup>
-<col style="width: 3%">
-<col style="width: 23%">
-<col style="width: 23%">
-<col style="width: 9%">
-<col style="width: 7%">
-<col style="width: 7%">
+<col style="width: 36%">
 <col style="width: 24%">
+<col style="width: 19%">
+<col style="width: 9%">
+<col style="width: 9%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: left;">var</th>
-<th style="text-align: left;">label</th>
-<th style="text-align: right;">NA.prc</th>
-<th style="text-align: right;">mean</th>
-<th style="text-align: right;">sd</th>
-<th style="text-align: left;">range</th>
+<th style="text-align: left;">Label</th>
+<th style="text-align: left;">Stats / Values</th>
+<th style="text-align: left;">Freqs (% of Valid)</th>
+<th style="text-align: left;">Valid</th>
+<th style="text-align: left;">Missing</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">brecha_just</td>
-<td style="text-align: left;">brecha_just</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.95</td>
-<td style="text-align: right;">1.11</td>
-<td style="text-align: left;">11.76 (-3.47-8.29)</td>
+<td style="text-align: left;">Percepción de injusticia</td>
+<td style="text-align: left;">Mean (sd) : 2 (1.1)<br>
+min &lt; med &lt; max:<br>
+-3.5 &lt; 1.9 &lt; 8.3<br>
+IQR (CV) : 1.4 (0.6)</td>
+<td style="text-align: left;">504 distinct values</td>
+<td style="text-align: left;">9143<br>
+(100.0%)</td>
+<td style="text-align: left;">0<br>
+(0.0%)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">6</td>
-<td style="text-align: left;">marcha</td>
-<td style="text-align: left;">marcha</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.35</td>
-<td style="text-align: right;">0.83</td>
-<td style="text-align: left;">4 (1-5)</td>
+<td style="text-align: left;">Justificación de marchas</td>
+<td style="text-align: left;">Mean (sd) : 1.3 (0.8)<br>
+min &lt; med &lt; max:<br>
+1 &lt; 1 &lt; 5<br>
+IQR (CV) : 0 (0.6)</td>
+<td style="text-align: left;">1 : 7492 (81.9%)<br>
+2 : 568 ( 6.2%)<br>
+3 : 717 ( 7.8%)<br>
+4 : 273 ( 3.0%)<br>
+5 : 93 ( 1.0%)</td>
+<td style="text-align: left;">9143<br>
+(100.0%)</td>
+<td style="text-align: left;">0<br>
+(0.0%)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">5</td>
-<td style="text-align: left;">edad</td>
-<td style="text-align: left;">edad</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">45.57</td>
-<td style="text-align: right;">12.58</td>
-<td style="text-align: left;">64 (18-82)</td>
+<td style="text-align: left;">Edad del entrevistado/a</td>
+<td style="text-align: left;">Mean (sd) : 45.6 (12.6)<br>
+min &lt; med &lt; max:<br>
+18 &lt; 46 &lt; 82<br>
+IQR (CV) : 21 (0.3)</td>
+<td style="text-align: left;">65 distinct values</td>
+<td style="text-align: left;">9143<br>
+(100.0%)</td>
+<td style="text-align: left;">0<br>
+(0.0%)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">7</td>
-<td style="text-align: left;">pol_scale</td>
-<td style="text-align: left;">pol_scale</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4.69</td>
-<td style="text-align: right;">3.09</td>
-<td style="text-align: left;">12 (0-12)</td>
+<td style="text-align: left;">Ubicación en escala izquierda-derecha</td>
+<td style="text-align: left;">Mean (sd) : 4.7 (3.1)<br>
+min &lt; med &lt; max:<br>
+0 &lt; 4 &lt; 12<br>
+IQR (CV) : 5 (0.7)</td>
+<td style="text-align: left;">13 distinct values</td>
+<td style="text-align: left;">9143<br>
+(100.0%)</td>
+<td style="text-align: left;">0<br>
+(0.0%)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">brecha_perc</td>
-<td style="text-align: left;">brecha_perc</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3.45</td>
-<td style="text-align: right;">1.16</td>
-<td style="text-align: left;">10.48 (-0.92-9.57)</td>
+<td style="text-align: left;">Percepción de desigualdad</td>
+<td style="text-align: left;">Mean (sd) : 3.5 (1.2)<br>
+min &lt; med &lt; max:<br>
+-0.9 &lt; 3.4 &lt; 9.6<br>
+IQR (CV) : 1.5 (0.3)</td>
+<td style="text-align: left;">963 distinct values</td>
+<td style="text-align: left;">9143<br>
+(100.0%)</td>
+<td style="text-align: left;">0<br>
+(0.0%)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">cambio_posible</td>
-<td style="text-align: left;">cambio_posible</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3.95</td>
-<td style="text-align: right;">0.79</td>
-<td style="text-align: left;">4 (1-5)</td>
+<td style="text-align: left;">Percepción de posibilidad de cambio</td>
+<td style="text-align: left;">Mean (sd) : 4 (0.8)<br>
+min &lt; med &lt; max:<br>
+1 &lt; 4 &lt; 5<br>
+IQR (CV) : 0 (0.2)</td>
+<td style="text-align: left;">1 : 77 ( 0.8%)<br>
+2 : 606 ( 6.6%)<br>
+3 : 839 ( 9.2%)<br>
+4 : 5791 (63.3%)<br>
+5 : 1830 (20.0%)</td>
+<td style="text-align: left;">9143<br>
+(100.0%)</td>
+<td style="text-align: left;">0<br>
+(0.0%)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">Meritocracy_scale</td>
-<td style="text-align: left;">Meritocracy_scale</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3.39</td>
-<td style="text-align: right;">1.87</td>
-<td style="text-align: left;">8 (0-8)</td>
+<td style="text-align: left;">Actitudes meritocráticas</td>
+<td style="text-align: left;">Mean (sd) : 3.4 (1.9)<br>
+min &lt; med &lt; max:<br>
+0 &lt; 3 &lt; 8<br>
+IQR (CV) : 3 (0.6)</td>
+<td style="text-align: left;">0 : 566 ( 6.2%)<br>
+1 : 291 ( 3.2%)<br>
+2 : 3118 (34.1%)<br>
+3 : 881 ( 9.6%)<br>
+4 : 1904 (20.8%)<br>
+5 : 601 ( 6.6%)<br>
+6 : 1484 (16.2%)<br>
+7 : 127 ( 1.4%)<br>
+8 : 171 ( 1.9%)</td>
+<td style="text-align: left;">9143<br>
+(100.0%)</td>
+<td style="text-align: left;">0<br>
+(0.0%)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Clase</td>
+<td style="text-align: left;">1. Expert managers<br>
+2. Petit bourgeoisie<br>
+3. Informal<br>
+4. Experts<br>
+5. Supervisors<br>
+6. Workers</td>
+<td style="text-align: left;">512 ( 5.6%)<br>
+572 ( 6.3%)<br>
+1399 (15.3%)<br>
+542 ( 5.9%)<br>
+1385 (15.1%)<br>
+4733 (51.8%)</td>
+<td style="text-align: left;">9143<br>
+(100.0%)</td>
+<td style="text-align: left;">0<br>
+(0.0%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Female</td>
+<td style="text-align: left;">1. 0<br>
+2. 1</td>
+<td style="text-align: left;">4548 (49.7%)<br>
+4595 (50.3%)</td>
+<td style="text-align: left;">9143<br>
+(100.0%)</td>
+<td style="text-align: left;">0<br>
+(0.0%)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sector de actividad económica</td>
+<td style="text-align: left;">1. 0<br>
+2. 1</td>
+<td style="text-align: left;">1366 (14.9%)<br>
+7777 (85.1%)</td>
+<td style="text-align: left;">9143<br>
+(100.0%)</td>
+<td style="text-align: left;">0<br>
+(0.0%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Identificación política</td>
+<td style="text-align: left;">1. Izquierda<br>
+2. Centro<br>
+3. Derecha<br>
+4. No se identifica</td>
+<td style="text-align: left;">2130 (23.3%)<br>
+2586 (28.3%)<br>
+1605 (17.6%)<br>
+2822 (30.9%)</td>
+<td style="text-align: left;">9143<br>
+(100.0%)</td>
+<td style="text-align: left;">0<br>
+(0.0%)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ola</td>
+<td style="text-align: left;">1. 1<br>
+2. 2<br>
+3. 3<br>
+4. 4<br>
+5. 5<br>
+6. 6<br>
+7. 7</td>
+<td style="text-align: left;">1014 (11.1%)<br>
+919 (10.1%)<br>
+2064 (22.6%)<br>
+1806 (19.8%)<br>
+1217 (13.3%)<br>
+1027 (11.2%)<br>
+1096 (12.0%)</td>
+<td style="text-align: left;">9143<br>
+(100.0%)</td>
+<td style="text-align: left;">0<br>
+(0.0%)</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # Crear documento Word y agregar la tabla</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># doc &lt;- officer::read_docx() %&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   body_add_par("Tabla descriptiva de variables numéricas", style = "heading 1") %&gt;%</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   body_add_flextable(tabla_ft)</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># # Guardar en carpeta "output"</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># print(doc, target = "output/tabla_descriptiva_numericas.docx")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir variables numéricas</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>vars_numericas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"brecha_just"</span>, <span class="st">"marcha"</span>, <span class="st">"edad"</span>, <span class="st">"pol_scale"</span>, </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"brecha_perc"</span>, <span class="st">"cambio_posible"</span>, <span class="st">"Meritocracy_scale"</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear tabla descriptiva con sjmisc</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>tabla_numericas <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(vars_numericas)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">descr</span>(<span class="at">show =</span> <span class="fu">c</span>(<span class="st">"label"</span>, <span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"range"</span>, <span class="st">"NA.prc"</span>))</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostrar tabla según formato de salida</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (knitr<span class="sc">::</span><span class="fu">is_html_output</span>() <span class="sc">||</span> knitr<span class="sc">::</span><span class="fu">is_latex_output</span>()) {</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Tabla para HTML o PDF con kable</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(tabla_numericas, <span class="at">format =</span> <span class="st">"pipe"</span>, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">align =</span> <span class="st">"c"</span>)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Tabla para Word con flextable</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">flextable</span>(tabla_numericas) <span class="sc">%&gt;%</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_booktabs</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_table_properties</span>(<span class="at">width =</span> <span class="dv">1</span>, <span class="at">layout =</span> <span class="st">"autofit"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fontsize</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">part =</span> <span class="st">"all"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">font</span>(<span class="at">fontname =</span> <span class="st">"Calibri"</span>, <span class="at">part =</span> <span class="st">"all"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bold</span>(<span class="at">part =</span> <span class="st">"header"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">align</span>(<span class="at">align =</span> <span class="st">"center"</span>, <span class="at">part =</span> <span class="st">"all"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">align</span>(<span class="at">j =</span> <span class="dv">1</span>, <span class="at">align =</span> <span class="st">"left"</span>, <span class="at">part =</span> <span class="st">"all"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">padding</span>(<span class="at">padding =</span> <span class="dv">5</span>, <span class="at">part =</span> <span class="st">"all"</span>)</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 3%">
-<col style="width: 22%">
-<col style="width: 22%">
-<col style="width: 9%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 24%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: center;">var</th>
-<th style="text-align: center;">label</th>
-<th style="text-align: center;">NA.prc</th>
-<th style="text-align: center;">mean</th>
-<th style="text-align: center;">sd</th>
-<th style="text-align: center;">range</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">2</td>
-<td style="text-align: center;">brecha_just</td>
-<td style="text-align: center;">brecha_just</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">1.95</td>
-<td style="text-align: center;">1.11</td>
-<td style="text-align: center;">11.76 (-3.47-8.29)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">6</td>
-<td style="text-align: center;">marcha</td>
-<td style="text-align: center;">marcha</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">1.35</td>
-<td style="text-align: center;">0.83</td>
-<td style="text-align: center;">4 (1-5)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">5</td>
-<td style="text-align: center;">edad</td>
-<td style="text-align: center;">edad</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">45.57</td>
-<td style="text-align: center;">12.58</td>
-<td style="text-align: center;">64 (18-82)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">7</td>
-<td style="text-align: center;">pol_scale</td>
-<td style="text-align: center;">pol_scale</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">4.69</td>
-<td style="text-align: center;">3.09</td>
-<td style="text-align: center;">12 (0-12)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">3</td>
-<td style="text-align: center;">brecha_perc</td>
-<td style="text-align: center;">brecha_perc</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">3.45</td>
-<td style="text-align: center;">1.16</td>
-<td style="text-align: center;">10.48 (-0.92-9.57)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">4</td>
-<td style="text-align: center;">cambio_posible</td>
-<td style="text-align: center;">cambio_posible</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">3.95</td>
-<td style="text-align: center;">0.79</td>
-<td style="text-align: center;">4 (1-5)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: center;">Meritocracy_scale</td>
-<td style="text-align: center;">Meritocracy_scale</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">3.39</td>
-<td style="text-align: center;">1.87</td>
-<td style="text-align: center;">8 (0-8)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear y guardar archivo Word con la tabla</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>tabla_docx <span class="ot">&lt;-</span> <span class="fu">flextable</span>(tabla_numericas) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_booktabs</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_table_properties</span>(<span class="at">width =</span> <span class="dv">1</span>, <span class="at">layout =</span> <span class="st">"autofit"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fontsize</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">part =</span> <span class="st">"all"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">font</span>(<span class="at">fontname =</span> <span class="st">"Calibri"</span>, <span class="at">part =</span> <span class="st">"all"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bold</span>(<span class="at">part =</span> <span class="st">"header"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">align</span>(<span class="at">align =</span> <span class="st">"center"</span>, <span class="at">part =</span> <span class="st">"all"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">align</span>(<span class="at">j =</span> <span class="dv">1</span>, <span class="at">align =</span> <span class="st">"left"</span>, <span class="at">part =</span> <span class="st">"all"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">padding</span>(<span class="at">padding =</span> <span class="dv">5</span>, <span class="at">part =</span> <span class="st">"all"</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear documento Word</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>doc <span class="ot">&lt;-</span> officer<span class="sc">::</span><span class="fu">read_docx</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">body_add_par</span>(<span class="st">"Tabla descriptiva de variables numéricas"</span>, <span class="at">style =</span> <span class="st">"heading 1"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">body_add_flextable</span>(tabla_docx)</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Guardar archivo Word en carpeta output</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(doc, <span class="at">target =</span> <span class="st">"output/tabla_descriptiva.docx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
